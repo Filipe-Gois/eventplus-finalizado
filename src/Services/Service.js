@@ -13,15 +13,15 @@ export const eventsResource = '/Evento';
 /**
  * Rota para o recurso Listar Minhas Presenças
  */
-export const myEventsResource = '/PresencasEvento/ListarMinhas';
+export const myEventsResource = '/PresencaEvento';
 /**
  * Rota para o recurso Presenças Evento
  */
-export const presencesEventResource = '/PresencasEvento';
+export const presencesEventResource = '/PresencaEvento';
 /**
  * Rota para o recurso Presenças Evento
  */
-export const commentaryEventResource = '/ComentariosEvento';
+export const commentaryEventResource = '/ComentarioEvento';
 
 /**
  * Rota para o recurso Próximos Eventos
@@ -41,12 +41,12 @@ export const institutionResource = '/Instituicao';
 export const loginResource = '/Login';
 
 const apiPort = '5000';
-const localApiUri = `http://localhost:${apiPort}/api`;
-const externallApiUri = ``;
+// const localApiUri = `http://localhost:${apiPort}/api`;
+const externallApiUri = `https://eventwebapifilipe.azurewebsites.net/api`;
 // const externalApiUri = null;
 
 const api = axios.create({
-    baseURL: localApiUri
+    baseURL: externallApiUri
 });
 
 

@@ -28,7 +28,7 @@ export default function EventosPaage(props) {
   const [dataEvento, setDFataEvento] = useState(""); //Tipo do Evento escolhido ???
   const [eventos, setEventos] = useState([]);
   const [tiposEvento, setTiposEvento] = useState([]);
-  const [instituicao, setInstituicao] = useState();
+  const [instituicao, setInstituicao] = useState("22e6df3e-547b-4291-8110-735ee094f591");
   const [frmEditData, setFrmEditData] = useState({}); //dados do formulário de edição de dados
 
   //states condicionais
