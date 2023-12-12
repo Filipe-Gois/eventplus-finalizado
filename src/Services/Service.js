@@ -24,6 +24,11 @@ export const presencesEventResource = '/PresencaEvento';
 export const commentaryEventResource = '/ComentarioEvento';
 
 /**
+ * Rota para o recurso Presenças Evento
+ */
+export const trueCommentaryEventResource = '/ComentarioEvento/ListarSomenteExibe';
+
+/**
  * Rota para o recurso Próximos Eventos
  */
 export const nextEventResource = '/Evento/ListarProximos';
@@ -48,7 +53,6 @@ const externallApiUri = `https://eventwebapifilipe.azurewebsites.net/api`;
 const api = axios.create({
     baseURL: externallApiUri
 });
-
 
 
 export default api;
