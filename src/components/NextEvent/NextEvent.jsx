@@ -17,7 +17,6 @@ const NextEvent = ({ title, description, eventDate, idEvent }) => {
 
       <p
         className="event-card__description"
-        
         data-tooltip-id={idEvent}
         data-tooltip-content={description}
         data-tooltip-place="top"
