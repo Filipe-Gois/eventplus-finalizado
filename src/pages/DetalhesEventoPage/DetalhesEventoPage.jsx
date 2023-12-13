@@ -12,25 +12,30 @@ import NextEvent from "../../components/NextEvent/NextEvent";
 
 const DetalhesEventoPage = () => {
   const { userData } = useContext(UserContext);
-  const [trueEvents, setTrueEvents] = useState([]);
-  const [allEvents, setAllEvents] = useState([]);
+  const [trueComentaries, setTrueComentaries] = useState([]);
+  const [allComentaries, setAllComentaries] = useState([]);
 
-  const loadTrueCommentaries = async () => {
-    const responseTrueCommentarys = await api.get(trueCommentaryEventResource);
-    setTrueEvents(responseTrueCommentarys);
-  };
+  // const loadTrueComentaries = async () => {
+  //   const responseTrueCommentarys = await api.get(trueCommentaryEventResource);
+  //   setTrueComentaries(responseTrueCommentarys);
+  // };
 
   const loadAllComentaries = async () => {
     const responseAllCommentarys = await api.get(commentaryEventResource);
 
-    setAllEvents(responseAllCommentarys);
+    setAllComentaries(responseAllCommentarys);
   };
 
   useEffect(() => {
+    // userData.userId === "Administrador"
+    //   ? loadAllComentaries()
+    //   : loadTrueComentaries();
+
     loadAllComentaries();
-    loadTrueCommentaries();
-    console.log(trueEvents);
-    console.log(allEvents);
+    //loadTrueComentaries();
+
+    console.log(trueComentaries);
+    console.log(allComentaries);
   }, []);
 
   return (
@@ -42,13 +47,17 @@ const DetalhesEventoPage = () => {
         />
         {userData.userId === "Administrador" ? (
           <>
-            {allEvents.map((evento) => {
-              return (<NextEvent />)
-            })}
+            {/* {allComentaries.map((evento) => {
+              return <NextEvent />;
+            })} */}
+            <NextEvent
+              title={"oioi"}
+              description={"sdjkhfgkjsdbgfsdkhjbgkhjsdkhjgb"}
+            />
           </>
         ) : (
           <>
-            {/* {trueEvents.map((evento) => {
+            {/* {trueComentaries.map((evento) => {
               return (<NextEvent 
               
               title={evento.evento.nomeEvento}
@@ -57,6 +66,20 @@ const DetalhesEventoPage = () => {
               
               />)
             })} */}
+            {setTrueComentaries(() => {
+              allComentaries.filter((valor) => valor.exibe === true
+              );
+            })}
+            {/* perguntar pq isso dá errado */}
+
+            {console.log(trueComentaries)}
+
+
+            <NextEvent
+              title={"oioi"}
+              description={"sdjkhfgkjsdbgfsdkhjbgkhjsdkhjgb"}
+              eventDate={""}
+            />
           </>
         )}
       </Container>
