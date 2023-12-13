@@ -3,6 +3,8 @@ import "./TableEv.css";
 // import editPen from "../../../assets/images/edit-pen.svg";
 import editPen from "../../../assets/images/edit-pen.svg";
 import trashDelete from "../../../assets/images/trash-delete.svg";
+import eyeIcon from "../../../assets/images/eyeIcon.svg"
+
 import { dateFormateDbToView } from "../../../Utils/stringFunctions";
 
 // importa a biblioteca de tootips ()
@@ -11,7 +13,7 @@ import { Tooltip } from "react-tooltip";
 
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 
-const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
+const Table = ({ dados, fnDelete = null, fnUpdate = null, fnShowComentaries }) => {
   // console.log(dados);
   return (
     <table className="table-data">
@@ -34,6 +36,9 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
           </th>
           <th className="table-data__head-title table-data__head-title--little">
             Deletar
+          </th>
+          <th className="table-data__head-title table-data__head-title--little">
+            Coments
           </th>
         </tr>
       </thead>
@@ -91,6 +96,17 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null }) => {
                   alt=""
                   onClick={(e) => fnDelete(e.target.getAttribute("idevento"))}
                 />
+              </td>
+
+              <td className="table-data__data table-data__data--little">
+                <img
+                  className="table-data__icon"
+                  idevento={tp.idEvento}
+                  src={eyeIcon}
+                  alt=""
+                  onClick={(e) => fnShowComentaries(e.target.getAttribute("idevento"))}
+                />
+
               </td>
             </tr>
           );

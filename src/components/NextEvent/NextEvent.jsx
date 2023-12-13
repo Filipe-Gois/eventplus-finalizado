@@ -1,15 +1,16 @@
 import React from "react";
 import "./NextEvent.css";
+import { Link } from "react-router-dom";
 
 import { Tooltip } from "react-tooltip";
 
 // importar a função lá do arquivo stringFunction (destructuring)
 import { dateFormatDbToView } from "../../Utils/stringFunctions";
 
-const NextEvent = ({ title, description, eventDate, idEvent }) => {
-  function conectar(idEvent) {
-    // dá pra usar a prop idEvent? testar
-    alert(`Chamar o recurso para conectar: ${idEvent}`);
+const NextEvent = ({ title, description, eventDate, idEvento, textButton }) => {
+  function conectar(idEvento) {
+    // dá pra usar a prop idEvento? testar
+
   }
   return (
     <article className="event-card">
@@ -17,11 +18,11 @@ const NextEvent = ({ title, description, eventDate, idEvent }) => {
 
       <p
         className="event-card__description"
-        data-tooltip-id={idEvent}
+        data-tooltip-id={idEvento}
         data-tooltip-content={description}
         data-tooltip-place="top"
       >
-        <Tooltip id={idEvent} className="tooltip" />
+        <Tooltip id={idEvento} className="tooltip" />
         {description.substr(0, 15)} ...
       </p>
 
@@ -30,14 +31,15 @@ const NextEvent = ({ title, description, eventDate, idEvent }) => {
         {dateFormatDbToView(eventDate)}
       </p>
 
-      <a
+      <Link
         onClick={() => {
-          conectar(idEvent);
+          conectar(idEvento);
         }}
         className="event-card__connect-link"
+        to={`/detalhes-evento/${idEvento}`}
       >
-        Conectar
-      </a>
+        {textButton}
+      </Link>
     </article>
   );
 };

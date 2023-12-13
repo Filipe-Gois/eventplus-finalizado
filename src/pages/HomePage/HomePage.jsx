@@ -8,7 +8,7 @@ import ContactSection from "../../components/ContactSection/ContactSection";
 import Title from "../../components/Title/Title";
 import NextEvent from "../../components/NextEvent/NextEvent";
 import Container from "../../components/Container/Container";
-import api from "../../Services/Service";
+import api, { oldEventResource } from "../../Services/Service";
 import Notification from "../../components/Notification/Notification";
 import { nextEventResource } from "../../Services/Service";
 
@@ -25,7 +25,13 @@ import { Pagination } from "swiper/modules";
 
 const HomePage = () => {
   const [nextEvents, setNextEvents] = useState([]);
+  const [oldEvents, setOldEvents] = useState([]);
   const [notifyUser, setNotifyUser] = useState(); //Componente Notification
+
+
+
+
+
 
   // roda somente na inicialização do componente
   useEffect(() => {
@@ -49,7 +55,21 @@ const HomePage = () => {
       }
     }
 
+    const getOldEvents = async () => {
+      try {
+
+        const response = api.get(oldEventResource)
+
+        const dados = await (await response).data
+
+        setOldEvents(dados)
+      } catch (error) {
+
+      }
+    }
+
     getNextEvents(); //chama a função
+    getOldEvents()
   }, []);
 
   return (
@@ -61,7 +81,7 @@ const HomePage = () => {
       {/* PRÓXIMOS EVENTOS */}
       <section className="proximos-eventos">
         <Container>
-          {/* <Title titleText={"Próximos Eventos"} /> */}
+          <Title titleText={"Próximos Eventos"} />
 
           <div className="events-box">
             <Swiper
@@ -86,6 +106,7 @@ const HomePage = () => {
                       description={e.descricao}
                       eventDate={e.dataEvento}
                       idEvent={e.idEvento}
+                      textButton={"Conectar"}
                     />
                   </SwiperSlide>
                 );
@@ -94,6 +115,46 @@ const HomePage = () => {
           </div>
         </Container>
       </section>
+
+
+      <section className="proximos-eventos">
+        <Container>
+          <Title titleText={"Eventos Antigos"} />
+
+          <div className="events-box">
+            <Swiper
+              slidesPerView={window.innerWidth >= 992 ? 3 : 1}
+              spaceBetween={30}
+              // style={}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination]}
+              className="mySwiper"
+            >
+
+
+
+              {oldEvents.map((e) => {
+                return (
+                  <SwiperSlide key={e.idEvento}>
+                    <NextEvent
+                      key={e.idEvento}
+                      title={e.nomeEvento}
+                      description={e.descricao}
+                      eventDate={e.dataEvento}
+                      idEvent={e.idEvento}
+                      textButton={"Ver Detalhes"}
+                    />
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          </div>
+        </Container>
+      </section>
+
+
 
       <VisionSection />
       <ContactSection />
