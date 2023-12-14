@@ -20,32 +20,33 @@ const Nav = ({ exibeNavbar, setExibeNavbar }) => {
         x
       </span>
 
-      <Link to="/" className="eventlogo">
+      <Link to="/" className="eventlogo" onClick={() => setExibeNavbar(false)}>
         <img
           className="eventlogo__logo-image"
           src={window.innerWidth >= 992 ? logoDesktop : logoMobile}
           alt="Event Plus Logo"
+
         />
       </Link>
 
       <div className="navbar__items-box">
-        <Link to="/" className="navbar__item">
+        <Link to="/" className="navbar__item" onClick={() => setExibeNavbar(false)}>
           Home
         </Link>
 
-        <Link to={'/detalhes-evento'} className="navbar__item">Detalhes de eventos</Link>
+        <Link to={'/detalhes-evento'} className="navbar__item" onClick={() => setExibeNavbar(false)}>Detalhes de eventos</Link>
 
         {userData.nome && userData.role === "Administrador" ? (
           <>
-            <Link className="navbar__item" to="/tipo-eventos">
+            <Link className="navbar__item" to="/tipo-eventos" onClick={() => setExibeNavbar(false)}>
               Tipos Evento
             </Link>
-            <Link className="navbar__item" to="/eventos">
+            <Link className="navbar__item" to="/eventos" onClick={() => setExibeNavbar(false)}>
               Eventos
             </Link>
           </>
         ) : userData.nome && userData.role === "Comum" ? (
-          <Link className="navbar__item" to="/eventos-aluno">
+          <Link className="navbar__item" to="/eventos-aluno" onClick={() => setExibeNavbar(false)}>
             Eventos
           </Link>
         ) : null}

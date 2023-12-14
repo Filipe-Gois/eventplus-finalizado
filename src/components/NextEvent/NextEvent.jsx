@@ -1,6 +1,6 @@
 import React from "react";
 import "./NextEvent.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { Tooltip } from "react-tooltip";
 
@@ -9,9 +9,9 @@ import { dateFormatDbToView } from "../../Utils/stringFunctions";
 
 const NextEvent = ({ title, description, eventDate, idEvento, textButton }) => {
   function conectar(idEvento) {
-    // dá pra usar a prop idEvento? testar
-
+    alert("conectado ao evento:" + idEvento);
   }
+
   return (
     <article className="event-card">
       <h2 className="event-card__title">{title}</h2>
@@ -32,7 +32,7 @@ const NextEvent = ({ title, description, eventDate, idEvento, textButton }) => {
       </p>
 
       <Link
-        onClick={() => {
+        onClick={(ideve) => {
           conectar(idEvento);
         }}
         className="event-card__connect-link"
