@@ -34,7 +34,7 @@ const Nav = ({ exibeNavbar, setExibeNavbar }) => {
           Home
         </Link>
 
-        <Link to={'/detalhes-evento'} className="navbar__item" onClick={() => setExibeNavbar(false)}>Detalhes de eventos</Link>
+        {/* <Link to={'/detalhes-evento'} className="navbar__item" onClick={() => setExibeNavbar(false)}>Detalhes de eventos</Link> */}
 
         {userData.nome && userData.role === "Administrador" ? (
           <>

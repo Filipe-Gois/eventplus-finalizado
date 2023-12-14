@@ -7,7 +7,7 @@ import { Tooltip } from "react-tooltip";
 // importar a função lá do arquivo stringFunction (destructuring)
 import { dateFormatDbToView } from "../../Utils/stringFunctions";
 
-const NextEvent = ({ title, description, eventDate, idEvento, textButton }) => {
+const NextEvent = ({ title, description = "", eventDate = "", idEvento, textButton }) => {
   function conectar(idEvento) {
     alert("conectado ao evento:" + idEvento);
   }
@@ -23,7 +23,7 @@ const NextEvent = ({ title, description, eventDate, idEvento, textButton }) => {
         data-tooltip-place="top"
       >
         <Tooltip id={idEvento} className="tooltip" />
-        {description.substr(0, 15)} ...
+        {description} ...
       </p>
 
       <p className="event-card__description">
@@ -32,7 +32,7 @@ const NextEvent = ({ title, description, eventDate, idEvento, textButton }) => {
       </p>
 
       <Link
-        onClick={(ideve) => {
+        onClick={() => {
           conectar(idEvento);
         }}
         className="event-card__connect-link"

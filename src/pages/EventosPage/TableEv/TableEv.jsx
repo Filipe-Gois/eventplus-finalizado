@@ -10,11 +10,15 @@ import { dateFormateDbToView } from "../../../Utils/stringFunctions";
 // importa a biblioteca de tootips ()
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
+import { Link, useParams } from "react-router-dom";
 
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 
-const Table = ({ dados, fnDelete = null, fnUpdate = null, fnShowComentaries }) => {
+const Table = ({ dados, fnDelete = null, fnUpdate = null, fnShowComentaries = null }) => {
   // console.log(dados);
+
+  const { idEvento } = useParams()
+
   return (
     <table className="table-data">
       <thead className="table-data__head">
@@ -99,13 +103,15 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null, fnShowComentaries }) =
               </td>
 
               <td className="table-data__data table-data__data--little">
-                <img
-                  className="table-data__icon"
-                  idevento={tp.idEvento}
-                  src={eyeIcon}
-                  alt=""
-                  onClick={(e) => fnShowComentaries(e.target.getAttribute("idevento"))}
-                />
+                <Link to={`/detalhes-evento/${tp.idEvento}`}>
+                  <img
+                    className="table-data__icon"
+                    idevento={tp.idEvento}
+                    src={eyeIcon}
+                    alt=""
+                    // onClick={(e) => fnShowComentaries(e.target.getAttribute("idevento"))}
+                  />
+                </Link>
 
               </td>
             </tr>

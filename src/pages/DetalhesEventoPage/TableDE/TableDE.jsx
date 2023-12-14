@@ -25,7 +25,7 @@ const TableDE = ({ dados }) => {
                     return (
                         <tr className="table-data__head-row" key={tp.idComentarioEvento}>
                             <td className="table-data__data table-data__data--big">
-                                {tp.id}
+                                {tp.usuario.nome}
                             </td>
 
                             <td className="table-data__data table-data__data--little">

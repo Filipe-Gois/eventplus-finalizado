@@ -18,19 +18,10 @@ const DetalhesEventoPage = () => {
   const { idEvento } = useParams();
 
   const { userData } = useContext(UserContext);
-  const [trueComentaries, setTrueComentaries] = useState([]);
   const [eventoBuscado, setEventoBuscado] = useState({});
 
-  // const [allComentaries, setAllComentaries] = useState([{
-  //   id: "1", descricao
-  //     :
-  //     "Evento incrível!!"
-  // }, {
-  //   id: "2", descricao
-  //     :
-  //     "Evento LEGAL!!"
-  // }]);
 
+  const [trueComentaries, setTrueComentaries] = useState([]);
   const [allComentaries, setAllComentaries] = useState([]);
 
   // fazer uma lógica para só chamar a api de allComentaries e dar um .filter na hora de exibir os q estejam com "true"
@@ -42,7 +33,7 @@ const DetalhesEventoPage = () => {
   };
 
   const loadAllComentaries = async () => {
-    const responseAllCommentarys = await api.get(commentaryEventResource);
+    const responseAllCommentarys = await api.get(commentaryEventResource + `?id=` + idEvento);
 
     const dados = responseAllCommentarys.data;
 
@@ -50,7 +41,7 @@ const DetalhesEventoPage = () => {
   };
 
   const loadTrueComentaries = async () => {
-    const responseTrueCommentarys = await api.get(trueCommentaryEventResource);
+    const responseTrueCommentarys = await api.get(trueCommentaryEventResource + "?id=" + idEvento);
 
     const dados = responseTrueCommentarys.data;
 
@@ -58,20 +49,13 @@ const DetalhesEventoPage = () => {
   };
 
   useEffect(() => {
-    // userData.userId === "Administrador"
-    //   ? loadAllComentaries()
-    //   : loadTrueComentaries();
+
 
     loadAllComentaries();
     getEvento()
     loadTrueComentaries();
-
-    console.log(allComentaries);
-    console.log(trueComentaries);
-
   }, []);
 
-  // const sla = allComentaries.filter(valor => valor.exibe === true)
 
   return (
     <MainContent>
@@ -82,45 +66,34 @@ const DetalhesEventoPage = () => {
               titleText={"Detalhes do Eventos"}
               additionalClass="custom-title"
             />
+
             <NextEvent
               title={eventoBuscado.nomeEvento}
-              description={''}
-              eventDate={''}
+              description={eventoBuscado.descricao}
+              eventDate={eventoBuscado.dataEvento}
               idEvento={eventoBuscado.idEvento}
-              
+
             />
           </div>
         </Container>
       </section>
 
-      <section className="lista-eventos-section">
-        <Container>
-          <Title titleText={"Comentários"} color="white" />
-          <TableDE dados={allComentaries} />
-        </Container>
-      </section>
+      {eventoBuscado.dataEvento ?
 
-      {userData.userId === "Administrador" ? (
-        <>
-          {/* {allComentaries.map((evento) => {
-              return <NextEvent />;
-            })} */}
-        </>
-      ) : (
-        <>
-          {/* {trueComentaries.map((evento) => {
-              return (<NextEvent 
-              
-              title={evento.evento.nomeEvento}
-              description={evento.descricao}
-              eventDate={evento.evento.dataEvento}
-              
-              />)
-            })} */}
+        (
 
-          {/* perguntar pq isso dá errado */}
-        </>
-      )}
+          <section className="lista-eventos-section">
+            <Container>
+              <Title titleText={"Comentários"} color="white" />
+              <TableDE dados={userData.nome && userData.role === "Administrador" ? allComentaries : trueComentaries} />
+            </Container>
+          </section>
+        )
+        : null}
+
+
+
+
     </MainContent>
   );
 };
