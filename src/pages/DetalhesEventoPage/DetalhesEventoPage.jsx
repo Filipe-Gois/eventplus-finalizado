@@ -63,7 +63,7 @@ const DetalhesEventoPage = () => {
         <Container>
           <div className="cadastro-evento__box">
             <Title
-              titleText={"Detalhes do Eventos"}
+              titleText={"Detalhes do Evento"}
               additionalClass="custom-title"
             />
 
