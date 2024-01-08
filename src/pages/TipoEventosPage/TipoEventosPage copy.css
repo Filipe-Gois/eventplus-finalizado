@@ -1,6 +1,7 @@
-.cadastro-evento-section,
-.lista-eventos-section {
-  padding: 50px 0;
+.cadastro-evento-section {
+  padding-top: 50px;
+  width: 100%;
+  height: 100%;
 }
 
 .cadastro-evento__box {
@@ -9,13 +10,17 @@
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
+  height: 100% !important;
+  margin-top: 50px;
   /* border: 1px solid red; */
 }
 
 .ftipo-evento {
-  width: 374px;
-  margin-top: 50px;
-  gap: 20px;
+  /* width: 374px; */
+  width: 100%;
+  height: 100%;
+  gap: 40px;
+  /* margin-top: 30px; */
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -36,13 +41,14 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  justify-content: "space-between";
+  justify-content: space-between;
 }
 
 @media screen and (min-width: 768px) {
   .cadastro-evento__box {
     justify-content: space-between;
-    height: 100%;
+
+    gap: 10px;
   }
 
   .ftipo-evento {

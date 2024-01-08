@@ -17,7 +17,7 @@ import api, {
 import Spinner from "../../components/Spinner/Spinner";
 import Notification from "../../components/Notification/Notification";
 import { truncateDateFromDb } from "../../Utils/stringFunctions";
-import eventoImage from "../../assets/images/tipo-evento.svg";
+import eventoImage from "../../assets/images/evento.svg";
 import "./EventosPage.css";
 
 export default function EventosPaage(props) {
@@ -28,7 +28,9 @@ export default function EventosPaage(props) {
   const [dataEvento, setDFataEvento] = useState(""); //Tipo do Evento escolhido ???
   const [eventos, setEventos] = useState([]);
   const [tiposEvento, setTiposEvento] = useState([]);
-  const [instituicao, setInstituicao] = useState("22e6df3e-547b-4291-8110-735ee094f591");
+  const [instituicao, setInstituicao] = useState(
+    "22e6df3e-547b-4291-8110-735ee094f591"
+  );
   const [frmEditData, setFrmEditData] = useState({}); //dados do formulário de edição de dados
 
   //states condicionais
@@ -54,7 +56,10 @@ export default function EventosPaage(props) {
         const tpEventosModificado = [];
         //retorno da api (array tipo de eventos)
         promiseTipoEventos.data.forEach((event) => {
-          tpEventosModificado.push({ value: event.idTipoEvento, text: event.titulo });
+          tpEventosModificado.push({
+            value: event.idTipoEvento,
+            text: event.titulo,
+          });
         });
 
         setTiposEvento(tpEventosModificado);

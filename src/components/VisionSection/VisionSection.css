@@ -44,9 +44,9 @@
   color: var(--color-white);
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .vision {
-    height: 458px;
+    height: 450px;
   }
 
   .vision__box {
@@ -54,6 +54,6 @@
   }
 
   .vision__text {
-    width: 75%;
+    width: 70%;
   }
 }

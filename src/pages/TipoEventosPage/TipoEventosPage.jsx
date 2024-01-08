@@ -200,7 +200,6 @@ const TipoEventosPage = () => {
           <Container>
             <div className="cadastro-evento__box">
               <Title titleText={"Cadastro Tipo de Eventos"} />
-
               <ImageIllustrator imageRender={tipoEventoImage} />
 
               <form

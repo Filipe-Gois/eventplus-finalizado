@@ -106,12 +106,12 @@
   cursor: pointer;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   .table-data__head-title,
   .table-data__head-data {
     font-size: 1rem;
   }
   .button-component--middle {
-    width: 45%;
+    width: 100%;
   }
 }

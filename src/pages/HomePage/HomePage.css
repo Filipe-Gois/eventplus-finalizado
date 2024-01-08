@@ -65,7 +65,7 @@
   margin-top: 50px;
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 768px) {
   /* .swiper-slide.swiper-slide-active,
   .swiper-slide.swiper-slide-next,
   .swiper-slide {

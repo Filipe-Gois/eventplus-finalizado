@@ -19,7 +19,7 @@ const HomePage = () => {
   const settings = {
     spaceBetween: 30,
     slidesPerView:
-      window.innerWidth < 768 ? 1 : window.innerWidth < 1150 ? 2 : 3,
+      window.innerWidth < 768 ? 1 : window.innerWidth < 1100 ? 2 : 3,
     navigation: true,
     pagination: {
       clickable: true,
