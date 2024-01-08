@@ -12,17 +12,20 @@ import api, { oldEventResource } from "../../Services/Service";
 import Notification from "../../components/Notification/Notification";
 import { nextEventResource } from "../../Services/Service";
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
-
-// Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-
-// import required modules
-import { Pagination } from "swiper/modules";
+// Import Swiper
+import { Slider, Slide } from "../../components/Slider";
 
 const HomePage = () => {
+  const settings = {
+    spaceBetween: 30,
+    slidesPerView:
+      window.innerWidth < 768 ? 1 : window.innerWidth < 1150 ? 2 : 3,
+    navigation: true,
+    pagination: {
+      clickable: true,
+    },
+  };
+
   const [nextEvents, setNextEvents] = useState([]);
   const [oldEvents, setOldEvents] = useState([]);
   const [notifyUser, setNotifyUser] = useState(); //Componente Notification
@@ -58,9 +61,6 @@ const HomePage = () => {
   useEffect(() => {
     getNextEvents(); //chama a função
     getOldEvents();
-
-    console.log(oldEvents);
-    console.log(nextEvents);
   }, []);
 
   return (
@@ -73,33 +73,22 @@ const HomePage = () => {
         <Container>
           <Title titleText={"Próximos Eventos"} />
 
-          <div className="events-box">
-            <Swiper
-              slidesPerView={window.innerWidth >= 992 ? 3 : 1}
-              spaceBetween={30}
-              // style={}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[Pagination]}
-              className="mySwiper"
-            >
-              {nextEvents.map((e) => {
-                return (
-                  <SwiperSlide key={e.idEvento}>
-                    <NextEvent
-                      key={e.idEvento}
-                      title={e.nomeEvento}
-                      description={e.descricao}
-                      eventDate={e.dataEvento}
-                      idEvento={e.idEvento}
-                      textButton={"Conectar"}
-                    />
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </div>
+          <Slider settings={settings}>
+            {nextEvents.map((e) => {
+              return (
+                <Slide key={e.idEvento}>
+                  <NextEvent
+                    key={e.idEvento}
+                    title={e.nomeEvento}
+                    description={e.descricao}
+                    eventDate={e.dataEvento}
+                    idEvento={e.idEvento}
+                    textButton={"Conectar"}
+                  />
+                </Slide>
+              );
+            })}
+          </Slider>
         </Container>
       </section>
 
@@ -107,33 +96,24 @@ const HomePage = () => {
         <Container>
           <Title titleText={"Eventos Antigos"} />
 
-          <div className="events-box">
-            <Swiper
-              slidesPerView={window.innerWidth >= 992 ? 3 : 1}
-              spaceBetween={30}
-              // style={}
-              pagination={{
-                clickable: true,
-              }}
-              modules={[Pagination]}
-              className="mySwiper"
-            >
-              {oldEvents.map((e) => {
-                return (
-                  <SwiperSlide key={e.idEvento}>
-                    <NextEvent
-                      key={e.idEvento}
-                      title={e.nomeEvento}
-                      description={e.descricao}
-                      eventDate={e.dataEvento}
-                      idEvento={e.idEvento}
-                      textButton={"Ver Detalhes"}
-                    />
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
-          </div>
+          <Slider settings={settings}>
+            {oldEvents.map((e) => {
+              return (
+                <Slide key={e.idEvento}>
+                  <NextEvent
+                    key={e.idEvento}
+                    title={e.nomeEvento}
+                    description={e.descricao}
+                    eventDate={e.dataEvento}
+                    idEvento={e.idEvento}
+                    textButton={"Ver Detalhes"}
+                  />
+                </Slide>
+              );
+            })}
+          </Slider>
+
+
         </Container>
       </section>
 

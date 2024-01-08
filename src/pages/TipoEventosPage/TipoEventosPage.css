@@ -1,55 +1,60 @@
-.cadastro-evento-section, .lista-eventos-section{
-    padding: 50px 0;
- }
+.cadastro-evento-section,
+.lista-eventos-section {
+  padding-top: 50px;
+}
 
 .cadastro-evento__box {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    width: 100%;
-    /* border: 1px solid red; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid red; */
 }
 
 .ftipo-evento {
-    width: 374px;
-    height: 255px;
-    margin-top: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    /* border: 1px solid blue; */
+  /* width: 374px; */
+  width: 100%;
+  height: 255px;
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  /* border: 1px solid blue; */
 }
-
 
 /* lista de Eventos */
 .lista-eventos-section {
-    background-color: var(--color-red);
-    width: 100%;
-    padding-bottom: 50px;
-    overflow: auto;
-    /* height: 432px; */
+  background-color: var(--color-red);
+  width: 100%;
+  padding-bottom: 50px;
+  overflow: auto;
+  /* height: 432px; */
 }
-
 
 .buttons-editbox {
-    width: 100%; 
-    display: flex; 
-    flex-direction: column;
-    gap: 20px;
-    justify-content: 'space-between';
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: "space-between";
 }
 
-@media screen and (min-width: 1200px){
-    
-    .cadastro-evento__box {
-        justify-content: space-between;
-        height: 540px;
-    }
-    
-    .ftipo-evento {margin-top: 0;}
+@media screen and (min-width: 1200px) {
+}
 
-    .buttons-editbox {
-        flex-direction: row;
-    }
+@media screen and (min-width: 768px) {
+  .cadastro-evento__box {
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .ftipo-evento {
+    margin-top: 0;
+  }
+
+  .buttons-editbox {
+    flex-direction: row;
+  }
 }

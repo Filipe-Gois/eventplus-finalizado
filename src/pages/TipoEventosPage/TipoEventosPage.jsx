@@ -6,13 +6,16 @@ import Container from "../../components/Container/Container";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
 import TableTp from "./TableTp/TableTp";
 import tipoEventoImage from "../../assets/images/tipo-evento.svg";
-import { Input, Button } from "../../components/FormComponents/FormComponents";
+import {
+  Input,
+  Button,
+  Table,
+} from "../../components/FormComponents/FormComponents";
 import api, { eventsTypeResource } from "../../Services/Service";
 import Notification from "../../components/Notification/Notification";
 import Spinner from "../../components/Spinner/Spinner";
 
 const TipoEventosPage = () => {
-  
   // states
   const [frmEdit, setFrmEdit] = useState(false); //está em modo edição?
   const [titulo, setTitulo] = useState("");
@@ -26,7 +29,7 @@ const TipoEventosPage = () => {
     // define a chamada em nossa api
     async function loadEventsType() {
       setShowSpinner(true);
-      
+
       try {
         const retorno = await api.get(eventsTypeResource);
         setTipoEventos(retorno.data);
@@ -118,11 +121,10 @@ const TipoEventosPage = () => {
 
     try {
       // atualiar na api
-     
-      const retorno = await api.put(eventsTypeResource + "/" + idEvento,{
-        titulo : titulo
+
+      const retorno = await api.put(eventsTypeResource + "/" + idEvento, {
+        titulo: titulo,
       }); //o id está no state
-      
 
       if (retorno.status === 204) {
         setNotifyUser({
@@ -188,10 +190,10 @@ const TipoEventosPage = () => {
   return (
     <>
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
-      
+
       {/* SPINNER - Feito com position */}
       {showSpinner ? <Spinner /> : null}
-      
+
       <MainContent>
         {/* formulário de cadastro do tipo do evento */}
         <section className="cadastro-evento-section">
@@ -275,6 +277,8 @@ const TipoEventosPage = () => {
               fnUpdate={showUpdateForm}
               fnDelete={handleDelete}
             />
+
+            {/* <Table dados={[["Título","Editar","Deletar"], [{}]]} /> */}
           </Container>
         </section>
       </MainContent>

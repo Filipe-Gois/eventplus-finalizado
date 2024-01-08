@@ -19,10 +19,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 250px;
-  height: 250px;
+  width: 200px;
+  height: 200px;
   padding: 25px;
-  border: 1px solid var(--color-blue-red);
+  border: 2px solid var(--color-medium-red);
   border-radius: 5px;
   overflow: auto;
 }

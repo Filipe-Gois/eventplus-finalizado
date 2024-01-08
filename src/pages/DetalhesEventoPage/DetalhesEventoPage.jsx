@@ -13,6 +13,7 @@ import NextEvent from "../../components/NextEvent/NextEvent";
 import { EventoContext } from "../../context/EventoContext";
 import TableDE from "./TableDE/TableDE";
 import { Link, useParams } from "react-router-dom";
+import { Table } from "../../components/FormComponents/FormComponents";
 
 const DetalhesEventoPage = () => {
   const { idEvento } = useParams();
@@ -20,9 +21,13 @@ const DetalhesEventoPage = () => {
   const { userData } = useContext(UserContext);
   const [eventoBuscado, setEventoBuscado] = useState({});
 
-
   const [trueComentaries, setTrueComentaries] = useState([]);
   const [allComentaries, setAllComentaries] = useState([]);
+
+  const [titulos, setTitulos] = useState([
+    ["Nome", "Comentário", "Exibe"],
+    [{}],
+  ]);
 
   // fazer uma lógica para só chamar a api de allComentaries e dar um .filter na hora de exibir os q estejam com "true"
 
@@ -33,7 +38,9 @@ const DetalhesEventoPage = () => {
   };
 
   const loadAllComentaries = async () => {
-    const responseAllCommentarys = await api.get(commentaryEventResource + `?id=` + idEvento);
+    const responseAllCommentarys = await api.get(
+      commentaryEventResource + `?id=` + idEvento
+    );
 
     const dados = responseAllCommentarys.data;
 
@@ -41,21 +48,30 @@ const DetalhesEventoPage = () => {
   };
 
   const loadTrueComentaries = async () => {
-    const responseTrueCommentarys = await api.get(trueCommentaryEventResource + "?id=" + idEvento);
+    // const responseTrueCommentarys = await api.get(
+    //   trueCommentaryEventResource + "?id=" + idEvento
+    // );
 
-    const dados = responseTrueCommentarys.data;
+    // const dados = responseTrueCommentarys.data;
 
-    setTrueComentaries(dados);
+    // setTrueComentaries(dados);
+
+    const responseAllCommentarys = await api.get(
+      commentaryEventResource + `?id=` + idEvento
+    );
+
+    const dados = responseAllCommentarys.data;
+
+    setTrueComentaries(dados.filter((comentario) => comentario.exibe === true));
   };
 
   useEffect(() => {
-
-
     loadAllComentaries();
-    getEvento()
+    getEvento();
     loadTrueComentaries();
-  }, []);
 
+    console.log(trueComentaries);
+  }, []);
 
   return (
     <MainContent>
@@ -67,33 +83,55 @@ const DetalhesEventoPage = () => {
               additionalClass="custom-title"
             />
 
+            {console.log(allComentaries)}
+
             <NextEvent
               title={eventoBuscado.nomeEvento}
               description={eventoBuscado.descricao}
               eventDate={eventoBuscado.dataEvento}
               idEvento={eventoBuscado.idEvento}
-
             />
           </div>
         </Container>
       </section>
 
-      {eventoBuscado.dataEvento ?
+      {/* <Table dados={[["Nome", "Comentário", "Ofensivo"], [{}]]} /> */}
 
-        (
-
-          <section className="lista-eventos-section">
-            <Container>
-              <Title titleText={"Comentários"} color="white" />
-              <TableDE dados={userData.nome && userData.role === "Administrador" ? allComentaries : trueComentaries} />
-            </Container>
-          </section>
-        )
-        : null}
-
-
-
-
+      {eventoBuscado.dataEvento ? (
+        <section className="lista-eventos-section">
+          <Container>
+            <Title titleText={"Comentários"} color="white" />
+            {/* <TableDE
+              dados={
+                userData.nome && userData.role === "Administrador"
+                  ? allComentaries
+                  : trueComentaries
+              }
+            /> */}
+            <Table
+              dados={[
+                [
+                  "Nome",
+                  "Comentário",
+                  userData.nome && userData.role === "Administrador" && "Exibe",
+                ],
+                [
+                  {
+                    nome: "allComentaries.usuario.nome",
+                    comentario: allComentaries.descricao,
+                    exibe:
+                      userData.nome && userData.role === "Administrador"
+                        ? allComentaries.exibe
+                          ? "Sim"
+                          : "Não"
+                        : null,
+                  },
+                ],
+              ]}
+            />
+          </Container>
+        </section>
+      ) : null}
     </MainContent>
   );
 };
