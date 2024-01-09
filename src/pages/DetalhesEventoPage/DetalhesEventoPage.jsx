@@ -80,7 +80,7 @@ const DetalhesEventoPage = () => {
           <div className="cadastro-evento__box">
             <Title
               titleText={"Detalhes do Evento"}
-              additionalClass="custom-title"
+              additionalClass=""
             />
 
             {console.log(allComentaries)}
