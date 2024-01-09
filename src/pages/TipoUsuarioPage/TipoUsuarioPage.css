@@ -1,0 +1,43 @@
+.cadastro-tipo-usuario-section {
+  margin-top: 50px;
+}
+
+.cadastro-tipo-usuario-box {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 50px;
+}
+
+.form-tipo-usuario {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.lista-tipos-usuario {
+  background-color: var(--color-red);
+  padding-top: 50px;
+  margin-top: 50px;
+  width: 100%;
+  height: 500px;
+}
+
+@media screen and (min-width: 768px) {
+  .cadastro-tipo-usuario-box {
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .form-tipo-usuario {
+    width: 436px;
+
+  }
+}

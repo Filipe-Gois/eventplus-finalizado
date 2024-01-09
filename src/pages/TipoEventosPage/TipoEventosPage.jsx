@@ -198,8 +198,8 @@ const TipoEventosPage = () => {
         {/* formulário de cadastro do tipo do evento */}
         <section className="cadastro-evento-section">
           <Container>
+            <Title titleText={"Cadastro Tipo de Eventos"} />
             <div className="cadastro-evento__box">
-              <Title titleText={"Cadastro Tipo de Eventos"} />
               <ImageIllustrator imageRender={tipoEventoImage} />
 
               <form

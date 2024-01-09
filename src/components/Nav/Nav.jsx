@@ -29,13 +29,13 @@ const Nav = ({ exibeNavbar, setExibeNavbar }) => {
       </Link>
 
       <div className="navbar__items-box">
-        <Link
+        {/* <Link
           to="/"
           className="navbar__item"
           onClick={() => setExibeNavbar(false)}
         >
           Home
-        </Link>
+        </Link> */}
 
         {/* <Link to={'/detalhes-evento'} className="navbar__item" onClick={() => setExibeNavbar(false)}>Detalhes de eventos</Link> */}
 
@@ -46,7 +46,7 @@ const Nav = ({ exibeNavbar, setExibeNavbar }) => {
               to="/tipo-eventos"
               onClick={() => setExibeNavbar(false)}
             >
-              Tipos Evento
+              Tipos De Evento
             </Link>
             <Link
               className="navbar__item"
@@ -54,6 +54,14 @@ const Nav = ({ exibeNavbar, setExibeNavbar }) => {
               onClick={() => setExibeNavbar(false)}
             >
               Eventos
+            </Link>
+
+            <Link
+              className="navbar__item"
+              to="/tipos-usuario"
+              onClick={() => setExibeNavbar(false)}
+            >
+              Tipos De Usuário
             </Link>
           </>
         ) : userData.nome && userData.role === "Comum" ? (

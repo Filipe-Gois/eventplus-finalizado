@@ -283,9 +283,8 @@ export default function EventosPaage(props) {
       <MainContent>
         <section className="cadastro-evento-section">
           <Container>
+            <Title titleText={"Eventos"} />
             <div className="cadastro-evento__box">
-              <Title titleText={"Eventos"} />
-
               <ImageIllustrator
                 imageName="evento"
                 imageRender={eventoImage}

@@ -5,6 +5,7 @@ import { Input, Button } from "../../components/FormComponents/FormComponents";
 import loginImage from "../../assets/images/login.svg";
 import api, { loginResource } from "../../Services/Service";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./LoginPage.css";
 import { UserContext, userDecodeToken } from "../../context/AuthContext";
@@ -27,8 +28,6 @@ const LoginPage = () => {
     // validar usuário e senha:
     // tamanho mínimo de caracteres : 3
     if (user.email.length >= 3 && user.senha.length >= 3) {
-      
-      
       try {
         const promise = await api.post(loginResource, {
           email: user.email,
@@ -97,9 +96,9 @@ const LoginPage = () => {
               placeholder="****"
             />
 
-            <a href="" className="frm-login__link">
+            <Link to="" className="frm-login__link">
               Esqueceu a senha?
-            </a>
+            </Link>
 
             <Button
               textButton="Login"
@@ -108,6 +107,8 @@ const LoginPage = () => {
               type="submit"
               additionalClass="frm-login__button"
             />
+
+            <Link to={"/criar-conta"} className="frm-login__link">Criar conta</Link>
           </form>
         </div>
       </div>
