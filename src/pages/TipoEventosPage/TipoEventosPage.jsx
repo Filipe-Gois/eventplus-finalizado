@@ -71,7 +71,7 @@ const TipoEventosPage = () => {
       // avisa o usuário
       setNotifyUser({
         titleNote: "Sucesso",
-        textNote: `O título deve ter pelo menos 3 caractere`,
+        textNote: `Cadastrado com sucesso!`,
         imgIcon: "success",
         imgAlt:
           "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",

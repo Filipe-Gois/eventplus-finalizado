@@ -1,5 +1,8 @@
 import React from "react";
 import "./FormComponents.css";
+import editPen from "../../assets/images/edit-pen.svg";
+import trashDelete from "../../assets/images/trash-delete.svg";
+import eyeIcon from "../../assets/images/eyeIcon.svg";
 
 export const Input = ({
   type,
@@ -75,7 +78,12 @@ export const Select = ({
   );
 };
 
-export const Table = ({ dados = [[], [{}], []] }, addtionalClass = "") => {
+export const Table = (
+  { dados = [[], [{}], []] },
+  addtionalClass = "",
+  fnDelete = null,
+  fnUpdate = null
+) => {
   return (
     <table className={`table-data ${addtionalClass}`}>
       <thead className="table-data__head">
@@ -83,7 +91,7 @@ export const Table = ({ dados = [[], [{}], []] }, addtionalClass = "") => {
           {dados[0].map((elementoHead, indice) => {
             return (
               <th
-                className="table-data__head-title table-data__head-title--big table-data__head-title--comentarios"
+                className="table-data__head-title table-data__head-title--little table-data__head-title--comentarios"
                 key={indice}
               >
                 {elementoHead}
@@ -107,6 +115,34 @@ export const Table = ({ dados = [[], [{}], []] }, addtionalClass = "") => {
                   </td>
                 );
               })}
+              {/* <td className="table-data__data table-data__data--little">
+                <img
+                  className="table-data__icon"
+                  idTipoUsuario={dados[1].idTipoUsuario}
+                  src={editPen}
+                  alt=""
+                  onClick={(e) =>
+                    // dá pra passar o obhjeto tp direto?
+                    fnUpdate({
+                      //showUpdateForma(??)
+                      // idTipoUsuario: dados[1].idTipoUsuario,
+                      // titulo: dados[1].titulo,
+                    })
+                  }
+                />
+              </td>
+
+              <td className="table-data__data table-data__data--little">
+                <img
+                  className="table-data__icon"
+                  idevento={dados[1].idTipoUsuario}
+                  src={trashDelete}
+                  alt=""
+                  onClick={(e) =>
+                    fnDelete(e.target.getAttribute("idTipoUsuario"))
+                  }
+                />
+              </td> */}
             </tr>
           );
         })}

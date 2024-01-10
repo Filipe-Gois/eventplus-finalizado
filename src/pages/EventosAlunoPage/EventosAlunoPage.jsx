@@ -242,22 +242,24 @@ const EventosAlunoPage = () => {
     <>
       <MainContent>
         <Container>
-          <Title titleText={"Eventos"} additionalClass="custom-title" />
+          <section className="eventos-aluno-section">
+            <Title titleText={"Eventos"} additionalClass="custom-title" />
 
-          <Select
-            id="id-tipo-evento"
-            name="tipo-evento"
-            required={true}
-            options={quaisEventos} // aqui o array dos tipos
-            manipulationFunction={(e) => myEvents(e.target.value)} // aqui só a variável state
-            defaultValue={tipoEvento}
-            additionalClass="select-tp-evento"
-          />
-          <Table
-            dados={eventos}
-            fnConnect={handleConnect}
-            fnShowModal={showHideModal}
-          />
+            <Select
+              id="id-tipo-evento"
+              name="tipo-evento"
+              required={true}
+              options={quaisEventos} // aqui o array dos tipos
+              manipulationFunction={(e) => myEvents(e.target.value)} // aqui só a variável state
+              defaultValue={tipoEvento}
+              additionalClass="select-tp-evento"
+            />
+            <Table
+              dados={eventos}
+              fnConnect={handleConnect}
+              fnShowModal={showHideModal}
+            />
+          </section>
         </Container>
       </MainContent>
       {/* SPINNER -Feito com position */}

@@ -55,11 +55,21 @@
   border-bottom: 1px solid var(--color-white);
 }
 
+.table-data__head-title:first-of-type {
+  width: 100%;
+}
+
 .table-data__data:last-child {
   text-align: right;
 }
 
-.table-data__head-title,
+.table-data__head-title {
+  width: 100%;
+  padding: 5px 5px 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  /* border: 1px solid white; */
+}
 .table-data__data {
   width: 100%;
   padding: 5px 5px 10px;

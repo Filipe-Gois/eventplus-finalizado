@@ -14,4 +14,5 @@
 .swiper-button-prev,
 .swiper-button-next {
   color: var(--color-red);
+  width: 5%;
 }
