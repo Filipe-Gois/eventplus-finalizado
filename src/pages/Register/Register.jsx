@@ -5,6 +5,7 @@ import { UserContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import MainContent from "../../components/MainContent/MainContent";
 import Container from "../../components/Container/Container";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [user, setUser] = useState();
@@ -20,9 +21,7 @@ const Register = () => {
   return (
     <MainContent>
       <Container>
-        <section className="register-section">
-            
-        </section>
+        <section className="register-section"></section>
       </Container>
     </MainContent>
   );

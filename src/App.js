@@ -9,7 +9,7 @@ const App = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setUserData( token === null ? {}  : JSON.parse(token) );
+    setUserData(token === null ? {} : JSON.parse(token));
   }, []);
 
   return (
