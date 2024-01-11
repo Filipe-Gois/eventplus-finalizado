@@ -1,5 +1,5 @@
 import React from "react";
-import "./TableTp.css";
+// import "./TableTp.css";
 
 import editPen from "../../../assets/images/edit-pen.svg";
 import trashDelete from "../../../assets/images/trash-delete.svg";

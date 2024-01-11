@@ -1,138 +1,207 @@
 @font-face {
-    font-family: Poppins-Regular;
-    src: url(../../assets/fonts/Poppins/Poppins-Regular.ttf);
-  }
-  @font-face {
-    font-family: Poppins-Thin;
-    src: url(../../assets/fonts/Poppins/Poppins-Thin.ttf);
-  }
-  
-  /* mobile first */
-  /* cuidado com os nomes  */
-  .layout-grid-login {
-    width: 100vw;
-    height: 100vh;
-    max-width: 992px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* border: 1px solid green; */
-  }
-  .frm-login__formbox {
-    max-width: 350px;
-    width: 100%;
-    height: 60%;
-  
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .frm-login {
-    width: 100%;
-    height: 90vh;
-  
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    /* border: 1px solid green; */
-  }
-  .login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .login__illustration {
-    display: none;
-  }
-  
+  font-family: Poppins-Regular;
+  src: url(../../assets/fonts/Poppins/Poppins-Regular.ttf);
+}
+@font-face {
+  font-family: Poppins-Thin;
+  src: url(../../assets/fonts/Poppins/Poppins-Thin.ttf);
+}
+
+/* mobile first */
+/* cuidado com os nomes  */
+/* .container-login {
+  width: 100vw;
+  height: 100vh;
+  max-width: 992px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+.frm-login__formbox {
+  max-width: 100%;
+  width: 100%;
+  height: 60%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.frm-login {
+  width: 85vw;
+  height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  /* border: 1px solid green; */
+}
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.login__illustration {
+  display: none;
+}
+
+.frm-login__logo {
+  width: 90%;
+  max-height: 100%;
+}
+
+.frm-login__button,
+.frm-login__entry {
+  margin-top: 40px;
+}
+
+.frm-login__entry {
+  padding-bottom: 10px;
+  /* font-family: Poppins-Regular; */
+}
+
+.frm-login__entry::placeholder {
+  color: lightgrey;
+
+}
+
+/* .focus-input {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  color: red;
+}
+
+.focus-input::before {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+  background: #6a7dfe;
+  background: -webkit-linear-gradient(to left, #21d4fd, #b721ff);
+  background: -o-linear-gradient(to left, #21d4fd, #b721ff);
+  background: -moz-linear-gradient(to left, #21d4fd, #b721ff);
+  background: linear-gradient(to left, #21d4fd, #b721ff);
+}
+
+.focus-input::after {
+  font-size: 15px;
+  color: #999999;
+  line-height: 1.2;
+  content: attr(data-placeholder);
+  display: block;
+  width: 100%;
+  position: absolute;
+  top: 16px;
+  left: 0px;
+  padding-left: 5px;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.input:focus {
+  outline: 0;
+}
+
+.frm-login__entry + .focus-input::after {
+  top: -15px;
+} */
+
+.frm-login__link {
+  text-decoration: none;
+  margin-top: 40px;
+  color: lightgrey;
+  font-size: 0.9rem;
+  font-family: Poppins-Regular;
+}
+
+.frm-login__link--criar {
+  color: #000;
+}
+@media screen and (min-width: 450px) {
   .frm-login__logo {
-    width: 274px;
+    width: 60%;
+    max-height: 60%;
   }
-  
+}
+@media screen and (min-width: 992px) {
+  .login {
+    position: relative;
+    z-index: 1;
+    width: 992px;
+    height: 500px;
+    margin: 0 auto;
+    justify-content: space-between;
+    /* border: 1px solid red; */
+  }
+  .ilustrator-brox {
+    display: block;
+  }
+  .login__illustration {
+    display: block;
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 60%;
+    height: 100%;
+    overflow: hidden;
+    /* border: 2px solid black; */
+  }
+
+  .login__illustration-rotate {
+    position: absolute;
+    top: -280px;
+    left: -204px;
+    z-index: 2;
+    transform: rotate(20deg);
+    width: 120%;
+    height: 180%;
+    /* background-color: rgba(181, 29, 68, 0.3); */
+    background-color: var(--color-red);
+  }
+
+  .login-illustrator {
+    position: absolute;
+    top: calc(50% - (166px / 2));
+    left: 80px;
+    z-index: 3;
+    width: 320px;
+    height: 166px;
+  }
+
+  .frm-login__formbox {
+    height: 70%;
+  }
+
+  .frm-login {
+    max-width: 310px;
+    height: 95%;
+    /* border: 1px solid red; */
+  }
+  .frm-login__logo {
+    width: 250px;
+  }
+
+  .frm-login__entry,
   .frm-login__button,
-  .frm-login__entry {
-    margin-top: 40px;
-  }
-  
-  .frm-login__entry {
-    padding-bottom: 10px;
-    /* font-family: Poppins-Regular; */
-  }
-  
-  .frm-login__entry::placeholder {
-    color: lightgrey;
-  }
-  
   .frm-login__link {
-    text-decoration: none;
-    margin-top: 40px;
-    color: lightgrey;
-    font-size: 0.9rem;
-    font-family: Poppins-Regular;
+    margin-top: 30px;
   }
-  
-  @media screen and (min-width: 992px) {
-    .login {
-      position: relative;
-      z-index: 1;
-      width: 992px;
-      height: 500px;
-      margin: 0 auto;
-      justify-content: space-between;
-      /* border: 1px solid red; */
-    }
-    .ilustrator-brox {
-      display: block;
-    }
-    .login__illustration {
-      display: block;
-      position: relative;
-      top: 0;
-      left: 0;
-      width: 60%;
-      height: 100%;
-      overflow: hidden;
-      /* border: 2px solid black; */
-    }
-  
-    .login__illustration-rotate {
-      position: absolute;
-      top: -280px;
-      left: -204px;
-      z-index: 2;
-      transform: rotate(20deg);
-      width: 120%;
-      height: 180%;
-      /* background-color: rgba(181, 29, 68, 0.3); */
-      background-color: var(--color-red);
-    }
-  
-    .login-illustrator {
-      position: absolute;
-      top: calc(50% - (166px / 2));
-      left: 80px;
-      z-index: 3;
-      width: 320px;
-      height: 166px;
-    }
-  
-    .frm-login {
-      max-width: 310px;
-      height: 95%;
-      /* border: 1px solid red; */
-    }
-    .frm-login__logo {
-      width: 250px;
-    }
-  
-    .frm-login__entry,
-    .frm-login__button,
-    .frm-login__link {
-      margin-top: 30px;
-    }
-  }
-  
+}

@@ -78,12 +78,12 @@ export const Select = ({
   );
 };
 
-export const Table = (
-  { dados = [[], [{}], []] },
+export const Table = ({
+  dados = [[], [{}], []],
   addtionalClass = "",
   fnDelete = null,
-  fnUpdate = null
-) => {
+  fnUpdate = null,
+}) => {
   return (
     <table className={`table-data ${addtionalClass}`}>
       <thead className="table-data__head">
@@ -91,7 +91,7 @@ export const Table = (
           {dados[0].map((elementoHead, indice) => {
             return (
               <th
-                className="table-data__head-title table-data__head-title--little table-data__head-title--comentarios"
+                className="table-data__head-title table-data__head-title--little"
                 key={indice}
               >
                 {elementoHead}
@@ -101,48 +101,20 @@ export const Table = (
         </tr>
       </thead>
 
-      <tbody>
+      <tbody className="table-data__body">
         {dados[1].map((elementoTr, indice) => {
           return (
-            <tr className="table-data__head-row" key={indice}>
+            <tr className="table-data__body-row " key={indice}>
               {Object.keys(elementoTr).map((chave, indice) => {
                 return (
                   <td
-                    className="table-data__data table-data__data--little"
+                    className="table-data__head-title table-data__head-title--little"
                     key={indice}
                   >
                     {elementoTr[chave]}
                   </td>
                 );
               })}
-              {/* <td className="table-data__data table-data__data--little">
-                <img
-                  className="table-data__icon"
-                  idTipoUsuario={dados[1].idTipoUsuario}
-                  src={editPen}
-                  alt=""
-                  onClick={(e) =>
-                    // dá pra passar o obhjeto tp direto?
-                    fnUpdate({
-                      //showUpdateForma(??)
-                      // idTipoUsuario: dados[1].idTipoUsuario,
-                      // titulo: dados[1].titulo,
-                    })
-                  }
-                />
-              </td>
-
-              <td className="table-data__data table-data__data--little">
-                <img
-                  className="table-data__icon"
-                  idevento={dados[1].idTipoUsuario}
-                  src={trashDelete}
-                  alt=""
-                  onClick={(e) =>
-                    fnDelete(e.target.getAttribute("idTipoUsuario"))
-                  }
-                />
-              </td> */}
             </tr>
           );
         })}

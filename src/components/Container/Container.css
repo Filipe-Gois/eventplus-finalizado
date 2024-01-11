@@ -6,6 +6,17 @@
   /* border: 1px solid #B51D44; */
 }
 
+.container-login {
+  width: 100vw;
+  height: 100vh;
+  max-width: 768;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid green; */
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 75%;

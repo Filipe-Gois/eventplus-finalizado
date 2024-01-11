@@ -13,6 +13,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import EventosAlunoPage from "../pages/EventosAlunoPage/EventosAlunoPage";
 import DetalhesEventoPage from "../pages/DetalhesEventoPage/DetalhesEventoPage";
 import TipoUsuarioPage from "../pages/TipoUsuarioPage/TipoUsuarioPage";
+import Register from "../pages/Register/Register";
 
 // Componente Rota
 const Rotas = () => {
@@ -63,7 +64,7 @@ const Rotas = () => {
         } />
 
         <Route element={<LoginPage />} path="/login" />
-        <Route element={<TestePage />} path="/testes" />
+        <Route element={<Register />} path="/register" />
         <Route element={<HomePage />} path="*" />
       </Routes>
 

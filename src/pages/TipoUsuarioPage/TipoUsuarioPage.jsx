@@ -21,11 +21,18 @@ import eyeIcon from "../../assets/images/eyeIcon.svg";
 const TipoUsuarioPage = () => {
   const [frmEdit, setFrmEdit] = useState(false);
   const [frmEditData, setFrmEditData] = useState({});
-  const [tiposUsuario, setTiposUsuario] = useState([
-    { idTipoUsuario: "", titulo: "" },
-  ]);
+
+  const [tipoUsuario, setTipoUsuario] = useState({
+    idTipoUsuario: null,
+    titulo: "",
+  });
+  const [tiposUsuario, setTiposUsuario] = useState([]);
+
+  const [titulo, setTitulo] = useState();
   const [notifyUser, setNotifyUser] = useState(); //Componente Notification
   const [showSpinner, setShowSpinner] = useState(false); //Spinner Loading
+
+  const [tableHead] = useState(["Título", "Editar", "Deletar"]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Confirma a exclusão?")) {
@@ -103,6 +110,8 @@ const TipoUsuarioPage = () => {
           showMessage: true,
         });
       }
+
+      editActionAbort();
     } catch (error) {}
     setShowSpinner(false);
   };
@@ -112,7 +121,7 @@ const TipoUsuarioPage = () => {
 
     setShowSpinner(true);
 
-    if (tiposUsuario.titulo.trim().length < 3) {
+    if (tipoUsuario.titulo.trim().length < 3) {
       setNotifyUser({
         titleNote: "Aviso",
         textNote: `O título deve ter pelo menos 3 caracteres`,
@@ -125,7 +134,7 @@ const TipoUsuarioPage = () => {
     }
 
     try {
-      api.post(usersTypes, tiposUsuario);
+      await api.post(usersTypes, tipoUsuario);
 
       loadTypes();
 
@@ -143,7 +152,7 @@ const TipoUsuarioPage = () => {
   };
 
   const editActionAbort = () => {
-    setTiposUsuario({ ...tiposUsuario, idTipoUsuario: null, titulo: "" });
+    setTipoUsuario({ idTipoUsuario: null, titulo: "" });
     setFrmEdit(false);
   };
 
@@ -153,7 +162,9 @@ const TipoUsuarioPage = () => {
       const response = await api.get(usersTypes);
 
       setTiposUsuario(response.data);
-      console.log(tiposUsuario);
+
+      // setTitulo(response.data.titulo);
+      // console.log(titulo);
     } catch (error) {}
     setShowSpinner(false);
   };
@@ -188,10 +199,10 @@ const TipoUsuarioPage = () => {
                       name={"titulo"}
                       required={true}
                       type={"text"}
-                      value={tiposUsuario.titulo}
+                      value={tipoUsuario.titulo}
                       manipulationFunction={(e) => {
-                        setTiposUsuario({
-                          ...tiposUsuario,
+                        setTipoUsuario({
+                          ...tipoUsuario,
                           titulo: e.target.value,
                         });
                       }}
@@ -208,8 +219,8 @@ const TipoUsuarioPage = () => {
                       required={"required"}
                       value={frmEditData.titulo}
                       manipulationFunction={(e) => {
-                        setTiposUsuario({
-                          ...tiposUsuario,
+                        setFrmEditData({
+                          ...frmEditData,
                           titulo: e.target.value,
                         });
                       }}
@@ -242,19 +253,9 @@ const TipoUsuarioPage = () => {
           <Container>
             <Title titleText={"LISTA TIPO DE USUÁRIOS"} color="white" />
 
-            {/* <Table
-              dados={[
-                ["Título", "Editar", "Deletar"],
-                ...tiposUsuario.map((tipoUsuario) => ({
-                  idTipoUsuario: tipoUsuario.idTipoUsuario,
-                  titulo: tipoUsuario.titulo,
-                })),
-              ]}
-            /> */}
-
             <Table
               dados={[
-                ["Título", "Editar", "Deletar"],
+                tableHead,
                 [
                   ...tiposUsuario.map((tipoUsuario) => [
                     tipoUsuario.titulo,
@@ -273,6 +274,7 @@ const TipoUsuarioPage = () => {
                   ]),
                 ],
               ]}
+              addtionalClass={tableHead.length > 3 ? "scroll-vertical" : ""}
             />
           </Container>
         </section>
