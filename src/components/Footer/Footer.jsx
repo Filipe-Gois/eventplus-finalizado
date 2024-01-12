@@ -3,14 +3,13 @@ import "./Footer.css";
 
 // import Container from '../Container/Container';
 
-const Footer = ({ textRights = "Escola Senai de Iinformática - 2023" }) => {
+const Footer = ({
+  textRights = `Escola Senai de Informática - ${new Date().getFullYear()}`,
+}) => {
   return (
-    <>
- 
-      <footer className="footer-page">
-        <p className="footer-page__rights">&copy; {textRights}</p>
-      </footer>
-    </>
+    <footer className="footer-page">
+      <p className="footer-page__rights">&copy; {textRights}</p>
+    </footer>
   );
 };
 
