@@ -31,7 +31,6 @@
 .frm-login {
   width: 85vw;
   height: 80vh;
-
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -42,7 +41,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 auto;
+  height: 100vh;
+  margin-top: 50px;
+}
+
+.login-box {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  /* align-items: center; */
+  justify-content: center;
 }
 
 .login__illustration {
@@ -66,7 +74,6 @@
 
 .frm-login__entry::placeholder {
   color: lightgrey;
-
 }
 
 /* .focus-input {
@@ -136,6 +143,9 @@
   color: #000;
 }
 @media screen and (min-width: 450px) {
+  .login-box {
+    align-items: center;
+  }
   .frm-login__logo {
     width: 60%;
     max-height: 60%;
@@ -145,24 +155,27 @@
   .login {
     position: relative;
     z-index: 1;
-    width: 992px;
-    height: 500px;
+    width: 100%;
+    max-height: 100%;
     margin: 0 auto;
     justify-content: space-between;
     /* border: 1px solid red; */
+    /* margin-top: calc(10vh) !important; */
   }
   .ilustrator-brox {
     display: block;
   }
   .login__illustration {
-    display: block;
+    display: flex;
+    align-self: center;
     position: relative;
     top: 0;
     left: 0;
-    width: 60%;
-    height: 100%;
+    width: 60% !important;
+    height: 50%;
     overflow: hidden;
     /* border: 2px solid black; */
+    /* background-color: var(--color-red); */
   }
 
   .login__illustration-rotate {
@@ -171,7 +184,8 @@
     left: -204px;
     z-index: 2;
     transform: rotate(20deg);
-    width: 120%;
+    width: 100%;
+    max-width: 1000px;
     height: 180%;
     /* background-color: rgba(181, 29, 68, 0.3); */
     background-color: var(--color-red);
@@ -180,8 +194,10 @@
   .login-illustrator {
     position: absolute;
     top: calc(50% - (166px / 2));
-    left: 80px;
+    /* left: calc(50% - 40%); */
+    left: calc(50% - 260px);
     z-index: 3;
+    /* width: 100%; */
     width: 320px;
     height: 166px;
   }
@@ -192,7 +208,7 @@
 
   .frm-login {
     max-width: 310px;
-    height: 95%;
+    height: 470px;
     /* border: 1px solid red; */
   }
   .frm-login__logo {

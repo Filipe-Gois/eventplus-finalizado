@@ -53,79 +53,81 @@ const LoginPage = () => {
   }
   return (
     <MainContent>
-      <Container addtionalClass="container-login">
-        <section className="login">
-          <div className="login__illustration">
-            <div className="login__illustration-rotate"></div>
-            <ImageIllustrator
-              imageRender={loginImage}
-              altText="Imagem de um homem em frente de uma porta de entrada"
-              additionalClass="login-illustrator"
-            />
+      <section className="login">
+        <Container>
+          <div className="login-box">
+            <div className="login__illustration">
+              <div className="login__illustration-rotate"></div>
+              <ImageIllustrator
+                imageRender={loginImage}
+                altText="Imagem de um homem em frente de uma porta de entrada"
+                additionalClass="login-illustrator"
+              />
+            </div>
+
+            <div className="frm-login">
+              <img src={logo} className="frm-login__logo" alt="" />
+
+              <form className="frm-login__formbox" onSubmit={handleSubmit}>
+                <Input
+                  additionalClass="frm-login__entry"
+                  type="email"
+                  id="login"
+                  name="login"
+                  required={true}
+                  value={user.email}
+                  manipulationFunction={(e) => {
+                    setUser({
+                      ...user,
+                      email: e.target.value.trim(),
+                    });
+                  }}
+                  placeholder="Email"
+                />
+
+                {/* <span className="focus-input" data-placeholder="Email"></span> */}
+
+                <Input
+                  additionalClass="frm-login__entry"
+                  type="password"
+                  id="senha"
+                  name="senha"
+                  required={true}
+                  value={user.senha}
+                  manipulationFunction={(e) => {
+                    setUser({
+                      ...user,
+                      senha: e.target.value.trim(),
+                    });
+                  }}
+                  placeholder="Senha"
+                />
+
+                {/* <span className="focus-input" data-placeholder="Password"></span> */}
+
+                <Link to="" className="frm-login__link">
+                  Esqueceu a senha?
+                </Link>
+
+                <Button
+                  textButton="Entrar"
+                  id="btn-login"
+                  name="btn-login"
+                  type="submit"
+                  additionalClass="frm-login__button"
+                />
+
+                <Link
+                  to={"/register"}
+                  className="frm-login__link frm-login__link--criar"
+                >
+                  Criar conta
+                </Link>
+              </form>
+            </div>
           </div>
-
-          <div className="frm-login">
-            <img src={logo} className="frm-login__logo" alt="" />
-
-            <form className="frm-login__formbox" onSubmit={handleSubmit}>
-              <Input
-                additionalClass="frm-login__entry"
-                type="email"
-                id="login"
-                name="login"
-                required={true}
-                value={user.email}
-                manipulationFunction={(e) => {
-                  setUser({
-                    ...user,
-                    email: e.target.value.trim(),
-                  });
-                }}
-                placeholder="Email"
-              />
-
-              {/* <span className="focus-input" data-placeholder="Email"></span> */}
-
-              <Input
-                additionalClass="frm-login__entry"
-                type="password"
-                id="senha"
-                name="senha"
-                required={true}
-                value={user.senha}
-                manipulationFunction={(e) => {
-                  setUser({
-                    ...user,
-                    senha: e.target.value.trim(),
-                  });
-                }}
-                placeholder="Senha"
-              />
-
-              {/* <span className="focus-input" data-placeholder="Password"></span> */}
-
-              <Link to="" className="frm-login__link">
-                Esqueceu a senha?
-              </Link>
-
-              <Button
-                textButton="Entrar"
-                id="btn-login"
-                name="btn-login"
-                type="submit"
-                additionalClass="frm-login__button"
-              />
-
-              <Link
-                to={"/register"}
-                className="frm-login__link frm-login__link--criar"
-              >
-                Criar conta
-              </Link>
-            </form>
-          </div>
-        </section>
-      </Container>
+        </Container>
+      </section>
     </MainContent>
   );
 };
