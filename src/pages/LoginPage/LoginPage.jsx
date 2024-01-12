@@ -53,22 +53,24 @@ const LoginPage = () => {
   }
   return (
     <MainContent>
-      <section className="login">
-        <Container>
-          <div className="login-box">
-            <div className="login__illustration">
-              <div className="login__illustration-rotate"></div>
+      <section className="login-section">
+        <div className="login__illustration">
+          <Container>
+            <div className="login__illustration-box">
               <ImageIllustrator
                 imageRender={loginImage}
                 altText="Imagem de um homem em frente de uma porta de entrada"
                 additionalClass="login-illustrator"
               />
             </div>
+          </Container>
+        </div>
 
+        <div className="login">
+          <Container>
             <div className="frm-login">
-              <img src={logo} className="frm-login__logo" alt="" />
-
               <form className="frm-login__formbox" onSubmit={handleSubmit}>
+                <img src={logo} className="frm-login__logo" alt="" />
                 <Input
                   additionalClass="frm-login__entry"
                   type="email"
@@ -85,8 +87,6 @@ const LoginPage = () => {
                   placeholder="Email"
                 />
 
-                {/* <span className="focus-input" data-placeholder="Email"></span> */}
-
                 <Input
                   additionalClass="frm-login__entry"
                   type="password"
@@ -102,8 +102,6 @@ const LoginPage = () => {
                   }}
                   placeholder="Senha"
                 />
-
-                {/* <span className="focus-input" data-placeholder="Password"></span> */}
 
                 <Link to="" className="frm-login__link">
                   Esqueceu a senha?
@@ -125,8 +123,8 @@ const LoginPage = () => {
                 </Link>
               </form>
             </div>
-          </div>
-        </Container>
+          </Container>
+        </div>
       </section>
     </MainContent>
   );

@@ -35,7 +35,7 @@
     color: var(--text-color);
   }
   
-  @media screen and (min-width: 992px) {
+  @media screen and (min-width: 768px) {
     .contato__endereco-box {
       flex-direction: row;
       justify-content: center;

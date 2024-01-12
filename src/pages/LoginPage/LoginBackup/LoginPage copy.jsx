@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import ImageIllustrator from "../../../components/ImageIllustrator/ImageIllustrator";
+import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
 import logo from "../../assets/images/logo-pink.svg";
-import { Input, Button } from "../../../components/FormComponents/FormComponents";
+import { Input, Button } from "../../components/FormComponents/FormComponents";
 import loginImage from "../../assets/images/login.svg";
-import api, { loginResource } from "../../../Services/Service";
+import api, { loginResource } from "../../Services/Service";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Container from "../../../components/Container/Container";
-import MainContent from "../../../components/MainContent/MainContent";
+import Container from "../../components/Container/Container";
+import MainContent from "../../components/MainContent/MainContent";
 
 import "./LoginPage.css";
-import { UserContext, userDecodeToken } from "../../../context/AuthContext";
+import { UserContext, userDecodeToken } from "../../context/AuthContext";
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "adm@adm.com", senha: "123456" });

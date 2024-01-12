@@ -104,7 +104,7 @@
     font-size: 1rem;
   }
   
-  @media screen and (min-width: 992px) {
+  @media screen and (min-width: 768px) {
     .modal__box {
       width: 550px;
       height: 550px;
