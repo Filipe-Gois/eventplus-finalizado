@@ -1,0 +1,149 @@
+@font-face {
+  font-family: Poppins-Regular;
+  src: url(../../assets/fonts/Poppins/Poppins-Regular.ttf);
+}
+
+/* mobile first */
+.frm-login__formbox {
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  gap: 0%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.frm-login {
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin-top: 50px;
+}
+
+.frm-login__logo {
+  width: 90%;
+  max-height: 100%;
+  margin-bottom: 30%;
+}
+
+.frm-login__button,
+.frm-login__entry {
+  margin-top: 40px;
+}
+
+.frm-login__entry {
+  padding-bottom: 10px;
+}
+
+.frm-login__entry::placeholder {
+  color: lightgrey;
+}
+
+.frm-login__span {
+  text-decoration: none;
+  margin-top: 40px;
+  color: lightgrey;
+  font-size: 0.9rem;
+  font-family: Poppins-Regular;
+  color: #000;
+}
+
+.frm-login__link {
+  color: var(--color-red);
+}
+
+.frm-login__link--criar {
+  color: #000;
+}
+
+@media screen and (min-width: 450px) {
+  .login-box {
+    align-items: center;
+  }
+  .frm-login__logo {
+    width: 60%;
+    max-height: 60%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .login-section {
+    width: 100%;
+    height: 100%;
+    display: flex;
+  }
+
+  .uga {
+    display: none;
+  }
+
+  .login {
+    width: 50vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+  }
+
+  .login__illustration {
+    display: flex;
+    width: 50vw;
+    height: 100vh;
+    background-color: var(--color-red);
+    clip-path: polygon(0% 0%, 100% 0%, 75% 100%, 0% 100%);
+  }
+
+  .login__illustration-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  .login-illustrator {
+    width: 100%;
+    height: 100%;
+  }
+
+  .frm-login__formbox {
+    height: 70%;
+    width: 86%;
+  }
+
+  .frm-login {
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+  }
+
+  .frm-login__logo {
+    width: 80%;
+  }
+
+  .frm-login__entry,
+  .frm-login__button,
+  .frm-login__link,
+  .frm-login__span {
+    margin-top: 30px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .frm-login__formbox {
+    width: 60%;
+  }
+}

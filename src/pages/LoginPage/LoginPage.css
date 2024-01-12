@@ -52,12 +52,27 @@
   color: lightgrey;
 }
 
+.frm-login__link--forgot-password {
+  color: #d3d3d3 !important;
+}
+
+.frm-login__span,
+.frm-login__link--forgot-password {
+  text-decoration: none;
+  margin-top: 40px;
+  color: lightgrey;
+  font-size: 0.9rem;
+  font-family: Poppins-Regular;
+  color: #000;
+}
+
 .frm-login__link {
   text-decoration: none;
   margin-top: 40px;
   color: lightgrey;
   font-size: 0.9rem;
   font-family: Poppins-Regular;
+  color: var(--color-red) !important;
 }
 
 .frm-login__link--criar {
@@ -138,7 +153,6 @@
 
 @media screen and (min-width: 992px) {
   .frm-login__formbox {
-
     width: 60%;
   }
 }

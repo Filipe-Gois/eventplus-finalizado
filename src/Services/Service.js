@@ -52,6 +52,8 @@ export const loginResource = '/Login';
 
 export const usersTypes = "/TiposUsuario"
 
+export const usuario = "/Usuario"
+
 const apiPort = '5000';
 // const localApiUri = `http://localhost:${apiPort}/api`;
 const externallApiUri = `https://eventwebapifilipe.azurewebsites.net/api`;
