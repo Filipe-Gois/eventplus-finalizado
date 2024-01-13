@@ -51,22 +51,25 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
                     }}
                   />
                 ) : null}
-                <ToggleSwitch
-                  toggleActive={e.situacao}
-                  manipulationFunction={
-                    new Date(e.dataEvento) > Date.now()
-                      ? () => {
-                          fnConnect(
-                            e.idEvento,
-                            e.situacao ? "unconnect" : "connect",
-                            e.idPresencaEvento //parâmetro opcional
-                          );
-                        }
-                      : () => {
-                          alert("Evento não está mais disponível");
-                        }
-                  }
-                />
+
+                {new Date(e.dataEvento) > Date.now() ? (
+                  <ToggleSwitch
+                    toggleActive={e.situacao}
+                    manipulationFunction={
+                      new Date(e.dataEvento) > Date.now()
+                        ? () => {
+                            fnConnect(
+                              e.idEvento,
+                              e.situacao ? "unconnect" : "connect",
+                              e.idPresencaEvento //parâmetro opcional
+                            );
+                          }
+                        : () => {
+                            alert("Evento não está mais disponível");
+                          }
+                    }
+                  />
+                ) : null}
               </td>
             </tr>
           );
