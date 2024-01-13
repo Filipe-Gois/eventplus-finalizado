@@ -15,7 +15,7 @@ import { UserContext, userDecodeToken } from "../../context/AuthContext";
 import { useForm } from "react-hook-form";
 
 const LoginPage = () => {
-  const [user, setUser] = useState({ email: "", senha: "" });
+  const [user, setUser] = useState({ email: "adm@adm.com", senha: "123456" });
   const [notifyUser, setNotifyUser] = useState({});
 
   //importa os dados globais do usuário

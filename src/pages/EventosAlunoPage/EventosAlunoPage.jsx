@@ -44,9 +44,9 @@ const EventosAlunoPage = () => {
     loadEventsType();
   }, [tipoEvento, userData.userId]); //
 
-  async function loadEventsType() {
+  const loadEventsType = async () => {
     setShowSpinner(true);
-    // setEventos([]); //zera o array de eventos
+
     if (tipoEvento === "1") {
       //todos os eventos (Evento)
       try {
@@ -106,7 +106,7 @@ const EventosAlunoPage = () => {
       setEventos([]);
     }
     setShowSpinner(false);
-  }
+  };
   const verificaPresenca = (arrAllEvents, eventsUser) => {
     for (let x = 0; x < arrAllEvents.length; x++) {
       //para cada evento principal
@@ -263,7 +263,6 @@ const EventosAlunoPage = () => {
         });
       }
     } catch (error) {
-
       setNotifyUser({
         titleNote: "Erro",
         textNote: `Erro ao desconecar o usuário do evento.`,
