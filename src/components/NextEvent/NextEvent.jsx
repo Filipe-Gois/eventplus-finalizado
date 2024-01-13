@@ -8,7 +8,7 @@ import { Tooltip } from "react-tooltip";
 import { dateFormatDbToView } from "../../Utils/stringFunctions";
 
 const NextEvent = ({
-  title,
+  title = "",
   description = "",
   eventDate = "",
   idEvento,
