@@ -1,5 +1,6 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import trashDelete from "../../assets/images/trash-delete-red.png";
+import Notification from "../Notification/Notification";
 
 import { Button, Input } from "../FormComponents/FormComponents";
 import "./Modal.css";
@@ -15,6 +16,7 @@ const Modal = ({
   idEvento = null,
   idComentario = null,
 }) => {
+  const [notifyUser, setNotifyUser] = useState({});
   const [comentarioDesc, setComentarioDesc] = useState("");
 
   useEffect(() => {
@@ -26,61 +28,70 @@ const Modal = ({
   }
 
   return (
-    <div className="modal">
-      <article className="modal__box">
-        <h3 className="modal__title">
-          {modalTitle}
-          <span
-            className="modal__close"
-            onClick={() => showHideModal(idEvento)}
-          >
-            x
-          </span>
-        </h3>
+    <>
+      {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
+      <div className="modal">
+        <article className="modal__box">
+          <h3 className="modal__title">
+            {modalTitle}
+            <span
+              className="modal__close"
+              onClick={() => showHideModal(idEvento)}
+            >
+              x
+            </span>
+          </h3>
 
-        <div className="comentary">
-          <h4 className="comentary__title">Comentário</h4>
-          <img
-            src={trashDelete}
-            className="comentary__icon-delete"
-            alt="Ícone de uma lixeira"
-            onClick={async () => {
-              await fnDelete(idComentario);
-              await carregarDados();
+          <div className="comentary">
+            <h4 className="comentary__title">Comentário</h4>
+            <img
+              src={trashDelete}
+              className="comentary__icon-delete"
+              alt="Ícone de uma lixeira"
+              onClick={async () => {
+                await fnDelete(idComentario);
+                await carregarDados();
+              }}
+            />
+
+            <p className="comentary__text">{comentaryText}</p>
+
+            <hr className="comentary__separator" />
+          </div>
+
+          <Input
+            placeholder="Escreva seu comentário..."
+            additionalClass="comentary__entry"
+            value={comentarioDesc}
+            manipulationFunction={(e) => {
+              setComentarioDesc(e.target.value);
             }}
           />
+          {/* {comentarioDesc} */}
 
-          <p className="comentary__text">{comentaryText}</p>
-
-          <hr className="comentary__separator" />
-        </div>
-
-        <Input
-          placeholder="Escreva seu comentário..."
-          additionalClass="comentary__entry"
-          value={comentarioDesc}
-          manipulationFunction={(e) => {
-            setComentarioDesc(e.target.value);
-          }}
-        />
-        {/* {comentarioDesc} */}
-        
-        <Button
-          textButton="Comentar"
-          additionalClass="comentary__button"
-          manipulationFunction={async () => {
-            if (idComentario !== null) {
-                alert("Já existe um comentàrio cadastrado para o evento.");
+          <Button
+            textButton="Comentar"
+            additionalClass="comentary__button"
+            manipulationFunction={async () => {
+              if (idComentario !== null) {
+                setNotifyUser({
+                  titleNote: "Erro",
+                  textNote: `Já existe um comentàrio cadastrado para o evento.`,
+                  imgIcon: "danger",
+                  imgAlt:
+                    "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+                  showMessage: true,
+                });
               } else {
-                
                 await fnPost(comentarioDesc.trim(), userId, idEvento);
                 await carregarDados();
               }
-              setComentarioDesc("");//;limpa o campo do input
-          }}
-        />
-      </article>
-    </div>
+              setComentarioDesc(""); //;limpa o campo do input
+            }}
+          />
+        </article>
+      </div>
+    </>
   );
 };
 

@@ -8,7 +8,7 @@ import {
   Button,
   Select,
 } from "../../components/FormComponents/FormComponents";
-import Table from "./TableEv/TableEv";
+// import Table  from "./TableEv/TableEv";
 import api, {
   eventsResource,
   eventsTypeResource,
@@ -18,6 +18,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import Notification from "../../components/Notification/Notification";
 import { truncateDateFromDb } from "../../Utils/stringFunctions";
 import eventoImage from "../../assets/images/evento.svg";
+import { Table } from "../../components/FormComponents/FormComponents";
 import "./EventosPage.css";
 
 export default function EventosPaage(props) {
@@ -28,9 +29,8 @@ export default function EventosPaage(props) {
   const [dataEvento, setDFataEvento] = useState(""); //Tipo do Evento escolhido ???
   const [eventos, setEventos] = useState([]);
   const [tiposEvento, setTiposEvento] = useState([]);
-  const [instituicao, setInstituicao] = useState(
-    "22e6df3e-547b-4291-8110-735ee094f591"
-  );
+  const [instituicoes, setInstituicoes] = useState([]);
+  const [instituicao, setInstituicao] = useState("");
   const [frmEditData, setFrmEditData] = useState({}); //dados do formulário de edição de dados
 
   //states condicionais
@@ -38,6 +38,15 @@ export default function EventosPaage(props) {
   //controla qual é a ação do submit, cadastrar ou atualizar
   const [frmEdit, setFrmEdit] = useState(false);
   const [notifyUser, setNotifyUser] = useState({}); //Componente Notification
+
+  const tableHead = [
+    "Evento",
+    "Descrição",
+    "Tipo Evento",
+    "Data",
+    "Editar",
+    "Deletar",
+  ];
 
   //THE FUNCTIONS
 
@@ -49,11 +58,12 @@ export default function EventosPaage(props) {
       try {
         const promise = await api.get(eventsResource);
         const promiseTipoEventos = await api.get(eventsTypeResource);
-        const promiseInstituicao = await api.get(institutionResource);
+        const promiseInstituicoes = await api.get(institutionResource);
         //só tem uma instituição neste projeto mas já fica preparado pra adicionar mais!
         setEventos(promise.data);
 
         const tpEventosModificado = [];
+
         //retorno da api (array tipo de eventos)
         promiseTipoEventos.data.forEach((event) => {
           tpEventosModificado.push({
@@ -62,10 +72,17 @@ export default function EventosPaage(props) {
           });
         });
 
+        const instituicaoModificado = [];
+
+        promiseInstituicoes.data.forEach((event) => {
+          instituicaoModificado.push({
+            value: event.idInstituicao,
+            text: event.nomeFantasia,
+          });
+        });
+
         setTiposEvento(tpEventosModificado);
-        setInstituicao(promiseInstituicao.data[0].idInstituicao);
-        console.log(promiseTipoEventos.data);
-        // console.log(promiseInstituicao.data[0].idInstituicao);
+        setInstituicoes(instituicaoModificado);
       } catch (error) {}
       setShowSpinner(false);
     }
@@ -89,6 +106,25 @@ export default function EventosPaage(props) {
     e.preventDefault();
     setShowSpinner(true);
 
+    if (
+      nomeEvento.trim().length === 0 ||
+      descricaoEvento.trim().length === 0 ||
+      tipoEvento.trim().length === 0 ||
+      dataEvento.trim().length === 0 ||
+      instituicao.trim.length === 0
+    ) {
+      setNotifyUser({
+        titleNote: "Atenção",
+        textNote: "Preencha os campos corretamente",
+        imgIcon: "warning",
+        imgAlt:
+          "Imagem de ilustração de atenção. Mulher ao lado do símbolo de exclamação",
+        showMessage: true,
+      });
+
+      setShowSpinner(false);
+      return;
+    }
     try {
       const promise = await api.put(
         `${eventsResource}/${frmEditData.idEvento}`,
@@ -132,10 +168,6 @@ export default function EventosPaage(props) {
           "Imagem de ilustração de atenção. Mulher ao lado do símbolo de exclamação",
         showMessage: true,
       });
-
-      throw new Error(
-        "O servidor bitolou, verifique se o Evento foi atualizado corretamente"
-      );
     }
 
     setShowSpinner(false);
@@ -165,25 +197,21 @@ export default function EventosPaage(props) {
         });
 
         const buscaEventos = await api.get(eventsResource);
-        // console.log(buscaEventos.data);
         setEventos(buscaEventos.data); //aqui retorna um array, então de boa!
       } else {
         setNotifyUser({
           titleNote: "Erro",
-          textNote: `O servidor bitolou, verifique se o Evento foi apagado corretamente`,
+          textNote: `Erro ao excluir evento.`,
           imgIcon: "danger",
           imgAlt:
             "Imagem de ilustração de atenção. Mulher ao lado do símbolo de exclamação",
           showMessage: true,
         });
-        throw new Error(
-          "O servidor bitolou, verifique se o Evento foi apagado corretamente"
-        );
       }
     } catch (error) {
       setNotifyUser({
         titleNote: "Erro",
-        textNote: `Problemas ao apagar`,
+        textNote: `Erro ao excluir evento.`,
         imgIcon: "danger",
         imgAlt:
           "Imagem de ilustração de atenção. Mulher ao lado do símbolo de exclamação",
@@ -217,7 +245,6 @@ export default function EventosPaage(props) {
       return;
     }
 
-    // console.log("teste");
     try {
       // const promise = await api.post(`/Eventos`, {
       await api.post(eventsResource, {
@@ -245,7 +272,7 @@ export default function EventosPaage(props) {
     } catch (error) {
       setNotifyUser({
         titleNote: "Erro",
-        textNote: `Deu ruim ao cadastrar!!: ${error}`,
+        textNote: `Erro ao cadastrar.`,
         imgIcon: "danger",
         imgAlt:
           "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
@@ -265,7 +292,6 @@ export default function EventosPaage(props) {
    * @returns array
    */
   function fromToEventType(arrEvents) {
-    // console.log(arrEvents);
     if (arrEvents.length === 0) return [];
 
     const arrAux = [];
@@ -337,6 +363,19 @@ export default function EventosPaage(props) {
                         setTipoEvento(e.target.value)
                       } // aqui só a variável state
                       defaultValue={tipoEvento}
+                      defaultOption="Tipo do evento"
+                    />
+
+                    <Select
+                      id="instituicao"
+                      name="instituicao"
+                      required={true}
+                      options={instituicoes} // aqui o array contendo as instituições
+                      manipulationFunction={(e) =>
+                        setInstituicao(e.target.value)
+                      } // aqui só a variável state
+                      defaultValue={instituicao}
+                      defaultOption="Instituição"
                     />
 
                     <Input
@@ -403,6 +442,19 @@ export default function EventosPaage(props) {
                         });
                       }}
                     />
+                    <Select
+                      id="instituicao"
+                      name="instituicao"
+                      required={true}
+                      options={instituicoes}
+                      defaultValue={frmEditData.idInstituicao}
+                      manipulationFunction={(e) => {
+                        setFrmEditData({
+                          ...frmEditData,
+                          idInstituicao: e.target.value,
+                        });
+                      }}
+                    />
 
                     <Input
                       type="date"
@@ -450,11 +502,13 @@ export default function EventosPaage(props) {
         <section className="lista-eventos-section">
           <Container>
             <Title titleText={"Lista de Eventos"} color="white" />
-            <Table
+            {/* <TableEv
               dados={eventos}
               fnDelete={handleDelete}
               fnUpdate={showUpdateForm}
-            />
+            /> */}
+
+            <Table dados={[tableHead, [{ nome: 123 }]]} />
           </Container>
         </section>
       </MainContent>

@@ -7,6 +7,7 @@ import successIlustrator from "../../assets/images/success-illustration.svg";
 import warningIlustrator from "../../assets/images/warning-illustration.svg";
 import dangerIllustrator from "../../assets/images/error-illustration.svg";
 import defaultIllustrator from "../../assets/images/default-image.jpeg";
+import loginIllustrator from "../../assets/images/login.svg"
 
 import "./Notification.css";
 
@@ -47,6 +48,10 @@ function Notification({
         break;
       case "danger":
         imgIllustrator = dangerIllustrator;
+        break;
+
+      case "login":
+        imgIllustrator = loginIllustrator;
         break;
 
       default:

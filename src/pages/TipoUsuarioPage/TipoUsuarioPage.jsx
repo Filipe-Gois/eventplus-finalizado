@@ -57,9 +57,14 @@ const TipoUsuarioPage = () => {
         });
       }
     } catch (error) {
-      console.log(error);
-      console.log("usersTypes:", usersTypes);
-      console.log("id:", id);
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Erro ao deletar tipo de usuário.`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+        showMessage: true,
+      });
     }
 
     setShowSpinner(false);
@@ -72,19 +77,6 @@ const TipoUsuarioPage = () => {
       const response = await api.get(usersTypes + "/" + idTipoUsuario);
       setFrmEditData(response.data);
     } catch (error) {}
-
-    // setTiposUsuario({ ...tiposUsuario, idTipoUsuario: id });
-    // setShowSpinner(true);
-
-    // try {
-    //   const response = await api.get(usersTypes + "/" + id);
-
-    //   setTiposUsuario({
-    //     idTipoUsuario: response.data.idTipoUsuario,
-    //     titulo: response.data.titulo,
-    //   });
-    // } catch (error) {}
-    // setShowSpinner(false);
   };
 
   const handleUpdate = async (e) => {
@@ -112,7 +104,16 @@ const TipoUsuarioPage = () => {
       }
 
       editActionAbort();
-    } catch (error) {}
+    } catch (error) {
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Erro ao atualizar tipo de usuário.`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+        showMessage: true,
+      });
+    }
     setShowSpinner(false);
   };
 
@@ -148,7 +149,16 @@ const TipoUsuarioPage = () => {
       });
 
       editActionAbort();
-    } catch (error) {}
+    } catch (error) {
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Erro ao cadastrar tipo de usuário.`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+        showMessage: true,
+      });
+    }
   };
 
   const editActionAbort = () => {
@@ -162,10 +172,16 @@ const TipoUsuarioPage = () => {
       const response = await api.get(usersTypes);
 
       setTiposUsuario(response.data);
-
-      // setTitulo(response.data.titulo);
-      // console.log(titulo);
-    } catch (error) {}
+    } catch (error) {
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Erro carregar os tipos de usuário.`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+        showMessage: true,
+      });
+    }
     setShowSpinner(false);
   };
 

@@ -33,10 +33,15 @@ const TipoEventosPage = () => {
       try {
         const retorno = await api.get(eventsTypeResource);
         setTipoEventos(retorno.data);
-        console.log(retorno.data);
       } catch (error) {
-        console.log("Erro na api");
-        console.log(error);
+        setNotifyUser({
+          titleNote: "Erro",
+          textNote: `Erro ao carregar os tipos de eventos.`,
+          imgIcon: "danger",
+          imgAlt:
+            "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+          showMessage: true,
+        });
       }
 
       setShowSpinner(false);
@@ -104,7 +109,6 @@ const TipoEventosPage = () => {
     try {
       const retorno = await api.get(`${eventsTypeResource}/${idElement}`);
       setTitulo(retorno.data.titulo);
-      console.log(retorno.data);
     } catch (error) {}
     setShowSpinner(false);
   }
@@ -182,7 +186,16 @@ const TipoEventosPage = () => {
           setTipoEventos(buscaEventos.data); //aqui retorna um array, então de boa!
         }
       } catch (error) {
-        alert("Problemas ao apagar o elemento!");
+
+        setNotifyUser({
+          titleNote: "Erro",
+          textNote: `Erro ao apagar o tipo de evento.`,
+          imgIcon: "danger",
+          imgAlt:
+            "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+          showMessage: true,
+        });
+
       }
       setShowSpinner(false);
     }

@@ -18,7 +18,15 @@ const NextEvent = ({
 
   return (
     <article className="event-card">
-      <h2 className="event-card__title">{title}</h2>
+      <h2
+        className="event-card__title"
+        data-tooltip-id={idEvento}
+        data-tooltip-content={title}
+        data-tooltip-place="top"
+      >
+        <Tooltip id={idEvento} className="tooltip" />
+        {title.substr(0, 15)} {title.length > 15 ? "..." : null}
+      </h2>
 
       <p
         className="event-card__description"

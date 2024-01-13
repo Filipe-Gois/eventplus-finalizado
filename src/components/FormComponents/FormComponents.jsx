@@ -56,6 +56,7 @@ export const Select = ({
   manipulationFunction,
   additionalClass = "",
   defaultValue,
+  defaultOption = "Selecione",
 }) => {
   return (
     <select
@@ -66,7 +67,7 @@ export const Select = ({
       onChange={manipulationFunction}
       value={defaultValue}
     >
-      <option value="">Selecione</option>
+      <option value="">{defaultOption}</option>
       {options.map((o) => {
         return (
           <option key={Math.random()} value={o.value}>
@@ -91,7 +92,7 @@ export const Table = ({
           {dados[0].map((elementoHead, indice) => {
             return (
               <th
-                className="table-data__head-title table-data__head-title--little"
+                className="table-data__head-title"
                 key={indice}
               >
                 {elementoHead}
