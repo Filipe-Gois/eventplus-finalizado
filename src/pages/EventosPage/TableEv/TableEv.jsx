@@ -3,7 +3,7 @@ import React from "react";
 // import editPen from "../../../assets/images/edit-pen.svg";
 import editPen from "../../../assets/images/edit-pen.svg";
 import trashDelete from "../../../assets/images/trash-delete.svg";
-import eyeIcon from "../../../assets/images/eyeIcon.svg"
+import eyeIcon from "../../../assets/images/eyeIcon.svg";
 
 import { dateFormateDbToView } from "../../../Utils/stringFunctions";
 
@@ -14,10 +14,15 @@ import { Link, useParams } from "react-router-dom";
 
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 
-const Table = ({ dados, fnDelete = null, fnUpdate = null, fnShowComentaries = null }) => {
+const Table = ({
+  dados,
+  fnDelete = null,
+  fnUpdate = null,
+  fnShowComentaries = null,
+}) => {
   // console.log(dados);
 
-  const { idEvento } = useParams()
+  const { idEvento } = useParams();
 
   return (
     <table className="table-data">
@@ -50,24 +55,40 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null, fnShowComentaries = nu
         {dados.map((tp) => {
           return (
             <tr className="table-data__head-row" key={tp.idEvento}>
-              <td className="table-data__data table-data__data--big">
-                {tp.nomeEvento}
+              <td
+                className="table-data__data table-data__data--big"
+                data-tooltip-id="description-tooltip"
+                data-tooltip-content={
+                  tp.nomeEvento.length > 10 ? tp.nomeEvento : null
+                }
+                data-tooltip-place="top"
+              >
+                <Tooltip id={tp.idEvento} className="tooltip--black" />
+                {tp.nomeEvento.substr(0, 10)}
+                {tp.nomeEvento.length > 10 ? " ..." : null}
               </td>
+
               <td
                 className="table-data__data table-data__data--big table-data__data--handover"
                 data-tooltip-id="description-tooltip"
-                data-tooltip-content={tp.descricao}
+                data-tooltip-content={
+                  tp.descricao.length > 10 ? tp.descricao : null
+                }
                 data-tooltip-place="top"
               >
-                {tp.descricao.substr(0, 15)} ...
                 <Tooltip
-                  id="description-tooltip"
-                  className="custom-tootip"
+                  id={"description-tooltip"}
+                  className="tooltip--black"
                 />
+                {tp.descricao.substr(0, 10)}
+                {tp.descricao.length > 10 ? " ..." : null}
+                {/* <Tooltip id="description-tooltip" className="custom-tootip" /> */}
               </td>
+
               <td className="table-data__data table-data__data--big">
                 {tp.tiposEvento.titulo}
               </td>
+
               <td className="table-data__data table-data__data--big">
                 {dateFormateDbToView(tp.dataEvento)}
               </td>
@@ -77,16 +98,17 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null, fnShowComentaries = nu
                   className="table-data__icon"
                   idevento={tp.idEvento}
                   src={editPen}
-                  alt=""
+                  alt="Ícone de lápis. Deixa os dados do evento selecionados para edição."
                   onClick={(e) =>
                     // dá pra passar o obhjeto tp direto?
-                    fnUpdate({//showUpdateForma(??)
+                    fnUpdate({
+                      //showUpdateForma(??)
                       idEvento: tp.idEvento,
                       nomeEvento: tp.nomeEvento,
                       dataEvento: tp.dataEvento,
                       descricao: tp.descricao,
                       idInstituicao: tp.idInstituicao, //por enquanto chumbado
-                      idTipoEvento: tp.idTipoEvento
+                      idTipoEvento: tp.idTipoEvento,
                     })
                   }
                 />
@@ -97,7 +119,7 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null, fnShowComentaries = nu
                   className="table-data__icon"
                   idevento={tp.idEvento}
                   src={trashDelete}
-                  alt=""
+                  alt="Ícone de lixeira. Deleta o evento."
                   onClick={(e) => fnDelete(e.target.getAttribute("idevento"))}
                 />
               </td>
@@ -108,11 +130,10 @@ const Table = ({ dados, fnDelete = null, fnUpdate = null, fnShowComentaries = nu
                     className="table-data__icon"
                     idevento={tp.idEvento}
                     src={eyeIcon}
-                    alt=""
+                    alt="Ícone de olho. Abre a guia de detalhes do evento."
                     // onClick={(e) => fnShowComentaries(e.target.getAttribute("idevento"))}
                   />
                 </Link>
-
               </td>
             </tr>
           );

@@ -63,6 +63,14 @@ const Nav = ({ exibeNavbar, setExibeNavbar }) => {
             >
               Tipos De Usuário
             </Link>
+
+            <Link
+              className="navbar__item"
+              to={"/instituicoes"}
+              onClick={() => setExibeNavbar(false)}
+            >
+              Instituições
+            </Link>
           </>
         ) : userData.nome && userData.role === "Comum" ? (
           <Link

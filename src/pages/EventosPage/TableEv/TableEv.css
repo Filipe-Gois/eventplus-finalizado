@@ -16,8 +16,8 @@
   
   /* Tootip */
   
-  .custom-tootip {
-    color: #B51D44 !important;
+  .tooltip--black {
+    color: black !important;
     background-color: #fff !important;
   }
   

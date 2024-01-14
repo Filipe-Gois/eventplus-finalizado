@@ -1,8 +1,10 @@
 import React from "react";
 import "./FormComponents.css";
+import "./Table.css";
 import editPen from "../../assets/images/edit-pen.svg";
 import trashDelete from "../../assets/images/trash-delete.svg";
 import eyeIcon from "../../assets/images/eyeIcon.svg";
+import InputMask from "react-input-mask";
 
 export const Input = ({
   type,
@@ -13,6 +15,7 @@ export const Input = ({
   placeholder,
   manipulationFunction,
   additionalClass = "",
+  cnpj = false,
 }) => {
   return (
     <input
@@ -25,6 +28,7 @@ export const Input = ({
       placeholder={placeholder}
       onChange={manipulationFunction}
       autoComplete="off"
+      maxLength={cnpj ? 18 : ""}
     />
   );
 };
@@ -86,15 +90,12 @@ export const Table = ({
   fnUpdate = null,
 }) => {
   return (
-    <table className={`table-data ${addtionalClass}`}>
-      <thead className="table-data__head">
-        <tr className="table-data__head-row">
+    <table className={`table-component ${addtionalClass}`}>
+      <thead className="table-component__head">
+        <tr className="head__row">
           {dados[0].map((elementoHead, indice) => {
             return (
-              <th
-                className="table-data__head-title"
-                key={indice}
-              >
+              <th className="row__data row__data--head" key={indice}>
                 {elementoHead}
               </th>
             );
@@ -102,16 +103,13 @@ export const Table = ({
         </tr>
       </thead>
 
-      <tbody className="table-data__body">
+      <tbody className="table-component__body">
         {dados[1].map((elementoTr, indice) => {
           return (
-            <tr className="table-data__body-row " key={indice}>
+            <tr className="body__row" key={indice}>
               {Object.keys(elementoTr).map((chave, indice) => {
                 return (
-                  <td
-                    className="table-data__head-title table-data__head-title--little"
-                    key={indice}
-                  >
+                  <td className="row__data row__data--body" key={indice}>
                     {elementoTr[chave]}
                   </td>
                 );

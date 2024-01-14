@@ -32,7 +32,7 @@ const LoginPage = () => {
     }
   }, [userData]);
 
-  async function handleSubmitData(e) {
+  const handleSubmitData = async (e) => {
     e.preventDefault();
 
     // validar usuário e senha:
@@ -70,7 +70,7 @@ const LoginPage = () => {
         showMessage: true,
       });
     }
-  }
+  };
   return (
     <>
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}

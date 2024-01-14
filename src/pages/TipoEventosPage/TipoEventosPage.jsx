@@ -27,7 +27,7 @@ const TipoEventosPage = () => {
   // Função que após a página/DOM estar pronta
   useEffect(() => {
     // define a chamada em nossa api
-    async function loadEventsType() {
+    const loadEventsType = async () => {
       setShowSpinner(true);
 
       try {
@@ -45,13 +45,13 @@ const TipoEventosPage = () => {
       }
 
       setShowSpinner(false);
-    }
+    };
     // chama a função/api no carregamento da página/componente
     loadEventsType();
   }, []);
 
   // ***************************** CADASTRAR *****************************
-  async function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault(); //evita o submit do formulário
     setShowSpinner(true);
 
@@ -98,11 +98,11 @@ const TipoEventosPage = () => {
     }
 
     setShowSpinner(false);
-  }
+  };
 
   /********************* EDITAR CADASTRO *********************/
   // mostra o formulário de edição
-  async function showUpdateForm(idElement) {
+  const showUpdateForm = async (idElement) => {
     setFrmEdit(true);
     setIdEvento(idElement); // preenche o id do evento para poder atualizar
     setShowSpinner(true);
@@ -111,15 +111,15 @@ const TipoEventosPage = () => {
       setTitulo(retorno.data.titulo);
     } catch (error) {}
     setShowSpinner(false);
-  }
+  };
   // cancela a tela/ação de edição (volta para o form de cadastro)
-  function editActionAbort() {
+  const editActionAbort = () => {
     setFrmEdit(false);
     setTitulo(""); //reseta as variáveis
     setIdEvento(null); //reseta as variáveis
-  }
+  };
   // cadastrar a atualização na api
-  async function handleUpdate(e) {
+  const handleUpdate = async (e) => {
     e.preventDefault(); //para o evento de submit
     setShowSpinner(true);
 
@@ -160,11 +160,11 @@ const TipoEventosPage = () => {
     }
 
     setShowSpinner(false);
-  }
+  };
 
   /********************* APAGAR DADOS *********************/
   // apaga o tipo de evento na api
-  async function handleDelete(idElement) {
+  const handleDelete = async (idElement) => {
     // se confirmar a exclusão, cancela a ação
     if (window.confirm("Confirma a exclusão?")) {
       setShowSpinner(true);
@@ -186,7 +186,6 @@ const TipoEventosPage = () => {
           setTipoEventos(buscaEventos.data); //aqui retorna um array, então de boa!
         }
       } catch (error) {
-
         setNotifyUser({
           titleNote: "Erro",
           textNote: `Erro ao apagar o tipo de evento.`,
@@ -195,11 +194,10 @@ const TipoEventosPage = () => {
             "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
           showMessage: true,
         });
-
       }
       setShowSpinner(false);
     }
-  }
+  };
   return (
     <>
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}

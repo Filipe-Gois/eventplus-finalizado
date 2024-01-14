@@ -125,9 +125,9 @@ const EventosAlunoPage = () => {
   };
 
   // toggle meus eventos ou todos os eventos
-  function myEvents(tpEvent) {
+  const myEvents = (tpEvent) => {
     setTipoEvento(tpEvent);
-  }
+  };
 
   const showHideModal = (idEvent) => {
     setShowModal(showModal ? false : true);
@@ -221,7 +221,7 @@ const EventosAlunoPage = () => {
     }
   };
 
-  async function handleConnect(eventId, whatTheFunction, presencaId = null) {
+  const handleConnect = async (eventId, whatTheFunction, presencaId = null) => {
     if (whatTheFunction === "connect") {
       try {
         //connect
@@ -272,7 +272,7 @@ const EventosAlunoPage = () => {
         showMessage: true,
       });
     }
-  }
+  };
 
   return (
     <>

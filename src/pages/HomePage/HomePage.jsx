@@ -33,7 +33,7 @@ const HomePage = () => {
   const [oldEvents, setOldEvents] = useState([]);
   const [notifyUser, setNotifyUser] = useState({}); //Componente Notification
 
-  async function getNextEvents() {
+   const getNextEvents = async () => {
     try {
       const promise = await api.get(nextEventResource);
       const dados = await promise.data;

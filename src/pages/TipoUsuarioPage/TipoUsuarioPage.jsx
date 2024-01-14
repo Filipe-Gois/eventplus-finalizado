@@ -20,7 +20,10 @@ import eyeIcon from "../../assets/images/eyeIcon.svg";
 
 const TipoUsuarioPage = () => {
   const [frmEdit, setFrmEdit] = useState(false);
-  const [frmEditData, setFrmEditData] = useState({});
+  const [frmEditData, setFrmEditData] = useState({
+    idTipoUsuario: null,
+    titulo: "",
+  });
 
   const [tipoUsuario, setTipoUsuario] = useState({
     idTipoUsuario: null,

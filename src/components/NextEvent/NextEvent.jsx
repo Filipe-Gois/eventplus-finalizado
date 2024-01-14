@@ -14,28 +14,30 @@ const NextEvent = ({
   idEvento,
   textButton,
 }) => {
-  function conectar(idEvento) {}
+  const conectar = (idEvento) => {};
 
   return (
     <article className="event-card">
       <h2
         className="event-card__title"
         data-tooltip-id={idEvento}
-        data-tooltip-content={title}
+        data-tooltip-content={title.length > 10 ? title : null}
         data-tooltip-place="top"
       >
         <Tooltip id={idEvento} className="tooltip" />
-        {title.substr(0, 15)} {title.length > 15 ? "..." : null}
+        {title.substr(0, 10)}
+        {title.length > 10 ? " ..." : null}
       </h2>
 
       <p
         className="event-card__description"
         data-tooltip-id={idEvento}
-        data-tooltip-content={description}
+        data-tooltip-content={description.length > 10 ? description : null}
         data-tooltip-place="top"
       >
         <Tooltip id={idEvento} className="tooltip" />
-        {description.substr(0, 15)} {description.length > 15 ? "..." : null}
+        {description.substr(0, 10)}
+        {description.length > 10 ? " ..." : null}
       </p>
 
       <p className="event-card__description">

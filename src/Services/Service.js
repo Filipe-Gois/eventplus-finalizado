@@ -54,13 +54,15 @@ export const usersTypes = "/TiposUsuario"
 
 export const usuario = "/Usuario"
 
-const apiPort = '5000';
-// const localApiUri = `http://localhost:${apiPort}/api`;
-const externallApiUri = `https://eventwebapifilipe.azurewebsites.net/api`;
-// const externalApiUri = null;
+const apiPort = '7118';
+
+const localApiUrl = `http://localhost:${apiPort}/api`;
+
+const externallApiUrl = `https://eventwebapifilipe.azurewebsites.net/api`;
+// const externalApiUrl = null;
 
 const api = axios.create({
-    baseURL: externallApiUri
+    baseURL: externallApiUrl
 });
 
 
