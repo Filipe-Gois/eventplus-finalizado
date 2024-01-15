@@ -387,19 +387,40 @@ const InstituicoesPage = () => {
             <Table
               fnUpdate={() => showUpdateForm(instituicao.idInstituicao)}
               fnDelete={() => {
-                console.log(instituicao.idInstituicao);
+                // console.log(
+                //   ...instituicoes.map((instituicao) => [
+                //     instituicao.idInstituicao,
+                //     instituicao.nomeFantasia,
+                //     instituicao.endereco,
+                //     cnpjMasked(instituicao.cnpj),
+                //   ])
+                // );
                 handleDelete(instituicao.idInstituicao);
               }}
-              showEye={false}
               dados={[
                 tableHead,
                 [
                   ...instituicoes.map((instituicao) => [
+                    // instituicao.idInstituicao,
                     instituicao.nomeFantasia,
                     instituicao.endereco,
                     cnpjMasked(instituicao.cnpj),
                   ]),
                 ],
+
+                // <img
+                //   className="table-data__icon"
+                //   src={editPen}
+                //   alt=""
+                //   onClick={() => showUpdateForm(instituicao.idInstituicao)}
+                // />,
+
+                // <img
+                //   className="table-data__icon"
+                //   src={trashDelete}
+                //   alt=""
+                //   onClick={(e) => handleDelete(instituicao.idInstituicao)}
+                // />,
               ]}
               addtionalClass={tableHead.length > 3 ? "scroll-vertical" : ""}
             />
