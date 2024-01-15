@@ -42,6 +42,8 @@ const TipoUsuarioPage = () => {
       return;
     }
 
+
+
     setShowSpinner(true);
 
     try {
@@ -60,6 +62,7 @@ const TipoUsuarioPage = () => {
         });
       }
     } catch (error) {
+
       setNotifyUser({
         titleNote: "Erro",
         textNote: `Erro ao deletar tipo de usuário.`,
@@ -273,23 +276,25 @@ const TipoUsuarioPage = () => {
             <Title titleText={"LISTA TIPO DE USUÁRIOS"} color="white" />
 
             <Table
+              fnDelete={() => handleDelete(tipoUsuario.idTipoUsuario)}
+              fnUpdate={() => showUpdateForm(tipoUsuario.idTipoUsuario)}
               dados={[
                 tableHead,
                 [
                   ...tiposUsuario.map((tipoUsuario) => [
                     tipoUsuario.titulo,
-                    <img
-                      className="table-data__icon"
-                      src={editPen}
-                      alt=""
-                      onClick={() => showUpdateForm(tipoUsuario.idTipoUsuario)}
-                    />,
-                    <img
-                      className="table-data__icon"
-                      src={trashDelete}
-                      alt=""
-                      onClick={(e) => handleDelete(tipoUsuario.idTipoUsuario)}
-                    />,
+                    // <img
+                    //   className="table-data__icon"
+                    //   src={editPen}
+                    //   alt=""
+                    //   onClick={() => showUpdateForm(tipoUsuario.idTipoUsuario)}
+                    // />,
+                    // <img
+                    //   className="table-data__icon"
+                    //   src={trashDelete}
+                    //   alt=""
+                    //   onClick={(e) => handleDelete(tipoUsuario.idTipoUsuario)}
+                    // />,
                   ]),
                 ],
               ]}

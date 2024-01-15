@@ -71,9 +71,6 @@ const InstituicoesPage = () => {
       cnpj: "",
     });
     setFrmEdit(false);
-    console.log(frmEditData);
-    console.log("action");
-    console.log(cnpjUnMasked(cnpjValue));
   };
 
   const handleSubmit = async (e) => {
@@ -193,6 +190,8 @@ const InstituicoesPage = () => {
     if (!window.confirm("Confirma Exclusão?")) {
       return; //retorna a função sem executar o restante do código
     }
+
+    // console.log(idInstituicao);
 
     setShowSpinner(true);
     try {
@@ -386,6 +385,12 @@ const InstituicoesPage = () => {
             <Title titleText={"Lista De Instituições"} color="white" />
 
             <Table
+              fnUpdate={() => showUpdateForm(instituicao.idInstituicao)}
+              fnDelete={() => {
+                console.log(instituicao.idInstituicao);
+                handleDelete(instituicao.idInstituicao);
+              }}
+              showEye={false}
               dados={[
                 tableHead,
                 [
@@ -393,22 +398,6 @@ const InstituicoesPage = () => {
                     instituicao.nomeFantasia,
                     instituicao.endereco,
                     cnpjMasked(instituicao.cnpj),
-                    <img
-                      className="table-data__icon"
-                      src={editPen}
-                      alt=""
-                      onClick={() => {
-                        showUpdateForm(instituicao.idInstituicao);
-                      }}
-                    />,
-                    <img
-                      className="table-data__icon"
-                      src={trashDelete}
-                      alt=""
-                      onClick={(e) => {
-                        handleDelete(instituicao.idInstituicao);
-                      }}
-                    />,
                   ]),
                 ],
               ]}

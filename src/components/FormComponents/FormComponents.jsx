@@ -4,6 +4,8 @@ import "./Table.css";
 import editPen from "../../assets/images/edit-pen.svg";
 import trashDelete from "../../assets/images/trash-delete.svg";
 import eyeIcon from "../../assets/images/eyeIcon.svg";
+import "react-tooltip/dist/react-tooltip.css";
+import { Tooltip } from "react-tooltip";
 import InputMask from "react-input-mask";
 
 export const Input = ({
@@ -88,6 +90,8 @@ export const Table = ({
   addtionalClass = "",
   fnDelete = null,
   fnUpdate = null,
+  showEye = false,
+  fnDetails = null,
 }) => {
   return (
     <table className={`table-component ${addtionalClass}`}>
@@ -95,25 +99,120 @@ export const Table = ({
         <tr className="head__row">
           {dados[0].map((elementoHead, indice) => {
             return (
-              <th className="row__data row__data--head" key={indice}>
-                {elementoHead}
+              <th
+                data-tooltip-id="iten-tooltip"
+                data-tooltip-content={
+                  elementoHead.length > 10 ? elementoHead : null
+                }
+                data-tooltip-place="top"
+                className="row__data row__data--head"
+                key={indice}
+              >
+                <Tooltip id={"iten-tooltip"} className="tooltip--black" />
+                {elementoHead.substr(0, 10)}
+                {elementoHead.length > 10 ? " ..." : null}
               </th>
             );
           })}
         </tr>
       </thead>
 
-      <tbody className="table-component__body">
+      {/* <tbody className="table-component__body">
         {dados[1].map((elementoTr, indice) => {
           return (
             <tr className="body__row" key={indice}>
               {Object.keys(elementoTr).map((chave, indice) => {
                 return (
-                  <td className="row__data row__data--body" key={indice}>
-                    {elementoTr[chave]}
+                  <td
+                    data-tooltip-id="iten-tooltip"
+                    data-tooltip-content={
+                      elementoTr[chave].length > 10 ? elementoTr[chave] : null
+                    }
+                    data-tooltip-place="top"
+                    className="row__data row__data--body"
+                    key={indice}
+                  >
+                    {typeof elementoTr[chave].toString() === "string" ? (
+                      <>
+                        {elementoTr[chave].toString().substr(0, 10)}
+                        {elementoTr[chave].toString().length > 10 ? " ..." : ""}
+                      </>
+                    ) : null}
                   </td>
                 );
               })}
+              <td>
+                <img
+                  className="table-data__icon"
+                  src={editPen}
+                  alt=""
+                  onClick={fnUpdate}
+                />
+              </td>
+
+              <td>
+                <img
+                  className="table-data__icon"
+                  src={trashDelete}
+                  alt=""
+                  onClick={fnDelete}
+                />
+              </td>
+            </tr>
+          );
+        })}
+      </tbody> */}
+      <tbody className="table-component__head">
+        {dados[1].map((elementoTr, indice) => {
+          return (
+            <tr className="head__row" key={indice}>
+              {Object.keys(elementoTr).map((chave, indice) => {
+                return (
+                  <td
+                    data-tooltip-id="iten-tooltip"
+                    data-tooltip-content={
+                      elementoTr[chave].length > 10 ? elementoTr[chave] : null
+                    }
+                    data-tooltip-place="top"
+                    className="row__data row__data--head"
+                    key={indice}
+                  >
+                    {typeof elementoTr[chave].toString() === "string" ? (
+                      <>
+                        {elementoTr[chave].toString().substr(0, 10)}
+                        {elementoTr[chave].toString().length > 10 ? " ..." : ""}
+                      </>
+                    ) : null}
+                  </td>
+                );
+              })}
+              <td className="row__data row__data--head">
+                <img
+                  className="table-data__icon"
+                  src={editPen}
+                  alt=""
+                  onClick={() => fnUpdate(elementoTr.id)}
+                />
+              </td>
+
+              <td className="row__data row__data--head">
+                <img
+                  className="table-data__icon"
+                  src={trashDelete}
+                  alt=""
+                  onClick={() => fnDelete(elementoTr.idInstituicao)}
+                />
+              </td>
+              {showEye ? (
+                <td className="row__data row__data--head">
+                  <img
+                    className="table-data__icon"
+                    src={eyeIcon}
+                    alt=""
+                    onClick={() => fnDetails(elementoTr.idInstituicao)}
+                  />
+                </td>
+              ) : null}
             </tr>
           );
         })}
