@@ -43,3 +43,17 @@ export const cnpjMasked = data => mask(unMask(data), ["99.999.999/9999-99"])
 //tira a mascara do value que contém o cnpj
 export const cnpjUnMasked = data => unMask(data)
 
+// export const idDbToId = (response, obj) => {
+
+//     const instModificadas = []
+
+//     response.data.forEach((element) => {
+//         instModificadas.push({
+//             id: element.idInstituicao,
+//             cnpj: element.cnpj,
+//             endereco: element.endereco,
+//             nomeFantasia: element.nomeFantasia,
+//         });
+//     });
+
+// }

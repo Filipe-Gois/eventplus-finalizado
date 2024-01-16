@@ -86,6 +86,9 @@ export const Select = ({
 };
 
 export const Table = ({
+  head = [],
+  body = [{}],
+  idsArray = [],
   dados = [[], [{}], []],
   addtionalClass = "",
   fnDelete = null,
@@ -93,8 +96,6 @@ export const Table = ({
   showEye = false,
   fnDetails = null,
 }) => {
-  // const arrayFiltrado = dado
-
   return (
     <table className={`table-component ${addtionalClass}`}>
       <thead className="table-component__head">
@@ -119,162 +120,75 @@ export const Table = ({
         </tr>
       </thead>
 
-      {/* <tbody className="table-component__body">
-        {dados[1].map((elementoTr, indice) => {
-          return (
-            <tr className="body__row" key={indice}>
-              {Object.keys(elementoTr).map((chave, indice) => {
-                return (
-                  <td
-                    data-tooltip-id="iten-tooltip"
-                    data-tooltip-content={
-                      elementoTr[chave].length > 10 ? elementoTr[chave] : null
-                    }
-                    data-tooltip-place="top"
-                    className="row__data row__data--body"
-                    key={indice}
-                  >
-                    {typeof elementoTr[chave].toString() === "string" ? (
-                      <>
-                        {elementoTr[chave].toString().substr(0, 10)}
-                        {elementoTr[chave].toString().length > 10 ? " ..." : ""}
-                      </>
-                    ) : null}
-                  </td>
-                );
-              })}
-              <td>
-                <img
-                  className="table-data__icon"
-                  src={editPen}
-                  alt=""
-                  onClick={fnUpdate}
-                />
-              </td>
-
-              <td>
-                <img
-                  className="table-data__icon"
-                  src={trashDelete}
-                  alt=""
-                  onClick={fnDelete}
-                />
-              </td>
-            </tr>
-          );
-        })}
-      </tbody> */}
-
       <tbody className="table-component__head">
         {dados[1].map((elementoTr, indice) => {
           return (
             <tr className="head__row" key={indice}>
-              {Object.keys(elementoTr).map((chave, indice) => {
-                return (
-                  <td
-                    data-tooltip-id="iten-tooltip"
-                    data-tooltip-content={
-                      elementoTr[chave].length > 10 ? elementoTr[chave] : null
-                    }
-                    data-tooltip-place="top"
-                    className="row__data row__data--head"
-                    key={indice}
-                  >
-                    {typeof elementoTr[chave].toString() === "string" ? (
-                      <>
-                        {elementoTr[chave].toString().substr(0, 10)}
-                        {elementoTr[chave].toString().length > 10 ? " ..." : ""}
-                      </>
-                    ) : null}
-                  </td>
-                );
-              })}
-              <td className="row__data row__data--head">
-                <img
-                  className="table-data__icon"
-                  src={editPen}
-                  alt=""
-                  onClick={() => fnUpdate()}
-                />
-              </td>
+              {Object.keys(elementoTr)
+                .slice(1)
+                .map((chave, indice) => {
+                  return (
+                    <td
+                      data-tooltip-id="iten-tooltip"
+                      data-tooltip-content={
+                        elementoTr[chave].length > 10 ? elementoTr[chave] : null
+                      }
+                      data-tooltip-place="top"
+                      className="row__data row__data--head"
+                      key={indice}
+                    >
+                      {typeof elementoTr[chave].toString() === "string" ? (
+                        <>
+                          {elementoTr[chave].toString().substr(0, 10)}
+                          {elementoTr[chave].toString().length > 10
+                            ? " ..."
+                            : ""}
+                        </>
+                      ) : null}
+                    </td>
+                  );
+                })}
 
-              <td className="row__data row__data--head row__data--body">
-                <img
-                  className="table-data__icon"
-                  src={trashDelete}
-                  alt=""
-                  onClick={(e) => fnDelete(elementoTr.idInstituicao)}
-                />
-              </td>
-
-              {showEye ? (
-                <td className="row__data row__data--head row__data--body">
-                  <img
-                    className="table-data__icon"
-                    src={eyeIcon}
-                    alt=""
-                    onClick={() => fnDetails()}
-                  />
-                </td>
-              ) : null}
-            </tr>
-          );
-        })}
-      </tbody>
-
-      <tbody className="table-component__head">
-        {dados[1].map((elementoTr, index) => {
-          return (
-            <tr className="head__row" key={index}>
-              {Object.keys(elementoTr).map((chave, indice) => {
-                return (
-                  <td
-                    data-tooltip-id="iten-tooltip"
-                    data-tooltip-content={
-                      elementoTr[chave].length > 10 ? elementoTr[chave] : null
-                    }
-                    data-tooltip-place="top"
-                    className="row__data row__data--head"
-                    key={indice}
-                  >
-                    {typeof elementoTr[chave].toString() === "string" ||
-                    indice < indice - 2 ? (
-                      <>
-                        {elementoTr[chave].toString().substr(0, 10)}
-                        {elementoTr[chave].toString().length > 10 ? " ..." : ""}
-                      </>
-                    ) : null}
-                  </td>
-                );
-              })}
-
-              <td className="row__data row__data--head">
+              <td
+                className="row__data row__data--head row__icons"
+                key={Math.random()}
+              >
                 <img
                   className="table-data__icon"
                   src={editPen}
                   alt=""
                   onClick={() => {
-                    fnUpdate({ idInstituicao: elementoTr[0] });
+                    console.log(elementoTr[0]);
+
+                    fnUpdate(elementoTr[0]);
                   }}
                 />
               </td>
 
-              <td className="row__data row__data--head row__data--body">
+              <td
+                className="row__data row__data--head row__data--body row__icons"
+                key={Math.random()}
+              >
                 <img
                   className="table-data__icon"
                   src={trashDelete}
                   alt=""
-                  onClick={(e) => fnDelete()}
+                  onClick={(e) => fnDelete(elementoTr[0])}
                 />
               </td>
 
+              {/* {console.log(elementoTr[1(][-1+1)])} */}
+
               {showEye ? (
-                <td className="row__data row__data--head row__data--body">
+                <td
+                  className="row__data row__data--head row__data--body row__icons"
+                  key={Math.random()}
+                >
                   <img
                     className="table-data__icon"
                     src={eyeIcon}
                     alt=""
-                    onClick={() => fnDetails()}
+                    onClick={() => fnDetails(elementoTr[0])}
                   />
                 </td>
               ) : null}

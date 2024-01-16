@@ -33,6 +33,7 @@ const InstituicoesPage = () => {
   ]);
 
   const [instituicoes, setInstituicoes] = useState([]);
+  const [idInstituicoes, setIdInstituicoes] = useState([]);
 
   const [instituicao, setInstituicao] = useState({
     idInstituicao: null,
@@ -65,7 +66,7 @@ const InstituicoesPage = () => {
     });
     setFrmEditData({
       ...frmEditData,
-      idInstituicao: null,
+      id: null,
       endereco: "",
       nomeFantasia: "",
       cnpj: "",
@@ -108,11 +109,26 @@ const InstituicoesPage = () => {
     }
   };
 
-  const showUpdateForm = async (idInstituicao) => {
+  const showUpdateForm = async (id) => {
     setFrmEdit(true);
 
     try {
-      const response = await api.get(institutionResource + "/" + idInstituicao);
+      const response = await api.get(institutionResource + "/" + id);
+
+      // const frmEditDataModificado = [];
+
+      // //retorno da api (array tipo de eventos)
+      // response.data.forEach((element) => {
+      //   frmEditDataModificado.push({
+      //     id: element.idInstituicao,
+      //     cnpj: element.cnpj,
+      //     endereco: element.endereco,
+      //     nomeFantasia: element.nomeFantasia,
+      //   });
+      // });
+      // console.log(12124214214123);
+      // console.log(frmEditDataModificado);
+
       setFrmEditData(response.data);
       setCnpjValue(cnpjMasked(response.data.cnpj));
     } catch (error) {}
@@ -190,8 +206,8 @@ const InstituicoesPage = () => {
     if (!window.confirm("Confirma Exclusão?")) {
       return; //retorna a função sem executar o restante do código
     }
-
-    // console.log(idInstituicao);
+    console.log("id da instituição:");
+    console.log([...instituicoes.map((inst) => [inst.idInstituicao])]);
 
     setShowSpinner(true);
     try {
@@ -209,16 +225,17 @@ const InstituicoesPage = () => {
           showMessage: true,
         });
         loadInstituicoes();
-      } else {
-        setNotifyUser({
-          titleNote: "Erro",
-          textNote: `Erro ao excluir.`,
-          imgIcon: "danger",
-          imgAlt:
-            "Imagem de ilustração de atenção. Mulher ao lado do símbolo de exclamação",
-          showMessage: true,
-        });
       }
+      //  else {
+      //   setNotifyUser({
+      //     titleNote: "Erro",
+      //     textNote: `Erro ao excluir.`,
+      //     imgIcon: "danger",
+      //     imgAlt:
+      //       "Imagem de ilustração de atenção. Mulher ao lado do símbolo de exclamação",
+      //     showMessage: true,
+      //   });
+      // }
     } catch (error) {
       setNotifyUser({
         titleNote: "Erro",
@@ -236,7 +253,20 @@ const InstituicoesPage = () => {
   const loadInstituicoes = async () => {
     try {
       const response = await api.get(institutionResource);
-      setInstituicoes(response.data);
+
+      const instModificadas = [];
+
+      response.data.forEach((element) => {
+        instModificadas.push({
+          id: element.idInstituicao,
+          cnpj: element.cnpj,
+          endereco: element.endereco,
+          nomeFantasia: element.nomeFantasia,
+        });
+      });
+
+      // setIdInstituicoes(instModificadas);
+      setInstituicoes(instModificadas);
     } catch (error) {}
   };
 
@@ -385,42 +415,45 @@ const InstituicoesPage = () => {
             <Title titleText={"Lista De Instituições"} color="white" />
 
             <Table
-              fnUpdate={() => showUpdateForm(instituicao.idInstituicao)}
-              fnDelete={() => {
-                // console.log(
-                //   ...instituicoes.map((instituicao) => [
-                //     instituicao.idInstituicao,
-                //     instituicao.nomeFantasia,
-                //     instituicao.endereco,
-                //     cnpjMasked(instituicao.cnpj),
-                //   ])
-                // );
-                handleDelete(instituicao.idInstituicao);
-              }}
+              fnUpdate={showUpdateForm}
+              fnDelete={handleDelete}
+              // head={tableHead}
+              // body={[
+              //   ...instituicoes.map((instituicao) => [
+              //     // instituicao.idInstituicao,
+              //     instituicao.nomeFantasia,
+              //     instituicao.endereco,
+              //     cnpjMasked(instituicao.cnpj),
+              //   ]),
+              // ]}
+              // idsArray={[...instituicoes.map((inst) => [inst.idInstituicao])]}
+
               dados={[
                 tableHead,
                 [
                   ...instituicoes.map((instituicao) => [
-                    // instituicao.idInstituicao,
+                    instituicao.id,
                     instituicao.nomeFantasia,
                     instituicao.endereco,
                     cnpjMasked(instituicao.cnpj),
+                    // <img
+                    //   className="table-data__icon"
+                    //   src={editPen}
+                    //   alt=""
+                    //   onClick={() => showUpdateForm(instituicao.idInstituicao)}
+                    // />,
+
+                    // <img
+                    //   className="table-data__icon"
+                    //   src={trashDelete}
+                    //   alt=""
+                    //   onClick={(e) => handleDelete(instituicao.idInstituicao)}
+                    // />,
                   ]),
                 ],
-
-                // <img
-                //   className="table-data__icon"
-                //   src={editPen}
-                //   alt=""
-                //   onClick={() => showUpdateForm(instituicao.idInstituicao)}
-                // />,
-
-                // <img
-                //   className="table-data__icon"
-                //   src={trashDelete}
-                //   alt=""
-                //   onClick={(e) => handleDelete(instituicao.idInstituicao)}
-                // />,
+                [...idInstituicoes.map((e) => e)],
+                // ...instituicoes.map((inst) => [inst.idInstituicao]),
+                // [...instituicoes.map((inst) => [inst.idInstituicao])],
               ]}
               addtionalClass={tableHead.length > 3 ? "scroll-vertical" : ""}
             />
