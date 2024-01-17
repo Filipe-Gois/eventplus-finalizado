@@ -33,7 +33,6 @@ const InstituicoesPage = () => {
   ]);
 
   const [instituicoes, setInstituicoes] = useState([]);
-  const [idInstituicoes, setIdInstituicoes] = useState([]);
 
   const [instituicao, setInstituicao] = useState({
     idInstituicao: null,
@@ -417,17 +416,8 @@ const InstituicoesPage = () => {
             <Table
               fnUpdate={showUpdateForm}
               fnDelete={handleDelete}
-              // head={tableHead}
-              // body={[
-              //   ...instituicoes.map((instituicao) => [
-              //     // instituicao.idInstituicao,
-              //     instituicao.nomeFantasia,
-              //     instituicao.endereco,
-              //     cnpjMasked(instituicao.cnpj),
-              //   ]),
-              // ]}
-              // idsArray={[...instituicoes.map((inst) => [inst.idInstituicao])]}
-
+              showUpdate={true}
+              showDelete={true}
               dados={[
                 tableHead,
                 [
@@ -436,29 +426,11 @@ const InstituicoesPage = () => {
                     instituicao.nomeFantasia,
                     instituicao.endereco,
                     cnpjMasked(instituicao.cnpj),
-                    // <img
-                    //   className="table-data__icon"
-                    //   src={editPen}
-                    //   alt=""
-                    //   onClick={() => showUpdateForm(instituicao.idInstituicao)}
-                    // />,
-
-                    // <img
-                    //   className="table-data__icon"
-                    //   src={trashDelete}
-                    //   alt=""
-                    //   onClick={(e) => handleDelete(instituicao.idInstituicao)}
-                    // />,
                   ]),
                 ],
-                [...idInstituicoes.map((e) => e)],
-                // ...instituicoes.map((inst) => [inst.idInstituicao]),
-                // [...instituicoes.map((inst) => [inst.idInstituicao])],
               ]}
               addtionalClass={tableHead.length > 3 ? "scroll-vertical" : ""}
             />
-
-            {/* <Table dados={[["Título","Editar","Deletar"], [{}]]} /> */}
           </Container>
         </section>
       </MainContent>

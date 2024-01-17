@@ -1,96 +1,114 @@
 /* Smartphone */
 @font-face {
-    font-family: Poppins-Thin;
-    src: url(../../../assets/fonts/Poppins/Poppins-Thin.ttf);
+  font-family: Poppins-Thin;
+  src: url(../../../assets/fonts/Poppins/Poppins-Thin.ttf);
+}
+@font-face {
+  font-family: Poppins-Semibold;
+  src: url(../../../assets/fonts/Poppins/Poppins-SemiBold.ttf);
+}
+@font-face {
+  font-family: Poppins-Regular;
+  src: url(../../../assets/fonts/Poppins/Poppins-Regular.ttf);
+}
+
+/* Custommizations */
+
+/* Tootip */
+
+.tooltip--black {
+  color: black !important;
+  background-color: #fff !important;
+}
+
+/* tabela: */
+
+/* Smartphone */
+.table-component {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  margin-top: 50px;
+  color: var(--color-white);
+  /* border: 1px solid white; */
+  font-family: Poppins-Semibold;
+  font-size: 65%;
+}
+
+.table-component__head {
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  /* border-bottom: 1px solid var(--color-white); */
+}
+
+.head__row,
+.body__row {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-white);
+  margin-bottom: 30px;
+
+  /* gap: 10%; */
+}
+
+.row-data {
+  text-align: center;
+}
+
+.row__data {
+  max-width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  padding: 5px 5px 10px;
+}
+
+.row__data:first-child {
+  text-align: start;
+}
+.row__data:last-child {
+  text-align: right;
+  /* width: 20%; */
+}
+
+.row__data--head {
+  max-width: 100%;
+  width: 100%;
+  text-align: center;
+}
+
+.table-data__icon {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+}
+
+.tooltip--black {
+  display: flex !important;
+  align-items: flex-start !important;
+  align-self: flex-start !important;
+}
+
+@media screen and (min-width: 450px) {
+  .row__data:last-child {
+    max-width: 10%;
   }
-  @font-face {
-    font-family: Poppins-Semibold;
-    src: url(../../../assets/fonts/Poppins/Poppins-SemiBold.ttf);
-  }
-  @font-face {
-    font-family: Poppins-Regular;
-    src: url(../../../assets/fonts/Poppins/Poppins-Regular.ttf);
-  }
-  
-  /* Custommizations */
-  
-  /* Tootip */
-  
-  .tooltip--black {
-    color: black !important;
-    background-color: #fff !important;
-  }
-  
-  /* Smartphone */
-  .table-data {
-    /* table */
-    display: flex;
-    flex-direction: column;
+}
+@media screen and (min-width: 768px) {
+  .button-component--middle {
     width: 100%;
-    height: 466px; /* apagar */
-    margin-top: 60px;
-    color: var(--color-white);
-    /* border: 1px solid white; */
   }
-  
-  .table-data__head-row {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-  
-    margin-bottom: 30px;
-    border-bottom: 1px solid var(--color-white);
+
+  .table-component {
+    font-size: 0.8rem;
   }
-  
-  .table-data__head-title,
-  .table-data__data {
-    width: 100%;
-    padding: 5px 5px 10px;
-    margin-bottom: 10px;
-    text-align: center;
-    /* border: 1px solid white; */
-  }
-  
-  .table-data__head-title:first-of-type,
-  .table-data__data:first-of-type {
-    text-align: left;
-  }
-  
-  .table-data__data {
-    margin-bottom: 15px;
-  }
-  
-  .table-data__head-title--big,
-  .table-data__data--big {
-    width: 60%;
-  }
-  .table-data__data--handover {
-    cursor: pointer;
-  }
-  
-  .table-data__head-title--little,
-  .table-data__data--little {
-    width: 20%;
-  }
-  
-  .table-data__head-title {
-    font-family: Poppins-Semibold;
-    font-size: 1.1rem !important;
-  }
-  
-  .table-data__data {
-    font-family: Poppins-Regular;
-    font-size: 0.9rem !important;
-  }
-  
+
   .table-data__icon {
-    cursor: pointer;
+    width: 15px;
+    height: 15px;
   }
-  
-  @media screen and (min-width: 992px) {
-    .table-data__head-title,
-    .table-data__head-data {
-      font-size: 1rem;
-    }
-  }
-  
+}

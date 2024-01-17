@@ -11,6 +11,7 @@ import api, {
   myEventsResource,
   presencesEventResource,
   commentaryEventResource,
+  commentaryEventResourceAI,
 } from "../../Services/Service";
 
 import "./EventosAlunoPage.css";
@@ -131,6 +132,7 @@ const EventosAlunoPage = () => {
 
   const showHideModal = (idEvent) => {
     setShowModal(showModal ? false : true);
+    setComentario(!showModal && "");
     // setUserData({ ...userData, idEvento: idEvent });
     setIdEvento(idEvent);
   };
@@ -140,38 +142,72 @@ const EventosAlunoPage = () => {
     try {
       // api está retornando sempre todos os comentários do usuário
       const promise = await api.get(
-        `${commentaryEventResource}?idUsuario=${idUsuario}&idEvento=${idEvento}`
+        `${commentaryEventResource}/BuscarPorIdUsuario/${idEvento}?idUsuario=${idUsuario}&idEvento=${idEvento}`
       );
 
-      const myComm = await promise.data.filter(
-        (comm) => comm.idEvento === idEvento && comm.idUsuario === idUsuario
+      // const myComm = await promise.data.filter(
+      //   (comm) => comm.idEvento === idEvento && comm.idUsuario === idUsuario
+      // );
+
+      // setComentario(
+      //   myComm.length > 0
+      //     ? myComm[0].descricao
+      //     : "Comente algo sobre este evento!"
+      // );
+
+      // setIdComentario(
+      //   myComm[0].length > 0 ? myComm[0].idComentarioEvento : null
+      // );
+
+      setComentario(
+        promise.data.descricao.length > 0
+          ? promise.data.descricao
+          : "Comente algo sobre este evento!"
       );
 
-      setComentario(myComm.length > 0 ? myComm[0].descricao : "");
-      setIdComentario(myComm.length > 0 ? myComm[0].idComentarioEvento : null);
+      setIdComentario(
+        promise.data.idComentarioEvento.length > 0
+          ? promise.data.idComentarioEvento
+          : null
+      );
     } catch (error) {
       setNotifyUser({
         titleNote: "Erro",
-        textNote: `Erro ao carregar o evento.`,
+        textNote: `Erro ao carregar.`,
         imgIcon: "danger",
         imgAlt:
           "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
         showMessage: true,
       });
+
+      // const promise = await api.get(
+      //   `${commentaryEventResource}/BuscarPorIdUsuario/${idEvento}?idUsuario=${idUsuario}&idEvento=${idEvento}`
+      // );
+      //   setComentario(
+      //   promise.data.descricao.length > 0
+      //     ? promise.data.descricao
+      //     : "Comente algo sobre este evento!"
+      // );
+
+      // console.log(promise.data.descricao);
     }
   };
 
   // cadastrar um comentário = post
   const postMyCommentary = async (descricao, idUsuario, idEvento) => {
+    console.log("idUsuario:", idUsuario);
+    console.log("idEvento:", idEvento);
+    console.log("descricao:", descricao);
+
     try {
-      const promise = await api.post(commentaryEventResource, {
+      const promise = await api.post(commentaryEventResourceAI, {
         descricao: descricao,
         exibe: true,
         idUsuario: idUsuario,
         idEvento: idEvento,
       });
 
-      if (promise.status === 200) {
+      if (promise.status === 201) {
         setNotifyUser({
           titleNote: "Sucesso",
           textNote: `Comentário cadastrado com sucesso!`,
@@ -190,6 +226,8 @@ const EventosAlunoPage = () => {
           "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
         showMessage: true,
       });
+
+      console.log(error);
     }
   };
 
@@ -197,12 +235,12 @@ const EventosAlunoPage = () => {
   const commentaryRemove = async (idComentario) => {
     try {
       const promise = await api.delete(
-        `${commentaryEventResource}/${idComentario}`
+        `${commentaryEventResource}?id=${idComentario}`
       );
       if (promise.status === 200) {
         setNotifyUser({
           titleNote: "Sucesso",
-          textNote: `Evento excluído com sucesso!`,
+          textNote: `Comentário excluído com sucesso!`,
           imgIcon: "success",
           imgAlt:
             "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
@@ -242,7 +280,16 @@ const EventosAlunoPage = () => {
             showMessage: true,
           });
         }
-      } catch (error) {}
+      } catch (error) {
+        setNotifyUser({
+          titleNote: "Erro",
+          textNote: `Erro ao se inscrever.`,
+          imgIcon: "danger",
+          imgAlt:
+            "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+          showMessage: true,
+        });
+      }
       return;
     }
 

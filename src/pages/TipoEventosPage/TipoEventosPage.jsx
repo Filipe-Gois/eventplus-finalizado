@@ -16,6 +16,8 @@ import Notification from "../../components/Notification/Notification";
 import Spinner from "../../components/Spinner/Spinner";
 
 const TipoEventosPage = () => {
+  const tableHead = ["Título", "Editar", "Deletar"];
+
   // states
   const [frmEdit, setFrmEdit] = useState(false); //está em modo edição?
   const [titulo, setTitulo] = useState("");
@@ -31,8 +33,18 @@ const TipoEventosPage = () => {
       setShowSpinner(true);
 
       try {
-        const retorno = await api.get(eventsTypeResource);
-        setTipoEventos(retorno.data);
+        const response = await api.get(eventsTypeResource);
+
+        const tpModificado = [];
+
+        response.data.forEach((element) => {
+          tpModificado.push({
+            id: element.idTipoEvento,
+            titulo: element.titulo,
+          });
+        });
+
+        setTipoEventos(tpModificado);
       } catch (error) {
         setNotifyUser({
           titleNote: "Erro",
@@ -282,13 +294,21 @@ const TipoEventosPage = () => {
           <Container>
             <Title titleText={"Lista Tipo de Eventos"} color="white" />
 
-            <TableTp
-              dados={tipoEventos}
+            <Table
               fnUpdate={showUpdateForm}
               fnDelete={handleDelete}
+              showUpdate={true}
+              showDelete={true}
+              dados={[
+                tableHead,
+                [
+                  ...tipoEventos.map((tipoEvento) => [
+                    tipoEvento.id,
+                    tipoEvento.titulo,
+                  ]),
+                ],
+              ]}
             />
-
-            {/* <Table dados={[["Título","Editar","Deletar"], [{}]]} /> */}
           </Container>
         </section>
       </MainContent>

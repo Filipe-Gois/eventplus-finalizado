@@ -24,10 +24,7 @@ const DetalhesEventoPage = () => {
   const [trueComentaries, setTrueComentaries] = useState([]);
   const [allComentaries, setAllComentaries] = useState([]);
 
-  const [titulos, setTitulos] = useState([
-    ["Nome", "Comentário", "Exibe"],
-    [{}],
-  ]);
+  const tableHead = ["Nome", "Comentário", "Exibe"];
 
   // fazer uma lógica para só chamar a api de allComentaries e dar um .filter na hora de exibir os q estejam com "true"
 
@@ -38,13 +35,29 @@ const DetalhesEventoPage = () => {
   };
 
   const loadAllComentaries = async () => {
-    const responseAllCommentarys = await api.get(
-      commentaryEventResource + `?id=` + idEvento
-    );
+    const response = await api.get(commentaryEventResource + `?id=` + idEvento);
 
-    const dados = responseAllCommentarys.data;
+    const comentariosModificados = [];
 
-    setAllComentaries(dados);
+    response.data.forEach((element) => {
+      comentariosModificados.push({
+        id: element.idComentarioEvento,
+        descricao: element.descricao,
+        exibe: element.exibe,
+        idUsuario: element.idUsuario,
+        usuario: element.usuario,
+        idEvento: element.idEvento,
+        evento: element.evento,
+      });
+    });
+
+
+
+
+
+    setAllComentaries(comentariosModificados);
+
+    console.log(allComentaries);
   };
 
   const loadTrueComentaries = async () => {
@@ -78,12 +91,9 @@ const DetalhesEventoPage = () => {
       <section className="detalhes-section">
         <Container>
           <div className="cadastro-evento__box">
-            <Title
-              titleText={"Detalhes do Evento"}
-              additionalClass=""
-            />
+            <Title titleText={"Detalhes do Evento"} additionalClass="" />
 
-            {console.log(allComentaries)}
+            {/* {console.log(allComentaries)} */}
 
             <NextEvent
               title={eventoBuscado.nomeEvento}
@@ -108,13 +118,19 @@ const DetalhesEventoPage = () => {
                   : trueComentaries
               }
             /> */}
+
             <Table
               dados={[
-                [
-                  "Nome",
-                  "Comentário",
-                  userData.nome && userData.role === "Administrador" && "Exibe",
-                ],
+                tableHead,
+                userData.nome && userData.role === "Administrador"
+                  ? [...allComentaries.map((comentary) => [comentary])]
+                  : [...trueComentaries.map((comentary) => [comentary])],
+              ]}
+            />
+
+            {/* <Table
+              dados={[
+                tableHead,
                 [
                   {
                     nome: "allComentaries.usuario.nome",
@@ -128,7 +144,7 @@ const DetalhesEventoPage = () => {
                   },
                 ],
               ]}
-            />
+            /> */}
           </Container>
         </section>
       ) : null}

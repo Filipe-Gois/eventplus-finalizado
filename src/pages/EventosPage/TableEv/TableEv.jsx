@@ -10,7 +10,7 @@ import { dateFormateDbToView } from "../../../Utils/stringFunctions";
 // importa a biblioteca de tootips ()
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 
@@ -19,44 +19,27 @@ const Table = ({
   fnDelete = null,
   fnUpdate = null,
   fnShowComentaries = null,
+  addtionalClass = "",
 }) => {
-  // console.log(dados);
-
-  const { idEvento } = useParams();
-
   return (
-    <table className="table-data">
-      <thead className="table-data__head">
-        <tr className="table-data__head-row">
-          <th className="table-data__head-title table-data__head-title--big">
-            Evento
-          </th>
-          <th className="table-data__head-title table-data__head-title--big">
-            Descrição
-          </th>
-          <th className="table-data__head-title table-data__head-title--big">
-            Tipo Evento
-          </th>
-          <th className="table-data__head-title table-data__head-title--big">
-            Data
-          </th>
-          <th className="table-data__head-title table-data__head-title--little">
-            Editar
-          </th>
-          <th className="table-data__head-title table-data__head-title--little">
-            Deletar
-          </th>
-          <th className="table-data__head-title table-data__head-title--little">
-            Coments
-          </th>
+    <table className={`table-component ${addtionalClass}`}>
+      <thead className="table-component__head">
+        <tr className="head__row">
+          <th className={`row__data row__data--head `}>Evento</th>
+          <th className={`row__data row__data--head `}>Descrição</th>
+          <th className={`row__data row__data--head `}>Tipo Evento</th>
+          <th className={`row__data row__data--head `}>Data</th>
+          <th className={`row__data row__data--head `}>Editar</th>
+          <th className={`row__data row__data--head `}>Deletar</th>
+          <th className={`row__data row__data--head `}>Detalhes</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody className="table-component__head">
         {dados.map((tp) => {
           return (
-            <tr className="table-data__head-row" key={tp.idEvento}>
+            <tr className="head__row" key={tp.idEvento}>
               <td
-                className="table-data__data table-data__data--big"
+                className="row__data row__data--head"
                 data-tooltip-id="description-tooltip"
                 data-tooltip-content={
                   tp.nomeEvento.length > 10 ? tp.nomeEvento : null
@@ -64,12 +47,13 @@ const Table = ({
                 data-tooltip-place="top"
               >
                 <Tooltip id={tp.idEvento} className="tooltip--black" />
+
                 {tp.nomeEvento.substr(0, 10)}
                 {tp.nomeEvento.length > 10 ? " ..." : null}
               </td>
 
               <td
-                className="table-data__data table-data__data--big table-data__data--handover"
+                className="row__data row__data--head"
                 data-tooltip-id="description-tooltip"
                 data-tooltip-content={
                   tp.descricao.length > 10 ? tp.descricao : null
@@ -80,20 +64,21 @@ const Table = ({
                   id={"description-tooltip"}
                   className="tooltip--black"
                 />
+
                 {tp.descricao.substr(0, 10)}
                 {tp.descricao.length > 10 ? " ..." : null}
                 {/* <Tooltip id="description-tooltip" className="custom-tootip" /> */}
               </td>
 
-              <td className="table-data__data table-data__data--big">
+              <td className="row__data row__data--head">
                 {tp.tiposEvento.titulo}
               </td>
 
-              <td className="table-data__data table-data__data--big">
+              <td className="row__data row__data--head">
                 {dateFormateDbToView(tp.dataEvento)}
               </td>
 
-              <td className="table-data__data table-data__data--little">
+              <td className="row__data row__data--head row__icons">
                 <img
                   className="table-data__icon"
                   idevento={tp.idEvento}
@@ -114,7 +99,7 @@ const Table = ({
                 />
               </td>
 
-              <td className="table-data__data table-data__data--little">
+              <td className="row__data row__data--head row__icons">
                 <img
                   className="table-data__icon"
                   idevento={tp.idEvento}
@@ -124,14 +109,14 @@ const Table = ({
                 />
               </td>
 
-              <td className="table-data__data table-data__data--little">
+              <td className="row__data row__data--head row__icons">
                 <Link to={`/detalhes-evento/${tp.idEvento}`}>
                   <img
                     className="table-data__icon"
                     idevento={tp.idEvento}
                     src={eyeIcon}
                     alt="Ícone de olho. Abre a guia de detalhes do evento."
-                    // onClick={(e) => fnShowComentaries(e.target.getAttribute("idevento"))}
+                    onClick={(e) => console.log(tp.idEvento)}
                   />
                 </Link>
               </td>

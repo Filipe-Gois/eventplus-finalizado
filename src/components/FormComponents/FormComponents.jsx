@@ -1,6 +1,5 @@
 import React from "react";
 import "./FormComponents.css";
-import "./Table.css";
 import editPen from "../../assets/images/edit-pen.svg";
 import trashDelete from "../../assets/images/trash-delete.svg";
 import eyeIcon from "../../assets/images/eyeIcon.svg";
@@ -94,7 +93,9 @@ export const Table = ({
   fnDelete = null,
   fnUpdate = null,
   showEye = false,
-  fnDetails = null,
+  showUpdate = false,
+  showDelete = false,
+  fnShowDetails = null,
 }) => {
   return (
     <table className={`table-component ${addtionalClass}`}>
@@ -108,7 +109,7 @@ export const Table = ({
                   elementoHead.length > 10 ? elementoHead : null
                 }
                 data-tooltip-place="top"
-                className="row__data row__data--head"
+                className={`row__data row__data--head `}
                 key={indice}
               >
                 <Tooltip id={"iten-tooltip"} className="tooltip--black" />
@@ -149,33 +150,37 @@ export const Table = ({
                   );
                 })}
 
-              <td
-                className="row__data row__data--head row__icons"
-                key={Math.random()}
-              >
-                <img
-                  className="table-data__icon"
-                  src={editPen}
-                  alt=""
-                  onClick={() => {
-                    console.log(elementoTr[0]);
+              {showUpdate ? (
+                <td
+                  className="row__data row__data--head row__icons"
+                  key={Math.random()}
+                >
+                  <img
+                    className="table-data__icon"
+                    src={editPen}
+                    alt=""
+                    onClick={() => {
+                      console.log(elementoTr);
 
-                    fnUpdate(elementoTr[0]);
-                  }}
-                />
-              </td>
+                      fnUpdate(elementoTr[0]);
+                    }}
+                  />
+                </td>
+              ) : null}
 
-              <td
-                className="row__data row__data--head row__data--body row__icons"
-                key={Math.random()}
-              >
-                <img
-                  className="table-data__icon"
-                  src={trashDelete}
-                  alt=""
-                  onClick={(e) => fnDelete(elementoTr[0])}
-                />
-              </td>
+              {showDelete ? (
+                <td
+                  className="row__data row__data--head row__data--body row__icons"
+                  key={Math.random()}
+                >
+                  <img
+                    className="table-data__icon"
+                    src={trashDelete}
+                    alt=""
+                    onClick={() => fnDelete(elementoTr[0])}
+                  />
+                </td>
+              ) : null}
 
               {/* {console.log(elementoTr[1(][-1+1)])} */}
 
@@ -188,7 +193,7 @@ export const Table = ({
                     className="table-data__icon"
                     src={eyeIcon}
                     alt=""
-                    onClick={() => fnDetails(elementoTr[0])}
+                    onClick={() => fnShowDetails(elementoTr[0])}
                   />
                 </td>
               ) : null}

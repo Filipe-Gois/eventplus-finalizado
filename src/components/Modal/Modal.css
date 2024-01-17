@@ -73,6 +73,7 @@
   .comentary__icon-delete {
     width: 15px;
     height: 16px;
+    cursor: pointer;
   }
   
   .comentary__text {

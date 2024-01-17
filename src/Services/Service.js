@@ -23,6 +23,8 @@ export const presencesEventResource = '/PresencaEvento';
  */
 export const commentaryEventResource = '/ComentarioEvento';
 
+export const commentaryEventResourceAI = '/ComentarioEvento/CadastroIa';
+
 /**
  * Rota para o recurso Presenças Evento
  */

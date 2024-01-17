@@ -42,8 +42,6 @@ const TipoUsuarioPage = () => {
       return;
     }
 
-
-
     setShowSpinner(true);
 
     try {
@@ -62,7 +60,6 @@ const TipoUsuarioPage = () => {
         });
       }
     } catch (error) {
-
       setNotifyUser({
         titleNote: "Erro",
         textNote: `Erro ao deletar tipo de usuário.`,
@@ -177,7 +174,16 @@ const TipoUsuarioPage = () => {
     try {
       const response = await api.get(usersTypes);
 
-      setTiposUsuario(response.data);
+      const tpModificados = [];
+
+      response.data.forEach((element) => {
+        tpModificados.push({
+          id: element.idTipoUsuario,
+          titulo: element.titulo,
+        });
+      });
+
+      setTiposUsuario(tpModificados);
     } catch (error) {
       setNotifyUser({
         titleNote: "Erro",
@@ -276,25 +282,16 @@ const TipoUsuarioPage = () => {
             <Title titleText={"LISTA TIPO DE USUÁRIOS"} color="white" />
 
             <Table
-              fnDelete={() => handleDelete(tipoUsuario.idTipoUsuario)}
-              fnUpdate={() => showUpdateForm(tipoUsuario.idTipoUsuario)}
+              fnDelete={handleDelete}
+              fnUpdate={showUpdateForm}
+              showUpdate={true}
+              showDelete={true}
               dados={[
                 tableHead,
                 [
                   ...tiposUsuario.map((tipoUsuario) => [
+                    tipoUsuario.id,
                     tipoUsuario.titulo,
-                    // <img
-                    //   className="table-data__icon"
-                    //   src={editPen}
-                    //   alt=""
-                    //   onClick={() => showUpdateForm(tipoUsuario.idTipoUsuario)}
-                    // />,
-                    // <img
-                    //   className="table-data__icon"
-                    //   src={trashDelete}
-                    //   alt=""
-                    //   onClick={(e) => handleDelete(tipoUsuario.idTipoUsuario)}
-                    // />,
                   ]),
                 ],
               ]}

@@ -45,54 +45,54 @@ const EventosPaage = () => {
   const [frmEdit, setFrmEdit] = useState(false);
   const [notifyUser, setNotifyUser] = useState({}); //Componente Notification
 
-  const tableHead = [
-    "Evento",
-    "Descrição",
-    "Tipo Evento",
-    "Data",
-    "Editar",
-    "Deletar",
-  ];
+  // const tableHead = [
+  //   "Evento",
+  //   "Descrição",
+  //   "Tipo Evento",
+  //   "Data",
+  //   "Editar",
+  //   "Deletar",
+  // ];
 
   // - Carrega os tipos de evento no carregamento do componente
   useEffect(() => {
-    const loadEventsType = async () => {
-      setShowSpinner(true);
-
-      try {
-        const promise = await api.get(eventsResource);
-        const promiseTipoEventos = await api.get(eventsTypeResource);
-        const promiseInstituicoes = await api.get(institutionResource);
-        //só tem uma instituição neste projeto mas já fica preparado pra adicionar mais!
-        setEventos(promise.data);
-
-        const tpEventosModificado = [];
-
-        //retorno da api (array tipo de eventos)
-        promiseTipoEventos.data.forEach((event) => {
-          tpEventosModificado.push({
-            value: event.idTipoEvento,
-            text: event.titulo,
-          });
-        });
-
-        const instituicaoModificado = [];
-
-        promiseInstituicoes.data.forEach((event) => {
-          instituicaoModificado.push({
-            value: event.idInstituicao,
-            text: event.nomeFantasia,
-          });
-        });
-
-        setTiposEvento(tpEventosModificado);
-        setInstituicoes(instituicaoModificado);
-      } catch (error) {}
-      setShowSpinner(false);
-    };
-
     loadEventsType();
   }, [frmEdit]); //frmEdit[instituicao ]
+
+  const loadEventsType = async () => {
+    setShowSpinner(true);
+
+    try {
+      const promise = await api.get(eventsResource);
+      const promiseTipoEventos = await api.get(eventsTypeResource);
+      const promiseInstituicoes = await api.get(institutionResource);
+      //só tem uma instituição neste projeto mas já fica preparado pra adicionar mais!
+      setEventos(promise.data);
+
+      const tpEventosModificado = [];
+
+      //retorno da api (array tipo de eventos)
+      promiseTipoEventos.data.forEach((event) => {
+        tpEventosModificado.push({
+          value: event.idTipoEvento,
+          text: event.titulo,
+        });
+      });
+
+      const instituicaoModificado = [];
+
+      promiseInstituicoes.data.forEach((event) => {
+        instituicaoModificado.push({
+          value: event.idInstituicao,
+          text: event.nomeFantasia,
+        });
+      });
+
+      setTiposEvento(tpEventosModificado);
+      setInstituicoes(instituicaoModificado);
+    } catch (error) {}
+    setShowSpinner(false);
+  };
 
   // UPDATE
   const editActionAbort = () => {
@@ -526,7 +526,24 @@ const EventosPaage = () => {
               fnUpdate={showUpdateForm}
             />
 
-            {/* <Table dados={[tableHead, [{ nome: 123 }]]} /> */}
+            {/* <Table
+              fnUpdate={showUpdateForm}
+              fnDelete={handleDelete}
+              // fnShowDetails={}
+              dados={[
+                tableHead,
+                [
+                  ...eventos.map((evento) => [
+                    evento.id,
+                    evento.nomeEvento,
+                    evento.descricao,
+                    evento.tiposEvento.titulo,
+                    evento.dataEvento,
+                    evento.instituicao.nomeFantasia
+                  ]),
+                ],
+              ]}
+            />  */}
           </Container>
         </section>
       </MainContent>

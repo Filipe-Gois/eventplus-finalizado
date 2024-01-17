@@ -6,9 +6,11 @@ import ToggleSwitch from "../../../components/Toggle/Toggle";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
 import Notification from "../../../components/Notification/Notification";
+import eyeIconBlack from "../../../assets/images/eye-icon--black.svg";
 
 // import trashDelete from "../../../assets/images/trash-delete.svg";
 import "./TableEvA.css";
+import { Link } from "react-router-dom";
 
 const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
   const [notifyUser, setNotifyUser] = useState({}); //Componente Notification
@@ -80,6 +82,13 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
                     />
                   )}
 
+                  <Link to={`/detalhes-evento/${e.idEvento}`}>
+                    <img
+                      className="table-data__icon"
+                      src={eyeIconBlack}
+                      alt=""
+                    />
+                  </Link>
                   {/* {new Date(e.dataEvento) > Date.now() ? (
                     
                   ) : null} */}

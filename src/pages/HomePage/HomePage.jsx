@@ -104,7 +104,7 @@ const HomePage = () => {
                     description={e.descricao}
                     eventDate={e.dataEvento}
                     idEvento={e.idEvento}
-                    textButton={"Conectar"}
+                    textButton={"Ver Detalhes"}
                   />
                 </Slide>
               );
