@@ -20,10 +20,10 @@ import Notification from "../../components/Notification/Notification";
 
 const EventosAlunoPage = () => {
   const [notifyUser, setNotifyUser] = useState({});
-
-  // state do menu mobile
+  const [comentado, setComentado] = useState(false);
 
   const [eventos, setEventos] = useState([]);
+  const [meusEventos, setMeusEventos] = useState([]);
   // select mocado
   // const [quaisEventos, setQuaisEventos] = useState([
   const quaisEventos = [
@@ -41,73 +41,6 @@ const EventosAlunoPage = () => {
   const [idEvento, setIdEvento] = useState("");
   const [idComentario, setIdComentario] = useState(null);
 
-  useEffect(() => {
-    loadEventsType();
-  }, [tipoEvento, userData.userId]); //
-
-  const loadEventsType = async () => {
-    setShowSpinner(true);
-
-    if (tipoEvento === "1") {
-      //todos os eventos (Evento)
-      try {
-        const todosEventos = await api.get(eventsResource);
-        const meusEventos = await api.get(
-          `${myEventsResource}/${userData.userId}`
-        );
-
-        const eventosMarcados = verificaPresenca(
-          todosEventos.data,
-          meusEventos.data
-        );
-
-        setEventos(eventosMarcados);
-      } catch (error) {
-        // setNotifyUser({
-        //   titleNote: "Erro",
-        //   textNote: `Erro ao carregar os tipos de vento.`,
-        //   imgIcon: "danger",
-        //   imgAlt:
-        //     "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
-        //   showMessage: true,
-        // });
-      }
-    } else if (tipoEvento === "2") {
-      /**
-       * Lista os meus eventos (PresencasEventos)
-       * retorna um formato diferente de array
-       */
-      try {
-        const retornoEventos = await api.get(
-          `${myEventsResource}/${userData.userId}`
-        );
-
-        const arrEventos = []; //array vazio
-
-        retornoEventos.data.forEach((e) => {
-          arrEventos.push({
-            ...e.evento,
-            situacao: e.situacao,
-            idPresencaEvento: e.idPresencaEvento,
-          });
-        });
-
-        setEventos(arrEventos);
-      } catch (error) {
-        setNotifyUser({
-          titleNote: "Erro",
-          textNote: `Erro ao carregar meus eventos.`,
-          imgIcon: "danger",
-          imgAlt:
-            "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
-          showMessage: true,
-        });
-      }
-    } else {
-      setEventos([]);
-    }
-    setShowSpinner(false);
-  };
   const verificaPresenca = (arrAllEvents, eventsUser) => {
     for (let x = 0; x < arrAllEvents.length; x++) {
       //para cada evento principal
@@ -125,12 +58,82 @@ const EventosAlunoPage = () => {
     return arrAllEvents;
   };
 
+  const loadEventsType = async () => {
+    setShowSpinner(true);
+
+    if (tipoEvento === "1") {
+      //Exibe todos os eventos cadastrados (Evento)
+      try {
+        const todosEventos = await api.get(eventsResource);
+        const meusEventos = await api.get(
+          `${myEventsResource}/${userData.userId}`
+        );
+
+        const eventosMarcados = verificaPresenca(
+          todosEventos.data,
+          meusEventos.data
+        );
+
+        setEventos(eventosMarcados);
+      } catch (error) {
+        console.log(error);
+        setNotifyUser({
+          titleNote: "Erro",
+          textNote: `Erro ao carregar os tipos de vento.`,
+          imgIcon: "danger",
+          imgAlt:
+            "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+          showMessage: true,
+        });
+      }
+    } else if (tipoEvento === "2") {
+      loadMypresences();
+    }
+    //   /**
+    //    * Lista os eventos em que o usuário está cadastrado (PresencasEventos)
+    //    * retorna um formato diferente de array
+    //    */
+    //   try {
+    //     const retornoEventos = await api.get(
+    //       `${myEventsResource}/${userData.userId}`
+    //     );
+
+    //     const arrEventos = []; //array vazio
+
+    //     retornoEventos.data.forEach((e) => {
+    //       arrEventos.push({
+    //         ...e.evento,
+    //         situacao: e.situacao,
+    //         idPresencaEvento: e.idPresencaEvento,
+    //       });
+    //     });
+
+    //     setEventos(arrEventos);
+    //   } catch (error) {
+    //     setNotifyUser({
+    //       titleNote: "Erro",
+    //       textNote: `Erro ao carregar meus eventos.`,
+    //       imgIcon: "danger",
+    //       imgAlt:
+    //         "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+    //       showMessage: true,
+    //     });
+    //     console.log(error);
+
+    //   }
+    // } else {
+    //   setEventos([]);
+    // }
+    setShowSpinner(false);
+  };
+
   // toggle meus eventos ou todos os eventos
   const myEvents = (tpEvent) => {
     setTipoEvento(tpEvent);
   };
 
   const showHideModal = (idEvent) => {
+    // console.log(eventos);
     setShowModal(showModal ? false : true);
     setComentario(!showModal && "");
     // setUserData({ ...userData, idEvento: idEvent });
@@ -160,15 +163,13 @@ const EventosAlunoPage = () => {
       // );
 
       setComentario(
-        promise.data.descricao.length > 0
+        promise.data.descricao
           ? promise.data.descricao
           : "Comente algo sobre este evento!"
       );
 
       setIdComentario(
-        promise.data.idComentarioEvento.length > 0
-          ? promise.data.idComentarioEvento
-          : null
+        promise.data.idComentarioEvento ? promise.data.idComentarioEvento : null
       );
     } catch (error) {
       setNotifyUser({
@@ -179,26 +180,11 @@ const EventosAlunoPage = () => {
           "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
         showMessage: true,
       });
-
-      // const promise = await api.get(
-      //   `${commentaryEventResource}/BuscarPorIdUsuario/${idEvento}?idUsuario=${idUsuario}&idEvento=${idEvento}`
-      // );
-      //   setComentario(
-      //   promise.data.descricao.length > 0
-      //     ? promise.data.descricao
-      //     : "Comente algo sobre este evento!"
-      // );
-
-      // console.log(promise.data.descricao);
     }
   };
 
   // cadastrar um comentário = post
   const postMyCommentary = async (descricao, idUsuario, idEvento) => {
-    console.log("idUsuario:", idUsuario);
-    console.log("idEvento:", idEvento);
-    console.log("descricao:", descricao);
-
     try {
       const promise = await api.post(commentaryEventResourceAI, {
         descricao: descricao,
@@ -226,8 +212,6 @@ const EventosAlunoPage = () => {
           "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
         showMessage: true,
       });
-
-      console.log(error);
     }
   };
 
@@ -237,7 +221,7 @@ const EventosAlunoPage = () => {
       const promise = await api.delete(
         `${commentaryEventResource}?id=${idComentario}`
       );
-      if (promise.status === 200) {
+      if (promise.status === 204) {
         setNotifyUser({
           titleNote: "Sucesso",
           textNote: `Comentário excluído com sucesso!`,
@@ -321,6 +305,41 @@ const EventosAlunoPage = () => {
     }
   };
 
+  const loadMypresences = async () => {
+    try {
+      const response = await api.get(
+        presencesEventResource + "/" + userData.userId
+      );
+
+      const arrEventos = []; //array vazio
+
+      response.data.forEach((e) => {
+        arrEventos.push({
+          ...e.evento,
+          situacao: e.situacao,
+          idPresencaEvento: e.idPresencaEvento,
+        });
+      });
+
+      setMeusEventos(arrEventos);
+      // console.log(response.data);
+    } catch (error) {
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Erro ao carregar meus eventos.`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+        showMessage: true,
+      });
+    }
+  };
+
+  useEffect(() => {
+    loadEventsType();
+    loadMypresences();
+  }, [tipoEvento, userData.userId]); //
+
   return (
     <>
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
@@ -340,7 +359,13 @@ const EventosAlunoPage = () => {
               additionalClass="select-tp-evento"
             />
             <Table
-              dados={eventos}
+              dados={
+                tipoEvento === "1"
+                  ? eventos
+                  : tipoEvento === "2"
+                  ? meusEventos
+                  : []
+              }
               fnConnect={handleConnect}
               fnShowModal={showHideModal}
             />
@@ -361,6 +386,7 @@ const EventosAlunoPage = () => {
           userId={userData.userId}
           idEvento={idEvento}
           idComentario={idComentario}
+          // comentado={comentado}
         />
       ) : null}
     </>

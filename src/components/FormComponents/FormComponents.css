@@ -100,9 +100,18 @@
 }
 
 .table-data__icon {
+  cursor: pointer;
   width: 10px;
   height: 10px;
-  cursor: pointer;
+}
+
+.table-data__icon:hover {
+  fill: var(--text-color);
+  transition: all 0.2s ease-in-out;
+}
+
+.row__icons:last-of-type {
+  text-align: right;
 }
 
 .tooltip--black {

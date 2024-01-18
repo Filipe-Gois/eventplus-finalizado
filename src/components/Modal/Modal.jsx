@@ -4,10 +4,12 @@ import Notification from "../Notification/Notification";
 
 import { Button, Input } from "../FormComponents/FormComponents";
 import "./Modal.css";
+import EventLogo from "../../assets/images/logo-pink.svg";
 
 const Modal = ({
   modalTitle = "Feedback",
-  comentaryText = "Não informado. Não informado. Não informado.",
+  comentaryText = "Não informado.",
+  comentado = false,
   showHideModal = false,
   fnDelete = null,
   fnGet = null,
@@ -31,8 +33,16 @@ const Modal = ({
     <>
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
       <div className="modal">
-        <article className="modal__box">
-          <h3 className="modal__title">
+        <article
+          className={`modal__box ${
+            idComentario !== null ? "comentario-preenchido" : ""
+          }`}
+        >
+          <h3
+            className={`modal__title ${
+              idComentario !== null ? "comentario-preenchido--title" : ""
+            }`}
+          >
             {modalTitle}
             <span
               className="modal__close"
@@ -42,53 +52,70 @@ const Modal = ({
             </span>
           </h3>
 
-          <div className="comentary">
-            <h4 className="comentary__title">Comentário</h4>
-            <img
-              src={trashDelete}
-              className="comentary__icon-delete"
-              alt="Ícone de uma lixeira"
-              onClick={async () => {
-                await fnDelete(idComentario);
-                await carregarDados();
-              }}
-            />
+          <div
+            className={`comentary ${
+              idComentario !== null ? "comentary--preenchido" : ""
+            }`}
+          >
+            <h4 className="comentary__title">Seu comentário</h4>
 
-            <p className="comentary__text">{comentaryText}</p>
+            {idComentario !== null ? (
+              <img
+                src={trashDelete}
+                className="comentary__icon-delete"
+                alt="Ícone de uma lixeira"
+                onClick={async () => {
+                  await fnDelete(idComentario);
+                  await carregarDados();
+                }}
+              />
+            ) : null}
+
+            <p
+              className={`comentary__text ${
+                idComentario !== null ? "comentary__text--preenchido" : ""
+              }`}
+            >
+              {comentaryText}
+            </p>
 
             <hr className="comentary__separator" />
           </div>
-
-          <Input
-            placeholder="Escreva seu comentário..."
-            additionalClass="comentary__entry"
-            value={comentarioDesc}
-            manipulationFunction={(e) => {
-              setComentarioDesc(e.target.value);
-            }}
-          />
-          {/* {comentarioDesc} */}
-
-          <Button
-            textButton="Comentar"
-            additionalClass="comentary__button"
-            manipulationFunction={async () => {
-              if (idComentario !== null) {
-                setNotifyUser({
-                  titleNote: "Erro",
-                  textNote: `Já existe um comentàrio cadastrado para o evento.`,
-                  imgIcon: "danger",
-                  imgAlt:
-                    "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
-                  showMessage: true,
-                });
-              } else {
-                await fnPost(comentarioDesc.trim(), userId, idEvento);
-                await carregarDados();
-              }
-              setComentarioDesc(""); //;limpa o campo do input
-            }}
-          />
+          {idComentario === null ? (
+            <>
+              <Input
+                placeholder="Escreva seu comentário..."
+                additionalClass={`comentary__entry`}
+                value={comentarioDesc}
+                manipulationFunction={(e) => {
+                  setComentarioDesc(e.target.value);
+                }}
+              />
+              {/* {comentarioDesc} */}
+              <Button
+                textButton="Comentar"
+                additionalClass={`comentary__button`}
+                manipulationFunction={async () => {
+                  if (idComentario !== null) {
+                    setNotifyUser({
+                      titleNote: "Erro",
+                      textNote: `Você já comentou neste evento.`,
+                      imgIcon: "danger",
+                      imgAlt:
+                        "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+                      showMessage: true,
+                    });
+                  } else {
+                    await fnPost(comentarioDesc.trim(), userId, idEvento);
+                    await carregarDados();
+                  }
+                  setComentarioDesc(""); //;limpa o campo do input
+                }}
+              />
+            </>
+          ) : (
+            <img src={EventLogo} alt="" className={`event-logo`} />
+          )}
         </article>
       </div>
     </>
