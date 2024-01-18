@@ -87,6 +87,11 @@
   color: var(--color-red);
 }
 
+.comentary__text--ofensivo {
+  text-decoration: line-through;
+  color: black;
+}
+
 .comentary__separator {
   width: 100%;
   margin-top: 25px;

@@ -37,6 +37,15 @@ const EventosAlunoPage = () => {
 
   // recupera os dados globais do usuário
   const { userData } = useContext(UserContext);
+
+  const [comentario2, setComentario2] = useState({
+    idComentario: null,
+    descricao: "",
+    exibe: true,
+    idUsuario: "",
+    idEvento: "",
+  });
+
   const [comentario, setComentario] = useState("");
   const [idEvento, setIdEvento] = useState("");
   const [idComentario, setIdComentario] = useState(null);
@@ -171,6 +180,11 @@ const EventosAlunoPage = () => {
       setIdComentario(
         promise.data.idComentarioEvento ? promise.data.idComentarioEvento : null
       );
+
+      setComentario2(promise.data ? promise.data : {});
+
+      console.log("comentario carregado");
+      console.log(comentario2);
     } catch (error) {
       setNotifyUser({
         titleNote: "Erro",
@@ -188,12 +202,29 @@ const EventosAlunoPage = () => {
     try {
       const promise = await api.post(commentaryEventResourceAI, {
         descricao: descricao,
-        exibe: true,
         idUsuario: idUsuario,
         idEvento: idEvento,
       });
 
-      if (promise.status === 201) {
+      const response = await api.get(
+        `${commentaryEventResource}/BuscarPorIdUsuario/${idEvento}?idUsuario=${idUsuario}&idEvento=${idEvento}`
+      );
+
+      console.log("comentario postado");
+      setComentario2(response.data);
+
+      console.log(response.data);
+
+      if (promise.status === 201 && !response.data.exibe) {
+        setNotifyUser({
+          titleNote: "Alerta",
+          textNote: `Ops, seu comentário possui um conteúdo ofensivo.`,
+          imgIcon: "warning",
+          imgAlt:
+            "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
+          showMessage: true,
+        });
+      } else if (promise.status === 201) {
         setNotifyUser({
           titleNote: "Sucesso",
           textNote: `Comentário cadastrado com sucesso!`,
@@ -230,6 +261,9 @@ const EventosAlunoPage = () => {
             "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
           showMessage: true,
         });
+        console.log("comentario deletado");
+
+        setComentario2({});
       }
     } catch (error) {
       setNotifyUser({
@@ -386,6 +420,7 @@ const EventosAlunoPage = () => {
           userId={userData.userId}
           idEvento={idEvento}
           idComentario={idComentario}
+          exibe={comentario2.exibe}
           // comentado={comentado}
         />
       ) : null}

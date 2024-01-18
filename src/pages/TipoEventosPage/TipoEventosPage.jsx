@@ -16,7 +16,7 @@ import Notification from "../../components/Notification/Notification";
 import Spinner from "../../components/Spinner/Spinner";
 
 const TipoEventosPage = () => {
-  const tableHead = ["Título", "Editar", "Deletar"];
+  const tableHead = ["Título"];
 
   // states
   const [frmEdit, setFrmEdit] = useState(false); //está em modo edição?

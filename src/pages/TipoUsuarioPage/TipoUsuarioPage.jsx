@@ -35,7 +35,7 @@ const TipoUsuarioPage = () => {
   const [notifyUser, setNotifyUser] = useState(); //Componente Notification
   const [showSpinner, setShowSpinner] = useState(false); //Spinner Loading
 
-  const [tableHead] = useState(["Título", "Editar", "Deletar"]);
+  const [tableHead] = useState(["Título"]);
 
   const handleDelete = async (id) => {
     if (!window.confirm("Confirma a exclusão?")) {

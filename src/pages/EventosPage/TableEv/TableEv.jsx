@@ -42,21 +42,21 @@ const Table = ({
                 className="row__data row__data--head"
                 data-tooltip-id="description-tooltip"
                 data-tooltip-content={
-                  tp.nomeEvento.length > 10 ? tp.nomeEvento : null
+                  tp.nomeEvento.length > 5 ? tp.nomeEvento : null
                 }
                 data-tooltip-place="top"
               >
                 <Tooltip id={tp.idEvento} className="tooltip--black" />
 
-                {tp.nomeEvento.substr(0, 10)}
-                {tp.nomeEvento.length > 10 ? " ..." : null}
+                {tp.nomeEvento.substr(0, 5)}
+                {tp.nomeEvento.length > 5 ? " ..." : null}
               </td>
 
               <td
                 className="row__data row__data--head"
                 data-tooltip-id="description-tooltip"
                 data-tooltip-content={
-                  tp.descricao.length > 10 ? tp.descricao : null
+                  tp.descricao.length > 5 ? tp.descricao : null
                 }
                 data-tooltip-place="top"
               >
@@ -65,8 +65,8 @@ const Table = ({
                   className="tooltip--black"
                 />
 
-                {tp.descricao.substr(0, 10)}
-                {tp.descricao.length > 10 ? " ..." : null}
+                {tp.descricao.substr(0, 5)}
+                {tp.descricao.length > 5 ? " ..." : null}
                 {/* <Tooltip id="description-tooltip" className="custom-tootip" /> */}
               </td>
 

@@ -102,7 +102,7 @@ const Table = ({
                   ) : null}
 
                   <Link
-                    className="table-data__icon"
+                    className="table-data__icon--aluno"
                     to={`/detalhes-evento/${e.idEvento}`}
                   >
                     {/* <img

@@ -24,13 +24,7 @@ import {
 } from "../../Utils/stringFunctions";
 
 const InstituicoesPage = () => {
-  const [tableHead] = useState([
-    "Nome Fantasia",
-    "Endereço",
-    "CNPJ",
-    "Editar",
-    "Excluir",
-  ]);
+  const [tableHead] = useState(["Nome Fantasia", "Endereço", "CNPJ"]);
 
   const [instituicoes, setInstituicoes] = useState([]);
 
@@ -76,11 +70,23 @@ const InstituicoesPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (cnpjValue.trim().length !== 18) {
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Digite o CNPJ corretamente!`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+        showMessage: true,
+      });
+
+      return;
+    }
+
     try {
       await api.post(institutionResource, {
         nomeFantasia: instituicao.nomeFantasia,
         endereco: instituicao.endereco,
-        // cnpj: instituicao.cnpj,
         cnpj: cnpjUnMasked(cnpjValue),
       });
 
@@ -311,6 +317,7 @@ const InstituicoesPage = () => {
                       }}
                     />
                     <Input
+                      cnpj={true}
                       id="cnpj"
                       placeholder="CNPJ"
                       name={"cnpj"}
@@ -361,6 +368,7 @@ const InstituicoesPage = () => {
                       }}
                     />
                     <Input
+                      cnpj={true}
                       id="cnpj"
                       placeholder="CNPJ"
                       name={"cnpj"}

@@ -30,6 +30,7 @@ export const Input = ({
       onChange={manipulationFunction}
       autoComplete="off"
       maxLength={cnpj ? 18 : ""}
+      minLength={cnpj ? 18 : ""}
     />
   );
 };
@@ -103,21 +104,41 @@ export const Table = ({
         <tr className="head__row">
           {dados[0].map((elementoHead, indice) => {
             return (
-              <th
-                data-tooltip-id="iten-tooltip"
-                data-tooltip-content={
-                  elementoHead.length > 10 ? elementoHead : null
-                }
-                data-tooltip-place="top"
-                className={`row__data row__data--head `}
-                key={indice}
-              >
-                <Tooltip id={"iten-tooltip"} className="tooltip--black" />
-                {elementoHead.substr(0, 10)}
-                {elementoHead.length > 10 ? " ..." : null}
-              </th>
+              <>
+                <th
+                  data-tooltip-id="iten-tooltip"
+                  data-tooltip-content={
+                    elementoHead.length > 7 ? elementoHead : null
+                  }
+                  data-tooltip-place="top"
+                  className={`row__data row__data--head`}
+                  key={indice}
+                >
+                  <Tooltip id={"iten-tooltip"} className="tooltip--black" />
+                  {elementoHead.substr(0, 7)}
+                  {elementoHead.length > 7 ? " ..." : null}
+                </th>
+              </>
             );
           })}
+
+          <th key={Math.random()} className="row__data row__data--head row__icons--update">
+            Editar
+          </th>
+          <th
+            key={Math.random()}
+            className={`row__data row__data--head ${
+              showEye ? "row__icons--update" : "row__icons--delete"
+            }`}
+          >
+            Excluir
+          </th>
+
+          {showEye ? (
+            <th key={Math.random() + 1} className="row__data row__data--head row__icons--delete">
+              Detalhes
+            </th>
+          ) : null}
         </tr>
       </thead>
 
@@ -129,35 +150,39 @@ export const Table = ({
                 .slice(1)
                 .map((chave, indice) => {
                   return (
-                    <td
-                      data-tooltip-id="iten-tooltip"
-                      data-tooltip-content={
-                        elementoTr[chave].length > 10 ? elementoTr[chave] : null
-                      }
-                      data-tooltip-place="top"
-                      className="row__data row__data--head"
-                      key={indice}
-                    >
-                      {typeof elementoTr[chave].toString() === "string" ? (
-                        <>
-                          {elementoTr[chave].toString().substr(0, 10)}
-                          {elementoTr[chave].toString().length > 10
-                            ? " ..."
-                            : ""}
-                        </>
-                      ) : null}
-                    </td>
+                    <>
+                      <td
+                        data-tooltip-id="iten-tooltip"
+                        data-tooltip-content={
+                          elementoTr[chave].length > 7
+                            ? elementoTr[chave]
+                            : null
+                        }
+                        data-tooltip-place="top"
+                        className="row__data row__data--head"
+                        key={indice}
+                      >
+                        {typeof elementoTr[chave].toString() === "string" ? (
+                          <>
+                            {elementoTr[chave].toString().substr(0, 7)}
+                            {elementoTr[chave].toString().length > 7
+                              ? " ..."
+                              : ""}
+                          </>
+                        ) : null}
+                      </td>
+                    </>
                   );
                 })}
 
               {showUpdate ? (
                 <td
-                  className="row__data row__data--head row__icons"
+                  className="row__data row__data--head row__icons--update"
                   key={Math.random()}
                 >
                   <svg
-                    width="14"
-                    height="13"
+                    width="10"
+                    height="10"
                     viewBox="0 0 14 13"
                     fill="#fff"
                     className="table-data__icon"
@@ -183,7 +208,10 @@ export const Table = ({
               ) : null}
 
               {showDelete ? (
-                <td className="row__data row__data--head row__icons" key={Math.random()}>
+                <td
+                  className="row__data row__data--head row__icons--delete"
+                  key={Math.random()}
+                >
                   <svg
                     width="10"
                     height="10"
@@ -216,8 +244,8 @@ export const Table = ({
                     className="table-data__icon"
                     fill="#FFF"
                     xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
+                    width="10"
+                    height="10"
                     viewBox="0 -960 960 960"
                     onClick={() => fnShowDetails(elementoTr[0])}
                   >

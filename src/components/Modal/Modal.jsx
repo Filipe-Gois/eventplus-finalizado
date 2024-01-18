@@ -17,6 +17,7 @@ const Modal = ({
   userId = null,
   idEvento = null,
   idComentario = null,
+  exibe = true
 }) => {
   const [notifyUser, setNotifyUser] = useState({});
   const [comentarioDesc, setComentarioDesc] = useState("");
@@ -74,7 +75,7 @@ const Modal = ({
             <p
               className={`comentary__text ${
                 idComentario !== null ? "comentary__text--preenchido" : ""
-              }`}
+              } ${!exibe ? "comentary__text--ofensivo" : ""}`}
             >
               {comentaryText}
             </p>
