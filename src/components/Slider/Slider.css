@@ -11,6 +11,16 @@
   background-color: var(--text-color);
 }
 
+.swiper-pagination-horizontal,
+.swiper-pagination-horizontal,
+.swiper-pagination-bullets,
+.swiper-pagination-bullets-dynamic.swiper-pagination {
+  align-content: center;
+  margin-top: 15px;
+  position: absolute;
+  left: calc(50% - 40px);
+}
+
 .swiper-button-prev,
 .swiper-button-next {
   color: var(--color-red);

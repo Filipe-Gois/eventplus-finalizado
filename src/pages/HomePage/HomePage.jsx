@@ -19,21 +19,25 @@ import { UserContext } from "../../context/AuthContext";
 const HomePage = () => {
   const { userData, setUserData } = useContext(UserContext);
 
-  const settingsSlides = {
-    spaceBetween: 30,
-    slidesPerView:
-      window.innerWidth < 768 ? 1 : window.innerWidth < 1100 ? 2 : 3,
-    navigation: true,
-    pagination: {
-      clickable: true,
-    },
-  };
-
   const [nextEvents, setNextEvents] = useState([]);
   const [oldEvents, setOldEvents] = useState([]);
   const [notifyUser, setNotifyUser] = useState({}); //Componente Notification
 
-   const getNextEvents = async () => {
+  const [settingsSlides, setSettingsSlides] = useState({
+    spaceBetween: 30,
+    slidesPerView: 1,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false,
+    },
+    navigation: true,
+    pagination: {
+      clickable: true,
+      dynamicBullets: true,
+    },
+  });
+
+  const getNextEvents = async () => {
     try {
       const promise = await api.get(nextEventResource);
       const dados = await promise.data;
@@ -48,7 +52,7 @@ const HomePage = () => {
         showMessage: true,
       });
     }
-  }
+  };
 
   const getOldEvents = async () => {
     try {
@@ -67,21 +71,29 @@ const HomePage = () => {
     }
   };
 
+  // window.innerWidth < 768 ? 1 : window.innerWidth < 1100 ? 2 : 3,
+
   // roda somente na inicialização do componente
   useEffect(() => {
-    // if (userData.nome) {
-    //   setNotifyUser({
-    //     titleNote: `Bem-vindo, ${userData.nome}.`,
-    //     textNote: ``,
-    //     imgIcon: "success",
-    //     imgAlt:
-    //       "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
-    //     showMessage: true,
-    //   });
-    // }
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSettingsSlides({ ...settingsSlides, slidesPerView: 1 });
+      } else if (window.innerWidth < 1100) {
+        setSettingsSlides({ ...settingsSlides, slidesPerView: 2 });
+      } else {
+        setSettingsSlides({ ...settingsSlides, slidesPerView: 3 });
+      }
+    };
 
-    getNextEvents(); //chama a função
+    getNextEvents();
     getOldEvents();
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (

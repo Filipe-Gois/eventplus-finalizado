@@ -13,20 +13,23 @@ const NextEvent = ({
   eventDate = "",
   idEvento,
   textButton,
+  date = true,
+  tooltip = true,
 }) => {
   const conectar = (idEvento) => {};
 
   return (
     <article className="event-card">
+      <Tooltip id={idEvento} className="tooltip" />
       <h2
         className="event-card__title"
         data-tooltip-id={idEvento}
         data-tooltip-content={title.length > 10 ? title : null}
         data-tooltip-place="top"
       >
-        <Tooltip id={idEvento} className="tooltip" />
-        {title.substr(0, 10)}
-        {title.length > 10 ? " ..." : null}
+        {tooltip ? title.substr(0, 10) : title}
+
+        {title.length > 10 && tooltip ? " ..." : null}
       </h2>
 
       <p
@@ -40,10 +43,11 @@ const NextEvent = ({
         {description.length > 10 ? " ..." : null}
       </p>
 
-      <p className="event-card__description">
-        {/* aplicar a função pra converter a data */}
-        {dateFormatDbToView(eventDate)}
-      </p>
+      {date ? (
+        <p className="event-card__description">
+          {dateFormatDbToView(eventDate)}
+        </p>
+      ) : null}
 
       <Link
         onClick={() => {

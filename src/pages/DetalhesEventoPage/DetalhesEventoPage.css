@@ -1,39 +1,38 @@
-.comentarios-section {
-  background-color: var(--color-red);
+.detalhes-evento__section {
+  margin-top: 50px;
+  width: 100%;
+  height: 50vh;
+  /* background-color: green; */
 }
 
-.cadastro-evento__box {
+.detalhes-evento__box {
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
   width: 100%;
-  gap: 50px;
-  padding: 50px 0;
-  /* border: 1px solid red; */
+  height: 100%;
 
 }
 
-.lista-eventos-section {
-  padding: 50px 0;
+.uga {
 }
 
-.custom-title {
-  margin: 0;
-}
-
-.lista-eventos-section {
+.detalhes-lista__section {
   background-color: var(--color-red);
   width: 100%;
-  padding-bottom: 50px;
+  height: 50vh;
   overflow: auto;
-  /* height: 432px; */
+  padding: 50px 0;
+}
+
+.detalhes-lista__box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  /* padding: 50px 0; */
 }
 
 @media screen and (min-width: 1200px) {
-  .cadastro-evento__box {
-    justify-content: center;
-    align-self: center;
-    height: 400px;
-  }
 }

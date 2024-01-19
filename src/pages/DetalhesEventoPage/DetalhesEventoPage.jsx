@@ -5,6 +5,10 @@ import api, {
   trueCommentaryEventResource,
   eventsResource,
 } from "../../Services/Service";
+import {
+  dateFormatDbToView,
+  dateFormateDbToView,
+} from "../../Utils/stringFunctions";
 import MainContent from "../../components/MainContent/MainContent";
 import Container from "../../components/Container/Container";
 import Title from "../../components/Title/Title";
@@ -14,24 +18,62 @@ import { EventoContext } from "../../context/EventoContext";
 import TableDE from "./TableDE/TableDE";
 import { Link, useParams } from "react-router-dom";
 import { Table } from "../../components/FormComponents/FormComponents";
+import { Slide, Slider } from "../../components/Slider";
 
 const DetalhesEventoPage = () => {
   const { idEvento } = useParams();
 
   const { userData } = useContext(UserContext);
-  const [eventoBuscado, setEventoBuscado] = useState({});
+  const [eventoBuscado, setEventoBuscado] = useState({
+    idEvento: "",
+    dataEvento: "",
+    nomeEvento: "",
+    descricao: "",
+    idTipoEvento: "",
+    tiposEvento: {
+      idTipoEvento: "",
+      titulo: "",
+    },
+    idInstituicao: "",
+    instituicao: {
+      idInstituicao: "",
+      cnpj: "",
+      endereco: "",
+      nomeFantasia: "",
+    },
+  });
 
   const [trueComentaries, setTrueComentaries] = useState([]);
   const [allComentaries, setAllComentaries] = useState([]);
 
   const tableHead = ["Nome", "Comentário", "Exibe"];
 
+  const [settingsSlides, setSettingsSlides] = useState({
+    scrollbar: { hide: true },
+    effect: "coverflow",
+    grabCursor: true,
+    centeredSlides: true,
+
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+    },
+
+    spaceBetween: 30,
+    slidesPerView: "auto",
+    // window.innerWidth < 768 ? 1 : window.innerWidth < 1100 ? 2 : 3,
+    navigation: true,
+  });
+
   // fazer uma lógica para só chamar a api de allComentaries e dar um .filter na hora de exibir os q estejam com "true"
 
   const getEvento = async () => {
     const response = await api.get(eventsResource + "/" + idEvento);
-    const dados = response.data;
-    setEventoBuscado(dados);
+
+    setEventoBuscado(response.data);
   };
 
   const loadAllComentaries = async () => {
@@ -50,10 +92,6 @@ const DetalhesEventoPage = () => {
         evento: element.evento,
       });
     });
-
-
-
-
 
     setAllComentaries(comentariosModificados);
 
@@ -83,24 +121,63 @@ const DetalhesEventoPage = () => {
     getEvento();
     loadTrueComentaries();
 
-    console.log(trueComentaries);
+    console.log(eventoBuscado);
   }, []);
 
   return (
     <MainContent>
-      <section className="detalhes-section">
+      <section className="detalhes-evento__section">
         <Container>
-          <div className="cadastro-evento__box">
-            <Title titleText={"Detalhes do Evento"} additionalClass="" />
-
+          <div className="detalhes-evento__box">
+            <Title titleText={eventoBuscado.nomeEvento} additionalClass="" />
+            {console.log(eventoBuscado)}
             {/* {console.log(allComentaries)} */}
 
+            <Slider settings={settingsSlides}>
+              {/* {console.log(dateFormateDbToView(eventoBuscado.dataEvento))} */}
+              <Slide>
+                <NextEvent
+                  title={"Data Do Evento"}
+                  description={dateFormatDbToView(eventoBuscado.dataEvento)}
+                  date={false}
+                  tooltip={false}
+                />
+              </Slide>
+
+              <Slide>
+                <NextEvent
+                  title={"Tipo Do Evento"}
+                  description={eventoBuscado.tiposEvento.titulo}
+                  date={false}
+                  tooltip={false}
+                />
+              </Slide>
+
+              <Slide>
+                <NextEvent
+                  title={"Descrição"}
+                  description={eventoBuscado.descricao}
+                  date={false}
+                  tooltip={false}
+                />
+              </Slide>
+
+              <Slide>
+                <NextEvent
+                  title={"Instituição"}
+                  description={eventoBuscado.instituicao.nomeFantasia}
+                  date={false}
+                  tooltip={false}
+                />
+              </Slide>
+            </Slider>
+            {/* 
             <NextEvent
               title={eventoBuscado.nomeEvento}
               description={eventoBuscado.descricao}
               eventDate={eventoBuscado.dataEvento}
               idEvento={eventoBuscado.idEvento}
-            />
+            /> */}
           </div>
         </Container>
       </section>
@@ -108,10 +185,11 @@ const DetalhesEventoPage = () => {
       {/* <Table dados={[["Nome", "Comentário", "Ofensivo"], [{}]]} /> */}
 
       {eventoBuscado.dataEvento ? (
-        <section className="lista-eventos-section">
+        <section className="detalhes-lista__section">
           <Container>
-            <Title titleText={"Comentários"} color="white" />
-            {/* <TableDE
+            <div className="detalhes-lista__box">
+              <Title titleText={"Comentários"} color="white" />
+              {/* <TableDE
               dados={
                 userData.nome && userData.role === "Administrador"
                   ? allComentaries
@@ -119,16 +197,16 @@ const DetalhesEventoPage = () => {
               }
             /> */}
 
-            <Table
-              dados={[
-                tableHead,
-                userData.nome && userData.role === "Administrador"
-                  ? [...allComentaries.map((comentary) => [comentary])]
-                  : [...trueComentaries.map((comentary) => [comentary])],
-              ]}
-            />
+              {/* <Table
+                dados={[
+                  tableHead,
+                  userData.nome && userData.role === "Administrador"
+                    ? [...allComentaries.map((comentary) => [comentary])]
+                    : [...trueComentaries.map((comentary) => [comentary])],
+                ]}
+              /> */}
 
-            {/* <Table
+              {/* <Table
               dados={[
                 tableHead,
                 [
@@ -145,6 +223,7 @@ const DetalhesEventoPage = () => {
                 ],
               ]}
             /> */}
+            </div>
           </Container>
         </section>
       ) : null}

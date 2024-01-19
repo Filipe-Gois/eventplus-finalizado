@@ -20,6 +20,7 @@ import Notification from "../../components/Notification/Notification";
 
 const EventosAlunoPage = () => {
   const [notifyUser, setNotifyUser] = useState({});
+  const [comentado, setComentado] = useState(false);
 
   const [eventos, setEventos] = useState([]);
   const [meusEventos, setMeusEventos] = useState([]);
@@ -37,17 +38,11 @@ const EventosAlunoPage = () => {
   // recupera os dados globais do usuário
   const { userData } = useContext(UserContext);
 
-  const [comentario2, setComentario2] = useState({
-    idComentario: null,
-    descricao: "",
-    exibe: true,
-    idUsuario: "",
-    idEvento: "",
-  });
+  const [comentario, setComentario] = useState({});
 
-  const [comentario, setComentario] = useState("");
-  const [idEvento, setIdEvento] = useState("");
-  const [idComentario, setIdComentario] = useState(null);
+  // const [comentario, setComentario] = useState("");
+  // const [idEvento, setIdEvento] = useState("");
+  // const [idComentario, setIdComentario] = useState(null);
 
   const verificaPresenca = (arrAllEvents, eventsUser) => {
     for (let x = 0; x < arrAllEvents.length; x++) {
@@ -68,56 +63,70 @@ const EventosAlunoPage = () => {
 
   const loadEventsType = async () => {
     setShowSpinner(true);
-    try {
-      if (tipoEvento === "1") {
-        //Exibe todos os eventos cadastrados (Evento)
-        try {
-          const todosEventos = await api.get(eventsResource);
-          const meusEventos = await api.get(
-            presencesEventResource + "/" + userData.userId
-          );
 
-          const eventosMarcados = verificaPresenca(
-            todosEventos.data,
-            meusEventos.data
-          );
-          setEventos(eventosMarcados);
-        } catch (error) {
-          // console.log(error);
-          // setNotifyUser({
-          //   titleNote: "Erro",
-          //   textNote: `Erro ao carregar os eventos.`,
-          //   imgIcon: "danger",
-          //   imgAlt:
-          //     "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
-          //   showMessage: true,
-          // });
-        }
-      } else if (tipoEvento === "2") {
-        try {
-          loadMypresences();
-        } catch (error) {
-          // setNotifyUser({
-          //   titleNote: "Erro",
-          //   textNote: `Erro ao carregar os eventos.`,
-          //   imgIcon: "danger",
-          //   imgAlt:
-          //     "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
-          //   showMessage: true,
-          // });
-        }
+    if (tipoEvento === "1") {
+      //Exibe todos os eventos cadastrados (Evento)
+      try {
+        const todosEventos = await api.get(eventsResource);
+        const meusEventos = await api.get(
+          `${myEventsResource}/${userData.userId}`
+        );
+
+        const eventosMarcados = verificaPresenca(
+          todosEventos.data,
+          meusEventos.data
+        );
+
+        setEventos(eventosMarcados);
+      } catch (error) {
+        console.log(error);
+        setNotifyUser({
+          titleNote: "Erro",
+          textNote: `Erro ao carregar os tipos de vento.`,
+          imgIcon: "danger",
+          imgAlt:
+            "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+          showMessage: true,
+        });
       }
-    } catch (error) {
-      setNotifyUser({
-        titleNote: "Erro",
-        textNote: `Erro ao carregar os eventos.`,
-        imgIcon: "danger",
-        imgAlt:
-          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
-        showMessage: true,
-      });
+    } else if (tipoEvento === "2") {
+      loadMypresences();
     }
+    //   /**
+    //    * Lista os eventos em que o usuário está cadastrado (PresencasEventos)
+    //    * retorna um formato diferente de array
+    //    */
+    //   try {
+    //     const retornoEventos = await api.get(
+    //       `${myEventsResource}/${userData.userId}`
+    //     );
 
+    //     const arrEventos = []; //array vazio
+
+    //     retornoEventos.data.forEach((e) => {
+    //       arrEventos.push({
+    //         ...e.evento,
+    //         situacao: e.situacao,
+    //         idPresencaEvento: e.idPresencaEvento,
+    //       });
+    //     });
+
+    //     setEventos(arrEventos);
+    //   } catch (error) {
+    //     setNotifyUser({
+    //       titleNote: "Erro",
+    //       textNote: `Erro ao carregar meus eventos.`,
+    //       imgIcon: "danger",
+    //       imgAlt:
+    //         "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+    //       showMessage: true,
+    //     });
+    //     console.log(error);
+
+    //   }
+    // } else {
+    //   setEventos([]);
+    // }
     setShowSpinner(false);
   };
 
@@ -128,9 +137,12 @@ const EventosAlunoPage = () => {
 
   const showHideModal = (idEvent) => {
     setShowModal(showModal ? false : true);
-    setComentario(!showModal && "");
+    setComentario({
+      ...comentario,
+      idEvento: idEvent,
+    });
 
-    setIdEvento(idEvent);
+    // setIdEvento(idEvent);
   };
 
   // ler um comentário - get
@@ -141,17 +153,39 @@ const EventosAlunoPage = () => {
         `${commentaryEventResource}/BuscarPorIdUsuario/${idEvento}?idUsuario=${idUsuario}&idEvento=${idEvento}`
       );
 
+      // const myComm = await promise.data.filter(
+      //   (comm) => comm.idEvento === idEvento && comm.idUsuario === idUsuario
+      // );
+
+      // setComentario(
+      //   myComm.length > 0
+      //     ? myComm[0].descricao
+      //     : "Comente algo sobre este evento!"
+      // );
+
+      // setIdComentario(
+      //   myComm[0].length > 0 ? myComm[0].idComentarioEvento : null
+      // );
+
       setComentario(
-        promise.data.descricao
-          ? promise.data.descricao
-          : "Comente algo sobre este evento!"
+        promise.data
+        // {
+        //   ...comentario,
+        //   descricao: promise.data.descricao
+        //     ? promise.data.descricao
+        //     : "Comente algo sobre este evento!",
+        // }
       );
+      console.log(promise.data);
 
-      setIdComentario(
-        promise.data.idComentarioEvento ? promise.data.idComentarioEvento : null
-      );
+      // setIdComentario(
+      //   promise.data.idComentarioEvento ? promise.data.idComentarioEvento : null
+      // );
 
-      setComentario2(promise.data ? promise.data : {});
+      // setComentario(promise.data ? promise.data : {});
+
+      // console.log("comentario carregado");
+      // console.log(comentario);
     } catch (error) {
       setNotifyUser({
         titleNote: "Erro",
@@ -177,12 +211,10 @@ const EventosAlunoPage = () => {
         `${commentaryEventResource}/BuscarPorIdUsuario/${idEvento}?idUsuario=${idUsuario}&idEvento=${idEvento}`
       );
 
-      setComentario2(response.data);
-
       if (promise.status === 201 && !response.data.exibe) {
         setNotifyUser({
-          titleNote: "Alerta",
-          textNote: `Ops, seu comentário possui um conteúdo ofensivo.`,
+          titleNote: "Ops",
+          textNote: `Seu comentário possui um conteúdo ofensivo.`,
           imgIcon: "warning",
           imgAlt:
             "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
@@ -226,9 +258,10 @@ const EventosAlunoPage = () => {
           showMessage: true,
         });
 
-        setComentario2({});
+        setComentario({});
       }
     } catch (error) {
+      console.log(idComentario);
       setNotifyUser({
         titleNote: "Erro",
         textNote: `Erro ao excluir o comentário.`,
@@ -319,15 +352,16 @@ const EventosAlunoPage = () => {
       });
 
       setMeusEventos(arrEventos);
+      // console.log(response.data);
     } catch (error) {
-      // setNotifyUser({
-      //   titleNote: "Erro",
-      //   textNote: `Erro ao carregar meus eventos.`,
-      //   imgIcon: "danger",
-      //   imgAlt:
-      //     "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
-      //   showMessage: true,
-      // });
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Erro ao carregar meus eventos.`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+        showMessage: true,
+      });
     }
   };
 
@@ -378,11 +412,12 @@ const EventosAlunoPage = () => {
           fnGet={loadMyCommentary}
           fnPost={postMyCommentary}
           fnDelete={commentaryRemove}
-          comentaryText={comentario}
+          comentaryText={comentario.descricao}
           userId={userData.userId}
-          idEvento={idEvento}
-          idComentario={idComentario}
-          exibe={comentario2.exibe}
+          idEvento={comentario.idEvento}
+          idComentario={comentario.idComentario}
+          exibe={comentario.exibe}
+          // comentado={comentado}
         />
       ) : null}
     </>
