@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Nav.css";
 
 import logoMobile from "../../assets/images/logo-white.svg";
@@ -8,6 +8,23 @@ import { UserContext } from "../../context/AuthContext";
 
 const Nav = ({ exibeNavbar, setExibeNavbar }) => {
   const { userData } = useContext(UserContext);
+
+
+
+
+  useEffect(() => {
+
+    const handleResize = () => window.innerWidth >= 992 ? logoDesktop : logoMobile
+
+
+
+    window.addEventListener("resize", handleResize)
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+
+  }, [])
 
   return (
     <nav className={`navbar ${exibeNavbar ? "exibeNavbar" : ""}`}>
