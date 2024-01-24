@@ -7,14 +7,17 @@ import {
   Scrollbar,
   Autoplay,
   EffectCoverflow,
+  EffectCards
 } from "swiper/modules";
 
+import 'swiper/css';
 import "swiper/css/effect-coverflow";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "./Slider.css";
+import 'swiper/css/effect-cards';
 // import "./styles.css";
 
 const Slider = ({ children, settings, addtionalClass = "" }) => {
@@ -28,6 +31,7 @@ const Slider = ({ children, settings, addtionalClass = "" }) => {
         Scrollbar,
         Autoplay,
         EffectCoverflow,
+        [EffectCards]
       ]}
       {...settings}
     >
