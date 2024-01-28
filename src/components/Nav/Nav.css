@@ -48,6 +48,7 @@
 .eventlogo {
   width: 90%;
   margin-bottom: 80px;
+  text-decoration: none;
   /* border: 1px solid white; */
 }
 
@@ -66,7 +67,7 @@
 }
 /* links da navbar */
 .navbar__item {
-  width: auto;
+  width: 100%;
   margin-bottom: 30px;
   padding: 15px 15px 15px 2px;
 
@@ -98,6 +99,7 @@
   .eventlogo {
     width: auto;
     margin: 0;
+    text-decoration: none;
     /* margin-right: 100px; */
     /* border: 1px solid red; */
   }
@@ -122,5 +124,6 @@
     font-size: 0.875rem;
     color: var(--color-dark-blue);
     border: none;
+    width: auto;
   }
 }

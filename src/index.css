@@ -1,6 +1,12 @@
 @font-face {
   font-family: Poppins-Regular;
   src: url(./assets/fonts/Poppins/Poppins-Regular.ttf);
+
+  font-family: Poppins-Light;
+  src: url(./assets/fonts/Poppins/Poppins-Light.ttf);
+
+  font-family: Poppins-ExtraLight;
+  src: url(./assets/fonts/Poppins/Poppins-ExtraLight.ttf);
 }
 
 * {

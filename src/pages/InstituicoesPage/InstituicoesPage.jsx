@@ -12,7 +12,7 @@ import {
 } from "../../components/FormComponents/FormComponents";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
 import Title from "../../components/Title/Title";
-import instituicaoImage from "../../assets/images/tipo-evento.svg";
+import instituicaoImage from "../../assets/images/instituicao.svg";
 import editPen from "../../assets/images/edit-pen.svg";
 import trashDelete from "../../assets/images/trash-delete.svg";
 import eyeIcon from "../../assets/images/eyeIcon.svg";

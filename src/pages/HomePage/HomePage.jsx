@@ -16,6 +16,7 @@ import { nextEventResource } from "../../Services/Service";
 import { Slider, Slide } from "../../components/Slider";
 import { UserContext } from "../../context/AuthContext";
 
+
 const HomePage = () => {
   const { userData, setUserData } = useContext(UserContext);
 

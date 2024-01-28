@@ -34,7 +34,7 @@
   justify-content: space-between;
   width: 275px;
   height: 435px;
-
+  position: relative;
   padding: 20px 10px;
 
   background-color: var(--color-white);
@@ -84,12 +84,12 @@
 }
 
 .comentary__text--preenchido {
-  color: var(--color-red);
+  color: var(--text-color);
 }
 
 .comentary__text--ofensivo {
   text-decoration: line-through;
-  color: black;
+  color: var(--color-red);
 }
 
 .comentary__separator {
@@ -110,14 +110,20 @@
   gap: 30%;
 }
 
-.event-logo {
+.event-logo__paragraph--modal {
   position: absolute;
-  top: calc(57%);
+  top: 75%;
   left: calc(50% - 70px);
-  width: 150px;
-  height: 150px;
-  align-self: center;
 }
+
+.event-logo__paragraph--warning__commentary {
+  width: 275px;
+  left: calc(50% - 137px);
+  text-align: center;
+  text-transform: uppercase;
+  font-family: Poppins-Medium;
+}
+
 .comentary--preenchido {
 }
 

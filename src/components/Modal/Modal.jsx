@@ -5,6 +5,7 @@ import Notification from "../Notification/Notification";
 import { Button, Input } from "../FormComponents/FormComponents";
 import "./Modal.css";
 import EventLogo from "../../assets/images/logo-pink.svg";
+import Logo from "../../components/Logo/Logo";
 
 const Modal = ({
   modalTitle = "Feedback",
@@ -114,8 +115,15 @@ const Modal = ({
                 }}
               />
             </>
+          ) : exibe ? (
+            <Logo
+              addtionalClassParagraph="event-logo__paragraph--modal"
+              addtionalClassSpan="event-logo__span--modal"
+            />
           ) : (
-            <img src={EventLogo} alt="" className={`event-logo`} />
+            <p className="event-logo__paragraph--modal event-logo__paragraph--warning__commentary">
+              Comentário impróprio!
+            </p>
           )}
         </article>
       </div>

@@ -5,54 +5,45 @@ import logoMobile from "../../assets/images/logo-white.svg";
 import logoDesktop from "../../assets/images/logo-pink.svg";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../context/AuthContext";
+import Logo from "../../components/Logo/Logo";
 
 const Nav = ({ exibeNavbar, setExibeNavbar }) => {
   const { userData } = useContext(UserContext);
 
-
-
-
   useEffect(() => {
+    const handleResize = () =>
+      window.innerWidth >= 992 ? logoDesktop : logoMobile;
 
-    const handleResize = () => window.innerWidth >= 992 ? logoDesktop : logoMobile
-
-
-
-    window.addEventListener("resize", handleResize)
+    window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-
-  }, [])
+  }, []);
 
   return (
     <nav className={`navbar ${exibeNavbar ? "exibeNavbar" : ""}`}>
-      <span
+      {/* <span
         className="navbar__close"
         onClick={() => {
           setExibeNavbar(false);
         }}
       >
         x
-      </span>
+      </span> */}
 
       <Link to="/" className="eventlogo" onClick={() => setExibeNavbar(false)}>
-        <img
-          className="eventlogo__logo-image"
-          src={window.innerWidth >= 992 ? logoDesktop : logoMobile}
-          alt="Event Plus Logo"
-        />
+        {/* <Logo /> */}
       </Link>
 
       <div className="navbar__items-box">
-        {/* <Link
+        <Link
           to="/"
           className="navbar__item"
           onClick={() => setExibeNavbar(false)}
         >
           Home
-        </Link> */}
+        </Link>
 
         {/* <Link to={'/detalhes-evento'} className="navbar__item" onClick={() => setExibeNavbar(false)}>Detalhes de eventos</Link> */}
 
