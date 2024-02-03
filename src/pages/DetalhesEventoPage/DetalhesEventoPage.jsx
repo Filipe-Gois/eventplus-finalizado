@@ -16,9 +16,9 @@ import { UserContext } from "../../context/AuthContext";
 import NextEvent from "../../components/NextEvent/NextEvent";
 import { EventoContext } from "../../context/EventoContext";
 import TableDE from "./TableDE/TableDE";
-import { Link, useParams } from "react-router-dom";
-import { Table } from "../../components/FormComponents/FormComponents";
+
 import { Slide, Slider } from "../../components/Slider";
+import { useParams } from "react-router-dom";
 
 const DetalhesEventoPage = () => {
   const { idEvento } = useParams();
@@ -44,6 +44,7 @@ const DetalhesEventoPage = () => {
   });
 
   const [trueComentaries, setTrueComentaries] = useState([]);
+
   const [allComentaries, setAllComentaries] = useState([]);
 
   const tableHead = ["Nome", "Comentário", "Exibe"];
@@ -71,57 +72,74 @@ const DetalhesEventoPage = () => {
   // fazer uma lógica para só chamar a api de allComentaries e dar um .filter na hora de exibir os q estejam com "true"
 
   const getEvento = async () => {
-    const response = await api.get(eventsResource + "/" + idEvento);
+    try {
+      const response = await api.get(eventsResource + "/" + idEvento);
 
-    setEventoBuscado(response.data);
+      setEventoBuscado(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const loadAllComentaries = async () => {
-    const response = await api.get(commentaryEventResource + `?id=` + idEvento);
+  const loadComentaries = async () => {
+    try {
+      const response = await api.get(
+        commentaryEventResource + `?id=` + idEvento
+      );
 
-    const comentariosModificados = [];
+      setAllComentaries(response.data);
 
-    response.data.forEach((element) => {
-      comentariosModificados.push({
-        id: element.idComentarioEvento,
-        descricao: element.descricao,
-        exibe: element.exibe,
-        idUsuario: element.idUsuario,
-        usuario: element.usuario,
-        idEvento: element.idEvento,
-        evento: element.evento,
-      });
-    });
+      setTrueComentaries(
+        response.data.filter((comentario) => comentario.exibe === true)
+      );
 
-    setAllComentaries(comentariosModificados);
-
-    console.log(allComentaries);
+      console.log(allComentaries);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const loadTrueComentaries = async () => {
-    // const responseTrueCommentarys = await api.get(
-    //   trueCommentaryEventResource + "?id=" + idEvento
-    // );
+  // const loadAllComentaries = async () => {
+  //   const response = await api.get(commentaryEventResource + `?id=` + idEvento);
 
-    // const dados = responseTrueCommentarys.data;
+  //   // const comentariosModificados = [];
 
-    // setTrueComentaries(dados);
+  //   // response.data.forEach((element) => {
+  //   //   comentariosModificados.push({
+  //   //     id: element.idComentarioEvento,
+  //   //     descricao: element.descricao,
+  //   //     exibe: element.exibe,
+  //   //     idUsuario: element.idUsuario,
+  //   //     usuario: element.usuario,
+  //   //     idEvento: element.idEvento,
+  //   //     evento: element.evento,
+  //   //   });
+  //   // });
 
-    const responseAllCommentarys = await api.get(
-      commentaryEventResource + `?id=` + idEvento
-    );
+  //   setAllComentaries(response.data);
+  // };
 
-    const dados = responseAllCommentarys.data;
+  // const loadTrueComentaries = async () => {
+  //   // const responseTrueCommentarys = await api.get(
+  //   //   trueCommentaryEventResource + "?id=" + idEvento
+  //   // );
 
-    setTrueComentaries(dados.filter((comentario) => comentario.exibe === true));
-  };
+  //   // const dados = responseTrueCommentarys.data;
+
+  //   // setTrueComentaries(dados);
+
+  //   const responseAllCommentarys = await api.get(
+  //     commentaryEventResource + `?id=` + idEvento
+  //   );
+
+  //   const dados = responseAllCommentarys.data;
+
+  //   setTrueComentaries(dados.filter((comentario) => comentario.exibe === true));
+  // };
 
   useEffect(() => {
-    loadAllComentaries();
+    loadComentaries();
     getEvento();
-    loadTrueComentaries();
-
-    console.log(eventoBuscado);
   }, []);
 
   return (
@@ -130,11 +148,8 @@ const DetalhesEventoPage = () => {
         <Container>
           <div className="detalhes-evento__box">
             <Title titleText={eventoBuscado.nomeEvento} additionalClass="" />
-            {console.log(eventoBuscado)}
-            {/* {console.log(allComentaries)} */}
 
             <Slider settings={settingsSlides}>
-              {/* {console.log(dateFormateDbToView(eventoBuscado.dataEvento))} */}
               <Slide>
                 <NextEvent
                   title={"Data Do Evento"}
@@ -182,47 +197,18 @@ const DetalhesEventoPage = () => {
         </Container>
       </section>
 
-      {/* <Table dados={[["Nome", "Comentário", "Ofensivo"], [{}]]} /> */}
-
       {eventoBuscado.dataEvento ? (
         <section className="detalhes-lista__section">
           <Container>
             <div className="detalhes-lista__box">
               <Title titleText={"Comentários"} color="white" />
-              {/* <TableDE
-              dados={
-                userData.nome && userData.role === "Administrador"
-                  ? allComentaries
-                  : trueComentaries
-              }
-            /> */}
-
-              {/* <Table
-                dados={[
-                  tableHead,
+              <TableDE
+                dados={
                   userData.nome && userData.role === "Administrador"
-                    ? [...allComentaries.map((comentary) => [comentary])]
-                    : [...trueComentaries.map((comentary) => [comentary])],
-                ]}
-              /> */}
-
-              {/* <Table
-              dados={[
-                tableHead,
-                [
-                  {
-                    nome: "allComentaries.usuario.nome",
-                    comentario: allComentaries.descricao,
-                    exibe:
-                      userData.nome && userData.role === "Administrador"
-                        ? allComentaries.exibe
-                          ? "Sim"
-                          : "Não"
-                        : null,
-                  },
-                ],
-              ]}
-            /> */}
+                    ? allComentaries
+                    : trueComentaries
+                }
+              />
             </div>
           </Container>
         </section>

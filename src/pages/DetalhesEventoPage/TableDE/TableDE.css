@@ -34,6 +34,11 @@
   border-bottom: 1px solid var(--color-white);
 }
 
+.table-data__data--ofensivo {
+  text-decoration: line-through;
+  color: var(--text-color);
+}
+
 .table-data__head-title,
 .table-data__data {
   width: 100%;

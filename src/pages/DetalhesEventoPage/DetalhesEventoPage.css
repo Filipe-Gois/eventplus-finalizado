@@ -1,5 +1,6 @@
 .detalhes-evento__section {
-  margin-top: 100px;
+  margin-top: 0px;
+  padding: 50px 0;
   width: 100%;
   height: 50vh;
   /* background-color: green; */
@@ -15,8 +16,6 @@
 
 }
 
-.uga {
-}
 
 .detalhes-lista__section {
   background-color: var(--color-red);
