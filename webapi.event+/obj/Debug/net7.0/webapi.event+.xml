@@ -121,5 +121,17 @@
         <member name="M:webapi.event_.Migrations.BdAzure.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:webapi.event_.Migrations.AdicionarNovaColuna">
+            <inheritdoc />
+        </member>
+        <member name="M:webapi.event_.Migrations.AdicionarNovaColuna.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:webapi.event_.Migrations.AdicionarNovaColuna.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:webapi.event_.Migrations.AdicionarNovaColuna.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

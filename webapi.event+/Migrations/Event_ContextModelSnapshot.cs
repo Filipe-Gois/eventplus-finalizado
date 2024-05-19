@@ -91,7 +91,7 @@ namespace webapi.event_.Migrations
                     b.Property<string>("CNPJ")
                         .IsRequired()
                         .HasMaxLength(14)
-                        .HasColumnType("VARCHAR(14)");
+                        .HasColumnType("CHAR(14)");
 
                     b.Property<string>("Endereco")
                         .IsRequired()
@@ -173,6 +173,9 @@ namespace webapi.event_.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)");
 
+                    b.Property<string>("GoogleIdAccount")
+                        .HasColumnType("VARCHAR(100)");
+
                     b.Property<Guid>("IdTipoUsuario")
                         .HasColumnType("uniqueidentifier");
 
@@ -181,7 +184,6 @@ namespace webapi.event_.Migrations
                         .HasColumnType("VARCHAR(100)");
 
                     b.Property<string>("Senha")
-                        .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("VARCHAR(60)");
 

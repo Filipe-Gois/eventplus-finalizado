@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
   <parameter name="IIS Web Application Name" description="" value="eventwebapifilipe" tags="IisApp">
-    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\fytho\\OneDrive\\Documentos\\Github\\Projetos\\Projetos\ React\\eventplus\\webapi\.event\+\\obj\\Release\\net7\.0\\PubTmp\\Out\\$" />
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi\.event\+\\obj\\Release\\net7\.0\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>

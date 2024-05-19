@@ -47,13 +47,35 @@ namespace webapi.event_.Repositories
             }
         }
 
-        public void Cadastrar(Usuario usuario)
+        public void Cadastrar(Usuario usuario, bool isCreateAccountGoogle = false)
         {
             try
             {
+                if (!isCreateAccountGoogle && usuario.Senha != null)
+                {
+                    usuario.Senha = Criptografia.GerarHash(usuario.Senha!);
 
-                usuario.Senha = Criptografia.GerarHash(usuario.Senha!);
+                }
 
+                if (usuario.Senha != null && usuario.GoogleIdAccount != null)
+                {
+                    throw new Exception("Não é possível cadastrar uma conta google com senha!");
+                }
+
+                if (usuario.Senha == null && usuario.GoogleIdAccount == null)
+                {
+                    throw new Exception("Informe uma senha ou um Google id!");
+                }
+
+                if (usuario.Senha == null && !isCreateAccountGoogle)
+                {
+                    throw new Exception("Cadastre uma senha!");
+                }
+
+                if (usuario.GoogleIdAccount == null || usuario.GoogleIdAccount == "" && isCreateAccountGoogle)
+                {
+                    throw new Exception("Cadastre um id google!");
+                }
 
                 _context.Usuario.Add(usuario);
 
@@ -102,5 +124,25 @@ namespace webapi.event_.Repositories
                 throw;
             }
         }
+
+        public Usuario BuscarPorEmailEGoogleId(string email, string googleIdAccount)
+        {
+
+            return _context.Usuario.Select(u => new Usuario
+            {
+                IdUsuario = u.IdUsuario,
+                Nome = u.Nome,
+                Email = u.Email,
+                Senha = u.Senha,
+                GoogleIdAccount = u.GoogleIdAccount,
+
+                TipoUsuario = new TiposUsuario
+                {
+                    IdTipoUsuario = u.IdTipoUsuario,
+                    Titulo = u.TipoUsuario!.Titulo
+                }
+            }).FirstOrDefault(x => x.Email == email && x.GoogleIdAccount == googleIdAccount)!;
+        }
+
     }
 }

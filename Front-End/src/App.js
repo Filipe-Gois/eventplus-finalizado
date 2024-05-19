@@ -1,13 +1,25 @@
 import Rotas from "./routes/routes";
 import { UserContext } from "./context/AuthContext";
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { gapi } from "gapi-script";
+import { ClientIdContext } from "./context/ClientIdContext";
 // importa nosso app encapsulado pelo sistema de roteamento
 
-const App = () => {
+const App = ({ clientId }) => {
   const [userData, setUserData] = useState({});
 
   useEffect(() => {
+    const start = () => {
+      gapi.client.init({
+        clientId: clientId,
+        scope: "",
+      });
+    };
+
+    gapi.load("client:auth2", start);
+
     const token = localStorage.getItem("token");
     setUserData(token === null ? {} : JSON.parse(token));
   }, []);

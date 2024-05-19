@@ -22,20 +22,14 @@ namespace webapi.event_.Controllers
             _usuarioRepository = new UsuarioRepository();
         }
 
+
         [HttpPost]
-        public IActionResult Login(LoginViewModel usuario)
+        public IActionResult Login(LoginViewModel usuario, bool isGoogleLogin = false)
         {
             try
             {
-                //busca usuário por email e senha 
-                Usuario usuarioBuscado = _usuarioRepository.BuscarPorEmailESenha(usuario.Email!, usuario.Senha!);
-
-                //caso não encontre
-                if (usuarioBuscado == null)
-                {
-                    //retorna 401 - sem autorização
-                    return StatusCode(401, "Email ou senha inválidos!");
-                }
+                //busca usuário por email e senha ou por email e id da conta google, caso esteja logando com o goole
+                Usuario usuarioBuscado = !isGoogleLogin ? _usuarioRepository.BuscarPorEmailESenha(usuario.Email!, usuario.Senha!) ?? throw new Exception("Usuário não encontrado!") : _usuarioRepository.BuscarPorEmailEGoogleId(usuario.Email!, usuario.GoogleIdAccount!) ?? throw new Exception("Usuário google não encontrado!");
 
 
                 //caso encontre, prossegue para a criação do token

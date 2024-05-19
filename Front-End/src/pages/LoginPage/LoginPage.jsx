@@ -3,7 +3,7 @@ import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator
 import logo from "../../assets/images/logo-pink.svg";
 import { Input, Button } from "../../components/FormComponents/FormComponents";
 import loginImage from "../../assets/images/login.svg";
-import api, { loginResource } from "../../Services/Service";
+import api, { loginResource, usuario } from "../../Services/Service";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Container from "../../components/Container/Container";
@@ -11,11 +11,22 @@ import MainContent from "../../components/MainContent/MainContent";
 import Notification from "../../components/Notification/Notification";
 
 import "./LoginPage.css";
-import { UserContext, userDecodeToken } from "../../context/AuthContext";
+import {
+  UserContext,
+  userDecodeToken,
+  userDecodeTokenGoogle,
+} from "../../context/AuthContext";
 import { useForm } from "react-hook-form";
+import { GoogleLogin } from "@react-oauth/google";
+import { gapi } from "gapi-script";
+import { LoginGoogleButton } from "../../components/LoginGoogleButton/LoginGoogleButton";
 
 const LoginPage = () => {
-  const [user, setUser] = useState({ email: "adm@adm.com", senha: "123456" });
+  const [user, setUser] = useState({
+    email: "adm@adm.com",
+    senha: "123456",
+    googleIdAccount: "",
+  });
   const [notifyUser, setNotifyUser] = useState({});
 
   //importa os dados globais do usuário
@@ -26,41 +37,83 @@ const LoginPage = () => {
 
   const { errors, isSubmitting } = formState;
 
-  useEffect(() => {
-    if (userData.nome) {
-      navigate("/");
+  const logar = async (
+    email,
+    senha,
+    googleIdAccount,
+    isGoogleLogin = false
+  ) => {
+    try {
+      const { status, data } = await api.post(
+        `${loginResource}?isGoogleLogin=${isGoogleLogin}
+        `,
+        isGoogleLogin ? { email, googleIdAccount } : { email, senha }
+      );
+
+      if (status === 200) {
+        const userFullToken = userDecodeToken(data.token); // decodifica o token vindo da api
+
+        setUserData(userFullToken); // guarda o token globalmente
+        localStorage.setItem("token", JSON.stringify(userFullToken));
+        navigate("/"); //envia o usuário para a home
+      }
+    } catch (error) {
+      console.log("erro ao logar", error);
     }
-  }, [userData]);
+  };
+
+  const criarContaComGoogle = async (nome, email, googleIdAccount) => {
+    try {
+      const { status } = await api.post(
+        `${usuario}?isCreateAccountGoogle=true`,
+        {
+          nome,
+          email,
+          googleIdAccount,
+          IdTipoUsuario: "cfa6afe8-f175-49f9-8a7b-ea709db0af29",
+        }
+      );
+
+      if (status === 201) {
+        await logar(email, "", googleIdAccount, true);
+      }
+    } catch (error) {}
+  };
+
+  //retorna um booleano se existe ou nao um usuario google com essas informacoes
+  const existeUsuarioGoogle = async (email, googleIdAccount) => {
+    try {
+      const { status } = await api.get(
+        `${usuario}/BuscarPorIdGoogle?email=${email}&googleIdAccount=${googleIdAccount}`
+      );
+      return status === 200;
+    } catch (error) {}
+  };
+
+  const handleLoginWithGoogle = async (response) => {
+    try {
+      const { googleIdAccount, email, nome } = userDecodeTokenGoogle(
+        response.credential
+      );
+
+      const existeUsuario = await existeUsuarioGoogle(email, googleIdAccount);
+
+      if (existeUsuario) {
+        await logar(email, "", googleIdAccount, true);
+      } else {
+        await criarContaComGoogle(nome, email, googleIdAccount);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmitData = async (e) => {
     e.preventDefault();
 
     // validar usuário e senha:
     // tamanho mínimo de caracteres : 5
-    if (user.senha.length >= 5) {
-      try {
-        const promise = await api.post(loginResource, {
-          email: user.email,
-          senha: user.senha,
-        });
-
-        const userFullToken = userDecodeToken(promise.data.token); // decodifica o token vindo da api
-
-        setUserData(userFullToken); // guarda o token globalmente
-        localStorage.setItem("token", JSON.stringify(userFullToken));
-        navigate("/"); //envia o usuário para a home
-      } catch (error) {
-        // erro da api: bad request (401) ou erro de conexão
-        setNotifyUser({
-          titleNote: "Erro",
-          textNote: `Dados incorretos.`,
-          imgIcon: "danger",
-          imgAlt:
-            "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
-          showMessage: true,
-        });
-      }
-    } else {
+    if (user.senha.length <= 5) {
       setNotifyUser({
         titleNote: "Aviso",
         textNote: `Preencha os dados corretamente!`,
@@ -70,7 +123,26 @@ const LoginPage = () => {
         showMessage: true,
       });
     }
+
+    try {
+      await logar(user.email, user.senha, "", false);
+    } catch (error) {
+      // erro da api: bad request (401) ou erro de conexão
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Dados incorretos.`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+        showMessage: true,
+      });
+    }
   };
+  useEffect(() => {
+    if (userData.nome) {
+      navigate("/");
+    }
+  }, [userData]);
   return (
     <>
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
@@ -139,6 +211,11 @@ const LoginPage = () => {
                     type="submit"
                     additionalClass="frm-login__button"
                   />
+                  <GoogleLogin
+                    // onError={() => handleLoginWithGoogle()}
+                    onSuccess={(response) => handleLoginWithGoogle(response)}
+                  />
+
                   <span className="frm-login__span frm-login__link--criar">
                     Novo aqui ?{" "}
                     <Link

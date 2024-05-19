@@ -19,13 +19,30 @@ namespace webapi.event_.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Usuario usuario)
+        public IActionResult Post(Usuario usuario, bool isCreateAccountGoogle = false)
         {
             try
             {
-                _usuarioRepository.Cadastrar(usuario);
+                Usuario usuarioAserCadastrado = new();
 
-                return StatusCode(201,usuario);
+                usuarioAserCadastrado.Nome = usuario.Nome;
+                usuarioAserCadastrado.Email = usuario.Email;
+
+                usuarioAserCadastrado.IdTipoUsuario = usuario.IdTipoUsuario;
+
+                if (!isCreateAccountGoogle)
+                {
+                    usuarioAserCadastrado.Senha = usuario.Senha;
+                }
+                else
+                {
+                    usuarioAserCadastrado.GoogleIdAccount = usuario.GoogleIdAccount;
+                }
+
+
+                _usuarioRepository.Cadastrar(usuario, isCreateAccountGoogle);
+
+                return StatusCode(201, usuario);
             }
             catch (Exception error)
             {
@@ -33,5 +50,27 @@ namespace webapi.event_.Controllers
             }
         }
 
+        [HttpGet("BuscarPorIdGoogle")]
+        public IActionResult Get(string email, string googleIdAccount)
+        {
+            try
+            {
+                Usuario usuarioBuscado = _usuarioRepository.BuscarPorEmailEGoogleId(email, googleIdAccount);
+
+                if (usuarioBuscado == null)
+                {
+                    return StatusCode(404);
+                }
+
+
+                return StatusCode(200, usuarioBuscado);
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
+
     }
-}          
+}
