@@ -7,16 +7,13 @@ import MainContent from "../../components/MainContent/MainContent";
 import Container from "../../components/Container/Container";
 import { Link } from "react-router-dom";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
-import { Input, Button } from "../../components/FormComponents/FormComponents";
+import { InputDefault, Button } from "../../components/FormComponents/FormComponents";
 import logo from "../../assets/images/logo-pink.svg";
 import loginImage from "../../assets/images/login.svg";
 import Notification from "../../components/Notification/Notification";
 import api, { usuario, loginResource } from "../../Services/Service";
 
 const Register = () => {
-  const [typeUserComum] = useState({
-    idTipoUsuario: "cfa6afe8-f175-49f9-8a7b-ea709db0af29",
-  });
   const [user, setUser] = useState({
     nome: "",
     email: "",
@@ -29,6 +26,59 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  const logar = async (
+    email,
+    senha,
+    googleIdAccount,
+    isGoogleLogin = false
+  ) => {
+    try {
+      const { status, data } = await api.post(
+        `${loginResource}?isGoogleLogin=${isGoogleLogin}
+        `,
+        isGoogleLogin ? { email, googleIdAccount } : { email, senha }
+      );
+
+      if (status === 200) {
+        const userFullToken = userDecodeToken(data.token); // decodifica o token vindo da api
+
+        setUserData(userFullToken); // guarda o token globalmente
+        localStorage.setItem("token", JSON.stringify(userFullToken));
+        actionAbort();
+        navigate("/"); //envia o usuário para a home
+      }
+    } catch (error) {
+      console.log("erro ao logar", error);
+    }
+  };
+
+  const criarConta = async (nome, email, senha) => {
+    try {
+      const { status } = await api.post(
+        `${usuario}?isCreateAccountGoogle=false`,
+        {
+          nome,
+          email,
+          senha,
+          idTipoUsuario: "cfa6afe8-f175-49f9-8a7b-ea709db0af29",
+        }
+      );
+
+      if (status === 201) {
+        await logar(email, senha, "", false);
+      }
+    } catch (error) {
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Email já vinculado à uma conta! `,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+        showMessage: true,
+      });
+    }
+  };
+
   const actionAbort = () => {
     setUser({ ...user, nome: "", email: "", senha: "" });
   };
@@ -36,50 +86,26 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (user.senha.length >= 5) {
-      try {
-        const response = await api.post(usuario, user);
-
-        if (response.status === 201) {
-          const loginPromise = await api.post(loginResource, {
-            email: user.email,
-            senha: user.senha,
-          });
-
-          const userFullToken = userDecodeToken(loginPromise.data.token); // decodifica o token vindo da api
-
-          setUserData(userFullToken); // guarda o token globalmente
-          localStorage.setItem("token", JSON.stringify(userFullToken));
-
-          actionAbort();
-          navigate("/");
-
-          setNotifyUser({
-            titleNote: "Sucesso",
-            textNote: `Conta criada com sucesso!`,
-            imgIcon: "success",
-            imgAlt:
-              "Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.",
-            showMessage: true,
-          });
-        }
-      } catch (error) {
-        setNotifyUser({
-          titleNote: "Erro",
-          textNote: `Email já vinculado à uma conta! `,
-          imgIcon: "danger",
-          imgAlt:
-            "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
-          showMessage: true,
-        });
-      }
-    } else {
+    if (user.senha.length < 5) {
       setNotifyUser({
         titleNote: "Aviso",
         textNote: `A senha deve conter pelo menos 5 caracteres!`,
         imgIcon: "warning",
         imgAlt:
           "Imagem de ilustração de aviso. Moça em frente a um símbolo de exclamação!",
+        showMessage: true,
+      });
+      return;
+    }
+    try {
+      await criarConta(user.nome, user.email, user.senha);
+    } catch (error) {
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Não foi possível criar uma conta!`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
         showMessage: true,
       });
     }
@@ -113,7 +139,7 @@ const Register = () => {
               <div className="frm-login">
                 <form className="frm-login__formbox" onSubmit={handleSubmit}>
                   <img src={logo} className="frm-login__logo" alt="" />
-                  <Input
+                  <InputDefault
                     additionalClass="frm-login__entry"
                     type="text"
                     id="nome"
@@ -129,7 +155,7 @@ const Register = () => {
                     placeholder="Nome"
                   />
 
-                  <Input
+                  <InputDefault
                     additionalClass="frm-login__entry"
                     type="email"
                     id="login"
@@ -144,7 +170,7 @@ const Register = () => {
                     }}
                     placeholder="Email"
                   />
-                  <Input
+                  <InputDefault
                     additionalClass="frm-login__entry"
                     type="password"
                     id="senha"

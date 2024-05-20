@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
 import logo from "../../assets/images/logo-pink.svg";
-import { Input, Button } from "../../components/FormComponents/FormComponents";
+import {
+  InputDefault,
+  Button,
+  InputPassword,
+} from "../../components/FormComponents/FormComponents";
 import loginImage from "../../assets/images/login.svg";
 import api, { loginResource, usuario } from "../../Services/Service";
 import { useNavigate } from "react-router-dom";
@@ -27,6 +31,8 @@ const LoginPage = () => {
     senha: "123456",
     googleIdAccount: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
   const [notifyUser, setNotifyUser] = useState({});
 
   //importa os dados globais do usuário
@@ -168,7 +174,7 @@ const LoginPage = () => {
                   onSubmit={handleSubmitData}
                 >
                   <img src={logo} className="frm-login__logo" alt="" />
-                  <Input
+                  <InputDefault
                     additionalClass="frm-login__entry"
                     type="email"
                     id="login"
@@ -184,7 +190,7 @@ const LoginPage = () => {
                     placeholder="Email"
                   />
 
-                  <Input
+                  {/* <InputDefault
                     additionalClass="frm-login__entry"
                     type="password"
                     id="senha"
@@ -198,6 +204,18 @@ const LoginPage = () => {
                       });
                     }}
                     placeholder="Senha"
+                  /> */}
+
+                  <InputPassword
+                    value={user.senha}
+                    onChange={(e) => {
+                      setUser({
+                        ...user,
+                        senha: e.target.value.trim(),
+                      });
+                    }}
+                    showPassword={showPassword}
+                    setShowPassword={setShowPassword}
                   />
 
                   <Link to="" className="frm-login__link--forgot-password">
@@ -211,11 +229,22 @@ const LoginPage = () => {
                     type="submit"
                     additionalClass="frm-login__button"
                   />
-                  <GoogleLogin
-                    // onError={() => handleLoginWithGoogle()}
-                    onSuccess={(response) => handleLoginWithGoogle(response)}
-                  />
-
+                  <div
+                    className="parent"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      margin: "30px 0 0 0",
+                    }}
+                  >
+                    <GoogleLogin
+                      width={"100%"}
+                      buttonText="Entrar com Googleasdasdasd"
+                      className="signInButton"
+                      // onError={() => handleLoginWithGoogle()}
+                      onSuccess={(response) => handleLoginWithGoogle(response)}
+                    />
+                  </div>
                   <span className="frm-login__span frm-login__link--criar">
                     Novo aqui ?{" "}
                     <Link

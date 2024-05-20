@@ -1,13 +1,22 @@
-import React from "react";
+import * as React from "react";
 import "./FormComponents.css";
-import editPen from "../../assets/images/edit-pen.svg";
-import trashDelete from "../../assets/images/trash-delete.svg";
-import eyeIcon from "../../assets/images/eyeIcon.svg";
 import "react-tooltip/dist/react-tooltip.css";
 import { Tooltip } from "react-tooltip";
-import InputMask from "react-input-mask";
 
-export const Input = ({
+import Box from "@mui/material/Box";
+import IconButton from "@mui/material/IconButton";
+import Input from "@mui/material/Input";
+import FilledInput from "@mui/material/FilledInput";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormHelperText from "@mui/material/FormHelperText";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+
+export const InputDefault = ({
   type,
   id,
   value,
@@ -32,6 +41,59 @@ export const Input = ({
       maxLength={cnpj ? 18 : ""}
       minLength={cnpj ? 18 : ""}
     />
+  );
+};
+
+export const InputPassword = ({
+  showPassword = false,
+  setShowPassword,
+  value,
+  onChange,
+}) => {
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <FormControl
+      style={{ width: "100%" }}
+      sx={{ m: 1, width: "25ch" }}
+      variant="standard"
+    >
+      <InputLabel
+        style={{ width: "100%", color: "#201849" }}
+        htmlFor="standard-adornment-password"
+      >
+        Senha
+      </InputLabel>
+      <Input
+        onChange={onChange}
+        required={true}
+        value={value}
+        style={{
+          width: "100%",
+          border: "none",
+          fontFamily: "Poppins-Regular",
+          fontSize: "1rem",
+        }}
+        className={`input-component frm-login__entry`}
+        id="standard-adornment-password"
+        type={showPassword ? "text" : "password"}
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </InputAdornment>
+        }
+      />
+    </FormControl>
   );
 };
 
@@ -122,7 +184,10 @@ export const Table = ({
             );
           })}
 
-          <th key={Math.random()} className="row__data row__data--head row__icons--update">
+          <th
+            key={Math.random()}
+            className="row__data row__data--head row__icons--update"
+          >
             Editar
           </th>
           <th
@@ -135,7 +200,10 @@ export const Table = ({
           </th>
 
           {showEye ? (
-            <th key={Math.random() + 1} className="row__data row__data--head row__icons--delete">
+            <th
+              key={Math.random() + 1}
+              className="row__data row__data--head row__icons--delete"
+            >
               Detalhes
             </th>
           ) : null}

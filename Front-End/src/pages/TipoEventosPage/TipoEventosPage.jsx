@@ -7,7 +7,7 @@ import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator
 import TableTp from "./TableTp/TableTp";
 import tipoEventoImage from "../../assets/images/tipo-evento.svg";
 import {
-  Input,
+  InputDefault,
   Button,
   Table,
 } from "../../components/FormComponents/FormComponents";
@@ -233,7 +233,7 @@ const TipoEventosPage = () => {
                 {!frmEdit ? (
                   // Cadastrar
                   <>
-                    <Input
+                    <InputDefault
                       id="Titulo"
                       placeholder="Título"
                       name={"titulo"}
@@ -254,7 +254,7 @@ const TipoEventosPage = () => {
                 ) : (
                   // Editar
                   <>
-                    <Input
+                    <InputDefault
                       id="Titulo"
                       placeholder="Título"
                       name={"titulo"}

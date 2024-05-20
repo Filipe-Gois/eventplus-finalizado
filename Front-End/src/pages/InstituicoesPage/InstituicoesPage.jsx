@@ -5,7 +5,7 @@ import MainContent from "../../components/MainContent/MainContent";
 import Container from "../../components/Container/Container";
 import "./InstituicoesPage.css";
 import {
-  Input,
+  InputDefault,
   Button,
   Table,
   InputMasked,
@@ -302,7 +302,7 @@ const InstituicoesPage = () => {
                 {!frmEdit ? (
                   // Cadastrar
                   <>
-                    <Input
+                    <InputDefault
                       id="Nome-Fantasia"
                       placeholder="Nome Fantasia"
                       name={"Nome-Fantasia"}
@@ -316,7 +316,7 @@ const InstituicoesPage = () => {
                         });
                       }}
                     />
-                    <Input
+                    <InputDefault
                       cnpj={true}
                       id="cnpj"
                       placeholder="CNPJ"
@@ -329,7 +329,7 @@ const InstituicoesPage = () => {
                       }}
                     />
 
-                    <Input
+                    <InputDefault
                       id="endereco"
                       placeholder="Endereço"
                       name={"endereco"}
@@ -353,7 +353,7 @@ const InstituicoesPage = () => {
                 ) : (
                   // Editar
                   <>
-                    <Input
+                    <InputDefault
                       id="Nome-Fantasia"
                       placeholder="Nome Fantasia"
                       name={"Nome-Fantasia"}
@@ -367,7 +367,7 @@ const InstituicoesPage = () => {
                         });
                       }}
                     />
-                    <Input
+                    <InputDefault
                       cnpj={true}
                       id="cnpj"
                       placeholder="CNPJ"
@@ -379,7 +379,7 @@ const InstituicoesPage = () => {
                         setCnpjValue(cnpjMasked(e.target.value));
                       }}
                     />
-                    <Input
+                    <InputDefault
                       id="endereco"
                       placeholder="Endereço"
                       name={"endereco"}

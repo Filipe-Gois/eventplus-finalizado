@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import trashDelete from "../../assets/images/trash-delete-red.png";
 import Notification from "../Notification/Notification";
 
-import { Button, Input } from "../FormComponents/FormComponents";
+import { Button, InputDefault } from "../FormComponents/FormComponents";
 import "./Modal.css";
 import EventLogo from "../../assets/images/logo-pink.svg";
 import Logo from "../../components/Logo/Logo";
@@ -85,7 +85,7 @@ const Modal = ({
           </div>
           {idComentario === null ? (
             <>
-              <Input
+              <InputDefault
                 placeholder="Escreva seu comentário..."
                 additionalClass={`comentary__entry`}
                 value={comentarioDesc}

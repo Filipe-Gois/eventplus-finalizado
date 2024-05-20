@@ -3,6 +3,14 @@
   src: url(../../assets/fonts/Poppins/Poppins-Regular.ttf);
 }
 
+.signInButton {
+  float: none;
+  position: static;
+  display: block;
+  margin: auto;
+  width: max-content;
+}
+
 /* mobile first */
 .frm-login__formbox {
   max-width: 100%;

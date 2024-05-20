@@ -4,7 +4,7 @@ import Title from "../../components/Title/Title";
 import MainContent from "../../components/MainContent/MainContent";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
 import {
-  Input,
+  InputDefault,
   Button,
   Select,
 } from "../../components/FormComponents/FormComponents";
@@ -345,7 +345,7 @@ const EventosPaage = () => {
                       utilizando apenas frmEditData e formatação condicional para os botões
                       ainda utilizando frmEdit
                     */}
-                    <Input
+                    <InputDefault
                       type="text"
                       required={true}
                       id="nome"
@@ -357,7 +357,7 @@ const EventosPaage = () => {
                       }
                     />
 
-                    <Input
+                    <InputDefault
                       type="text"
                       required={true}
                       id="descricao"
@@ -396,7 +396,7 @@ const EventosPaage = () => {
                       defaultOption="Instituição"
                     />
 
-                    <Input
+                    <InputDefault
                       type="date"
                       required={true}
                       id="dataEvento"
@@ -418,7 +418,7 @@ const EventosPaage = () => {
                 ) : (
                   <>
                     {/* editar */}
-                    <Input
+                    <InputDefault
                       type="text"
                       required={true}
                       id="nome"
@@ -432,7 +432,7 @@ const EventosPaage = () => {
                         });
                       }}
                     />
-                    <Input
+                    <InputDefault
                       type="text"
                       required={true}
                       id="descricao"
@@ -474,7 +474,7 @@ const EventosPaage = () => {
                       }}
                     />
 
-                    <Input
+                    <InputDefault
                       type="date"
                       required={true}
                       id="dataEvento"

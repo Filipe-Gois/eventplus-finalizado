@@ -72,7 +72,7 @@ namespace webapi.event_.Repositories
                     throw new Exception("Cadastre uma senha!");
                 }
 
-                if (usuario.GoogleIdAccount == null || usuario.GoogleIdAccount == "" && isCreateAccountGoogle)
+                if (usuario.GoogleIdAccount == null && isCreateAccountGoogle)
                 {
                     throw new Exception("Cadastre um id google!");
                 }

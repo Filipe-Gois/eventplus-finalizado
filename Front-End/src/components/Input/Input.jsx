@@ -17,4 +17,3 @@ const Input = ({ onChange, type, placeholder, name, id, value }) => {
   );
 };
 
-export default Input;

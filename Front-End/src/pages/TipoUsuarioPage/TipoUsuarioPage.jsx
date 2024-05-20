@@ -3,7 +3,7 @@ import "./TipoUsuarioPage.css";
 import MainContent from "../../components/MainContent/MainContent";
 import {
   Button,
-  Input,
+  InputDefault,
   Table,
 } from "../../components/FormComponents/FormComponents";
 import Title from "../../components/Title/Title";
@@ -221,7 +221,7 @@ const TipoUsuarioPage = () => {
               >
                 {!frmEdit ? (
                   <>
-                    <Input
+                    <InputDefault
                       placeholder={"Título"}
                       id={"Titulo"}
                       name={"titulo"}
@@ -239,7 +239,7 @@ const TipoUsuarioPage = () => {
                   </>
                 ) : (
                   <>
-                    <Input
+                    <InputDefault
                       id="Titulo"
                       placeholder="Título"
                       name={"titulo"}
