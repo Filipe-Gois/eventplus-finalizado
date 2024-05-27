@@ -1,16 +1,17 @@
-
 .illustrator-box {
-    display: none;
+  display: none;
 }
 
 @media screen and (min-width: 768px) {
+  .illustrator-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-    .illustrator-box {
-        display: flex;
-    }
-
-    .illustrator-box__image {
-        width: 100%;
-        max-width: 436px;
-    }
+  .illustrator-box__image {
+    width: 100%;
+    max-width: 436px;
+    height: 100%;
+  }
 }

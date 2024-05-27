@@ -15,6 +15,7 @@ import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { CircularProgress } from "@mui/material";
 
 export const InputDefault = ({
   type,
@@ -44,21 +45,69 @@ export const InputDefault = ({
   );
 };
 
-export const InputPassword = ({
-  showPassword = false,
-  setShowPassword,
+export const InputComponent = ({
+  type,
+  textLabel = "",
+  id,
   value,
+  required,
+  name,
+  placeholder,
   onChange,
+  additionalClass = "",
+  cnpj = false,
+  error = false,
+  errorText = "Formato incorreto!",
 }) => {
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+  const handleMouseDownPassword = (event) => event.preventDefault();
 
   return (
     <FormControl
-      style={{ width: "100%" }}
+      style={{ width: "100%", marginTop: "20px" }}
+      sx={{ m: 1, width: "25ch" }}
+      variant="standard"
+    >
+      <InputLabel
+        style={{ width: "100%", color: "#201849" }}
+        htmlFor="standard-adornment-password"
+      >
+        {textLabel}
+      </InputLabel>
+      <Input
+        error={error}
+        onChange={onChange}
+        required={true}
+        value={value}
+        style={{
+          width: "100%",
+          border: "none",
+          fontFamily: "Poppins-Regular",
+          fontSize: "1rem",
+        }}
+        className={`input-component frm-login__entry`}
+        id="standard-adornment-password"
+        type={type}
+      />
+      {error && <FormHelperText error={error}>{errorText}</FormHelperText>}
+    </FormControl>
+  );
+};
+
+export const InputPassword = ({
+  showPassword = false,
+  setShowPassword,
+  value = "",
+  onChange,
+  error = false,
+  errorText = "Formato incorreto!",
+}) => {
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => event.preventDefault();
+
+  return (
+    <FormControl
+      style={{ width: "100%", marginTop: "20px" }}
       sx={{ m: 1, width: "25ch" }}
       variant="standard"
     >
@@ -69,6 +118,7 @@ export const InputPassword = ({
         Senha
       </InputLabel>
       <Input
+        error={error}
         onChange={onChange}
         required={true}
         value={value}
@@ -93,6 +143,7 @@ export const InputPassword = ({
           </InputAdornment>
         }
       />
+      {error && <FormHelperText error={error}>{errorText}</FormHelperText>}
     </FormControl>
   );
 };
@@ -105,6 +156,7 @@ export const Label = ({ htmlFor, labelText }) => {
 export const Button = (props) => {
   return (
     <button
+      disabled={true}
       id={props.id}
       name={props.name}
       type={props.type}
@@ -112,6 +164,37 @@ export const Button = (props) => {
       onClick={props.manipulationFunction}
     >
       {props.textButton}
+    </button>
+  );
+};
+
+export const ButtonAsync = ({
+  id,
+  name,
+  type,
+  additionalClass,
+  onClick,
+  loading = false,
+
+  textButton = "",
+}) => {
+  return (
+    <button
+      disabled={loading}
+      id={id}
+      name={name}
+      type={type}
+      className={`button-component ${additionalClass}`}
+      onClick={onclick}
+    >
+      {loading ? (
+        <CircularProgress
+          size={15}
+          style={{ alignSelf: "center", justifySelf: "center", color: "#fff" }}
+        />
+      ) : (
+        textButton
+      )}
     </button>
   );
 };

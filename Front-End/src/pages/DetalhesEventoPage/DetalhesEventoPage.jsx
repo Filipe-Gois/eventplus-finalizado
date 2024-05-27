@@ -19,6 +19,7 @@ import TableDE from "./TableDE/TableDE";
 
 import { Slide, Slider } from "../../components/Slider";
 import { useParams } from "react-router-dom";
+import ImageIllustrator, { NoContentIllustration } from "../../components/ImageIllustrator/ImageIllustrator";
 
 const DetalhesEventoPage = () => {
   const { idEvento } = useParams();
@@ -196,9 +197,13 @@ const DetalhesEventoPage = () => {
           </div>
         </Container>
       </section>
+      <section className="detalhes-lista__section">
+      <NoContentIllustration/>
 
-      {eventoBuscado.dataEvento ? (
-        <section className="detalhes-lista__section">
+
+      </section>
+      {/* {eventoBuscado.dataEvento ? (
+        
           <Container>
             <div className="detalhes-lista__box">
               <Title titleText={"Comentários"} color="white" />
@@ -212,7 +217,9 @@ const DetalhesEventoPage = () => {
             </div>
           </Container>
         </section>
-      ) : null}
+      ) : (
+       <ImageIllustrator />
+      )} */}
     </MainContent>
   );
 };

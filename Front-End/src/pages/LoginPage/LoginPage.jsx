@@ -5,6 +5,8 @@ import {
   InputDefault,
   Button,
   InputPassword,
+  InputComponent,
+  ButtonAsync,
 } from "../../components/FormComponents/FormComponents";
 import loginImage from "../../assets/images/login.svg";
 import api, { loginResource, usuario } from "../../Services/Service";
@@ -32,6 +34,8 @@ const LoginPage = () => {
     googleIdAccount: "",
   });
 
+  const [loading, setLoading] = useState(false);
+  const [loginError, setLoginError] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [notifyUser, setNotifyUser] = useState({});
 
@@ -64,7 +68,14 @@ const LoginPage = () => {
         navigate("/"); //envia o usuário para a home
       }
     } catch (error) {
-      console.log("erro ao logar", error);
+      setNotifyUser({
+        titleNote: "Erro",
+        textNote: `Email ou senha incorretos!`,
+        imgIcon: "danger",
+        imgAlt:
+          "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
+        showMessage: true,
+      });
     }
   };
 
@@ -116,6 +127,7 @@ const LoginPage = () => {
 
   const handleSubmitData = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     // validar usuário e senha:
     // tamanho mínimo de caracteres : 5
@@ -128,10 +140,12 @@ const LoginPage = () => {
           "Imagem de ilustração de aviso. Moça em frente a um símbolo de exclamação!",
         showMessage: true,
       });
+      setLoading(false);
     }
 
     try {
       await logar(user.email, user.senha, "", false);
+      setLoading(false);
     } catch (error) {
       // erro da api: bad request (401) ou erro de conexão
       setNotifyUser({
@@ -142,13 +156,19 @@ const LoginPage = () => {
           "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
         showMessage: true,
       });
+      setLoading(false);
     }
+    setLoading(false);
+  };
+  const handleErrors = () => {
+    setLoginError(!user.email.includes("@") && user.email);
   };
   useEffect(() => {
     if (userData.nome) {
       navigate("/");
     }
-  }, [userData]);
+    setLoginError(!user.email.includes("@") && user.email);
+  }, [userData, user.email]);
   return (
     <>
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
@@ -174,7 +194,7 @@ const LoginPage = () => {
                   onSubmit={handleSubmitData}
                 >
                   <img src={logo} className="frm-login__logo" alt="" />
-                  <InputDefault
+                  {/* <InputDefault
                     additionalClass="frm-login__entry"
                     type="email"
                     id="login"
@@ -188,25 +208,23 @@ const LoginPage = () => {
                       });
                     }}
                     placeholder="Email"
-                  />
-
-                  {/* <InputDefault
-                    additionalClass="frm-login__entry"
-                    type="password"
-                    id="senha"
-                    name="senha"
-                    required={true}
-                    value={user.senha}
-                    manipulationFunction={(e) => {
-                      setUser({
-                        ...user,
-                        senha: e.target.value.trim(),
-                      });
-                    }}
-                    placeholder="Senha"
                   /> */}
 
+                  <InputComponent
+                    textLabel="Email"
+                    value={user.email}
+                    type={"email"}
+                    error={user.email && !user.email.includes("@")}
+                    errorText="Formato de e-mail inválido!"
+                    onChange={(e) => {
+                      setUser({ ...user, email: e.target.value });
+                      handleErrors();
+                    }}
+                  />
+
                   <InputPassword
+                    error={user.senha.length <= 5 && user.senha}
+                    errorText="A senha deve conter no mínimo 6 caracteres!"
                     value={user.senha}
                     onChange={(e) => {
                       setUser({
@@ -222,12 +240,13 @@ const LoginPage = () => {
                     Esqueceu a senha?
                   </Link>
 
-                  <Button
+                  <ButtonAsync
                     textButton="Entrar"
                     id="btn-login"
                     name="btn-login"
                     type="submit"
                     additionalClass="frm-login__button"
+                    loading={loading}
                   />
                   <div
                     className="parent"
@@ -238,7 +257,6 @@ const LoginPage = () => {
                     }}
                   >
                     <GoogleLogin
-                      width={"100%"}
                       buttonText="Entrar com Googleasdasdasd"
                       className="signInButton"
                       // onError={() => handleLoginWithGoogle()}

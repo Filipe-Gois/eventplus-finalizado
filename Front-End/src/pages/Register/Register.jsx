@@ -7,7 +7,13 @@ import MainContent from "../../components/MainContent/MainContent";
 import Container from "../../components/Container/Container";
 import { Link } from "react-router-dom";
 import ImageIllustrator from "../../components/ImageIllustrator/ImageIllustrator";
-import { InputDefault, Button } from "../../components/FormComponents/FormComponents";
+import {
+  InputDefault,
+  Button,
+  InputPassword,
+  InputComponent,
+  ButtonAsync,
+} from "../../components/FormComponents/FormComponents";
 import logo from "../../assets/images/logo-pink.svg";
 import loginImage from "../../assets/images/login.svg";
 import Notification from "../../components/Notification/Notification";
@@ -20,6 +26,13 @@ const Register = () => {
     senha: "",
     idTipoUsuario: "cfa6afe8-f175-49f9-8a7b-ea709db0af29",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const [loginError, setLoginError] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
   const { userData, setUserData } = useContext(UserContext);
 
   const [notifyUser, setNotifyUser] = useState({});
@@ -53,6 +66,7 @@ const Register = () => {
   };
 
   const criarConta = async (nome, email, senha) => {
+    setLoading(true);
     try {
       const { status } = await api.post(
         `${usuario}?isCreateAccountGoogle=false`,
@@ -76,6 +90,7 @@ const Register = () => {
           "Imagem de ilustração de erro. Rapaz segurando um balão com símbolo x.",
         showMessage: true,
       });
+      setLoading(false);
     }
   };
 
@@ -110,12 +125,15 @@ const Register = () => {
       });
     }
   };
+  const handleErrors = () => {
+    setLoginError(!user.email.includes("@") && user.email);
+  };
 
   useEffect(() => {
     if (userData.nome) {
       navigate("/");
     }
-  }, [userData]);
+  }, [userData, user.email]);
   return (
     <>
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
@@ -139,59 +157,51 @@ const Register = () => {
               <div className="frm-login">
                 <form className="frm-login__formbox" onSubmit={handleSubmit}>
                   <img src={logo} className="frm-login__logo" alt="" />
-                  <InputDefault
-                    additionalClass="frm-login__entry"
-                    type="text"
+
+                  <InputComponent
+                    textLabel="Nome"
                     id="nome"
-                    name="nome"
-                    required={true}
+                    name={"nome"}
                     value={user.nome}
-                    manipulationFunction={(e) => {
-                      setUser({
-                        ...user,
-                        nome: e.target.value.trim(),
-                      });
+                    type={"text"}
+                    onChange={(e) => {
+                      setUser({ ...user, nome: e.target.value });
                     }}
-                    placeholder="Nome"
                   />
 
-                  <InputDefault
-                    additionalClass="frm-login__entry"
-                    type="email"
-                    id="login"
-                    name="login"
-                    required={true}
+                  <InputComponent
+                    textLabel="Email"
                     value={user.email}
-                    manipulationFunction={(e) => {
-                      setUser({
-                        ...user,
-                        email: e.target.value.trim(),
-                      });
+                    type={"email"}
+                    error={user.email && !user.email.includes("@")}
+                    errorText="Formato de e-mail inválido!"
+                    onChange={(e) => {
+                      setUser({ ...user, email: e.target.value });
+                      handleErrors();
                     }}
-                    placeholder="Email"
                   />
-                  <InputDefault
-                    additionalClass="frm-login__entry"
-                    type="password"
-                    id="senha"
-                    name="senha"
-                    required={true}
+
+                  <InputPassword
+                    error={user.senha.length <= 5 && user.senha}
+                    errorText="A senha deve conter no mínimo 6 caracteres!"
                     value={user.senha}
-                    manipulationFunction={(e) => {
+                    onChange={(e) => {
                       setUser({
                         ...user,
                         senha: e.target.value.trim(),
                       });
                     }}
-                    placeholder="Senha"
+                    showPassword={showPassword}
+                    setShowPassword={setShowPassword}
                   />
 
-                  <Button
+                  <ButtonAsync
                     textButton="Cadastre-se"
                     id="btn-login"
                     name="btn-login"
                     type="submit"
                     additionalClass="frm-login__button"
+                    loading={loading}
                   />
 
                   <span className="frm-login__span frm-login__link--criar">

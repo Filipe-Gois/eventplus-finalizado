@@ -1,6 +1,5 @@
 import Rotas from "./routes/routes";
 import { UserContext } from "./context/AuthContext";
-import "./App.css";
 import { useContext, useEffect, useState } from "react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { gapi } from "gapi-script";

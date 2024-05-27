@@ -42,7 +42,7 @@ const Nav = ({ exibeNavbar, setExibeNavbar }) => {
           className="navbar__item"
           onClick={() => setExibeNavbar(false)}
         >
-          Home
+          Início
         </Link>
 
         {/* <Link to={'/detalhes-evento'} className="navbar__item" onClick={() => setExibeNavbar(false)}>Detalhes de eventos</Link> */}
@@ -80,15 +80,27 @@ const Nav = ({ exibeNavbar, setExibeNavbar }) => {
               Instituições
             </Link>
           </>
-        ) : userData.nome && userData.role === "Comum" ? (
-          <Link
-            className="navbar__item"
-            to="/eventos-aluno"
-            onClick={() => setExibeNavbar(false)}
-          >
-            Eventos
-          </Link>
-        ) : null}
+        ) : (
+          userData.nome &&
+          userData.role === "Comum" && (
+            <>
+              <Link
+                className="navbar__item"
+                to="/eventos-aluno"
+                onClick={() => setExibeNavbar(false)}
+              >
+                Eventos
+              </Link>
+              <Link
+                className="navbar__item"
+                to="/"
+                onClick={() => alert("Em desenvolvimento")}
+              >
+                Perfil
+              </Link>
+            </>
+          )
+        )}
       </div>
     </nav>
   );
