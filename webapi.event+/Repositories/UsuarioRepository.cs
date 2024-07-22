@@ -79,7 +79,6 @@ namespace webapi.event_.Repositories
 
                 _context.Usuario.Add(usuario);
 
-
                 _context.SaveChanges();
             }
             catch (Exception)
