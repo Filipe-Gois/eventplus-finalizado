@@ -16,7 +16,6 @@ import { nextEventResource } from "../../Services/Service";
 import { Slider, Slide } from "../../components/Slider";
 import { UserContext } from "../../context/AuthContext";
 
-
 const HomePage = () => {
   const { userData, setUserData } = useContext(UserContext);
 
@@ -108,20 +107,21 @@ const HomePage = () => {
           <Title titleText={"Próximos Eventos"} />
 
           <Slider settings={settingsSlides}>
-            {nextEvents.map((e) => {
-              return (
-                <Slide key={e.idEvento}>
-                  <NextEvent
-                    key={e.idEvento}
-                    title={e.nomeEvento}
-                    description={e.descricao}
-                    eventDate={e.dataEvento}
-                    idEvento={e.idEvento}
-                    textButton={"Ver Detalhes"}
-                  />
-                </Slide>
-              );
-            })}
+            {nextEvents &&
+              nextEvents.map((e) => {
+                return (
+                  <Slide key={e.idEvento}>
+                    <NextEvent
+                      key={e.idEvento}
+                      title={e.nomeEvento}
+                      description={e.descricao}
+                      eventDate={e.dataEvento}
+                      idEvento={e.idEvento}
+                      textButton={"Ver Detalhes"}
+                    />
+                  </Slide>
+                );
+              })}
           </Slider>
         </Container>
       </section>

@@ -3,36 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|c:\\users\\fytho\\documents\\github\\eventplus-finalizado\\webapi.event\u002B\\interfaces\\iusuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|solutionrelative:interfaces\\iusuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|c:\\users\\fytho\\documents\\github\\eventplus-finalizado\\webapi.event\u002B\\domains\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|solutionrelative:domains\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|c:\\users\\fytho\\documents\\github\\eventplus-finalizado\\webapi.event\u002B\\contexts\\event_context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|solutionrelative:contexts\\event_context.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|c:\\users\\fytho\\documents\\github\\eventplus-finalizado\\webapi.event\u002B\\repositories\\usuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|solutionrelative:repositories\\usuariorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|c:\\users\\fytho\\documents\\github\\eventplus-finalizado\\webapi.event\u002B\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|solutionrelative:controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|c:\\users\\fytho\\documents\\github\\eventplus-finalizado\\webapi.event\u002B\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|c:\\users\\fytho\\documents\\github\\eventplus-finalizado\\webapi.event\u002B\\utils\\criptografia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|solutionrelative:utils\\criptografia.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|c:\\users\\fytho\\documents\\github\\eventplus-finalizado\\webapi.event\u002B\\viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|solutionrelative:viewmodels\\loginviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|c:\\users\\fytho\\documents\\github\\eventplus-finalizado\\webapi.event\u002B\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F1118C6C-ACBE-4950-B455-3E273BE090E2}|webapi.event\u002B.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,104 +14,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Event_Context.cs",
-              "DocumentMoniker": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Contexts\\Event_Context.cs",
-              "RelativeDocumentMoniker": "Contexts\\Event_Context.cs",
-              "ToolTip": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Contexts\\Event_Context.cs",
-              "RelativeToolTip": "Contexts\\Event_Context.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAqwCwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-08T18:13:34.774Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UsuarioController.cs",
-              "DocumentMoniker": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Controllers\\UsuarioController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UsuarioController.cs",
-              "ToolTip": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Controllers\\UsuarioController.cs",
-              "RelativeToolTip": "Controllers\\UsuarioController.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAAACMAAAA5AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-05T19:09:55.523Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
-              "ToolTip": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "Controllers\\LoginController.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAAABcAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-05T19:07:31.659Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Criptografia.cs",
-              "DocumentMoniker": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Utils\\Criptografia.cs",
-              "RelativeDocumentMoniker": "Utils\\Criptografia.cs",
-              "ToolTip": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Utils\\Criptografia.cs",
-              "RelativeToolTip": "Utils\\Criptografia.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-05T19:04:51.492Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "LoginViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\ViewModels\\LoginViewModel.cs",
-              "RelativeDocumentMoniker": "ViewModels\\LoginViewModel.cs",
-              "ToolTip": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\ViewModels\\LoginViewModel.cs",
-              "RelativeToolTip": "ViewModels\\LoginViewModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-05T19:03:58.662Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UsuarioRepository.cs",
-              "DocumentMoniker": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Repositories\\UsuarioRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\UsuarioRepository.cs",
-              "ToolTip": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Repositories\\UsuarioRepository.cs",
-              "RelativeToolTip": "Repositories\\UsuarioRepository.cs",
-              "ViewState": "AQIAAD4AAAAAAAAAAAAAAE8AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-05T18:56:19.044Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "IUsuarioRepository.cs",
-              "DocumentMoniker": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Interfaces\\IUsuarioRepository.cs",
-              "RelativeDocumentMoniker": "Interfaces\\IUsuarioRepository.cs",
-              "ToolTip": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Interfaces\\IUsuarioRepository.cs",
-              "RelativeToolTip": "Interfaces\\IUsuarioRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAABAAAA",
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-05T18:55:09.823Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Domains\\Usuario.cs",
-              "RelativeDocumentMoniker": "Domains\\Usuario.cs",
-              "ToolTip": "C:\\Users\\fytho\\Documents\\Github\\eventplus-finalizado\\webapi.event\u002B\\Domains\\Usuario.cs",
-              "RelativeToolTip": "Domains\\Usuario.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAAABwAAABsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-05T18:50:58.959Z",
+              "WhenOpened": "2024-10-10T00:55:13.514Z",
               "EditorCaption": ""
             }
           ]

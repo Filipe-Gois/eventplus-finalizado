@@ -14,12 +14,13 @@ import Container from "../../components/Container/Container";
 import Title from "../../components/Title/Title";
 import { UserContext } from "../../context/AuthContext";
 import NextEvent from "../../components/NextEvent/NextEvent";
-import { EventoContext } from "../../context/EventoContext";
 import TableDE from "./TableDE/TableDE";
 
 import { Slide, Slider } from "../../components/Slider";
 import { useParams } from "react-router-dom";
-import ImageIllustrator, { NoContentIllustration } from "../../components/ImageIllustrator/ImageIllustrator";
+import ImageIllustrator, {
+  NoContentIllustration,
+} from "../../components/ImageIllustrator/ImageIllustrator";
 
 const DetalhesEventoPage = () => {
   const { idEvento } = useParams();
@@ -52,21 +53,11 @@ const DetalhesEventoPage = () => {
 
   const [settingsSlides, setSettingsSlides] = useState({
     scrollbar: { hide: true },
-    effect: "coverflow",
     grabCursor: true,
-    centeredSlides: true,
 
-    coverflowEffect: {
-      rotate: 50,
-      stretch: 0,
-      depth: 100,
-      modifier: 1,
-      slideShadows: true,
-    },
-
-    spaceBetween: 30,
-    slidesPerView: "auto",
-    // window.innerWidth < 768 ? 1 : window.innerWidth < 1100 ? 2 : 3,
+    spaceBetween: 10,
+    // slidesPerView: "auto",
+    slidesPerView: window.innerWidth < 768 ? 1 : 3,
     navigation: true,
   });
 
@@ -198,9 +189,7 @@ const DetalhesEventoPage = () => {
         </Container>
       </section>
       <section className="detalhes-lista__section">
-      <NoContentIllustration/>
-
-
+        <NoContentIllustration />
       </section>
       {/* {eventoBuscado.dataEvento ? (
         
